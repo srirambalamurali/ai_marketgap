@@ -1,0 +1,1229 @@
+[
+  {
+    "query": "Find opportunities in Amazon seller tools",
+    "status_code": 200,
+    "seconds": 17.56,
+    "data": {
+      "success": true,
+      "query": "Find opportunities in Amazon seller tools",
+      "duration_ms": 15506,
+      "source_statuses": [
+        {
+          "source": "github",
+          "status": "SUCCESS",
+          "duration_ms": 12162,
+          "signals_collected": 20
+        },
+        {
+          "source": "hackernews",
+          "status": "TIMEOUT",
+          "duration_ms": 10302,
+          "signals_collected": 0
+        },
+        {
+          "source": "rss",
+          "status": "SUCCESS",
+          "duration_ms": 9093,
+          "signals_collected": 20
+        },
+        {
+          "source": "google_trends",
+          "status": "TIMEOUT",
+          "duration_ms": 15008,
+          "signals_collected": 0
+        },
+        {
+          "source": "reddit",
+          "status": "CONFIG_BLOCKED",
+          "duration_ms": 0,
+          "signals_collected": 0
+        }
+      ],
+      "opportunities_count": 25,
+      "evidence_links_count": 366,
+      "report_id": "a70d77a0-3b8a-4f6e-8cc2-5e9348c9b07c",
+      "opportunities": [
+        {
+          "id": "b605a142-32be-4d1b-8e61-880657d8fcd2",
+          "startup_name": "InternationalObfuscated",
+          "problem": "Teams repeatedly struggle with international obfuscated code.",
+          "solution": "An AI-assisted product that helps teams solve international obfuscated code faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "2132d7f3-f441-455e-9ef3-49ba7348c2a7",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "e3085272-6ca4-4c08-a2f0-5431c31b7eec",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:45:51.944510+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "f151b256-f68b-49ae-902c-832ceb0d8ace",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:39:33.041059+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "764fdca0-581d-4fe9-92a4-9fe58daa756f",
+          "startup_name": "DesignClaude",
+          "problem": "Teams repeatedly struggle with design claude more.",
+          "solution": "An AI-assisted product that helps teams solve design claude more faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "f15eedf4-8d72-430f-af9b-c8320ff1acd1",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "2801df08-0dce-45d1-9555-4b3327d3834d",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:45:51.944510+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "99e66783-f13b-4b3e-b74e-e092233ea769",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:39:33.042054+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "4ee93bfc-20f2-4a8b-aad9-8c0c5f8871db",
+          "startup_name": "ValveP2P",
+          "problem": "Teams repeatedly struggle with valve p2p networking.",
+          "solution": "An AI-assisted product that helps teams solve valve p2p networking faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "3368024d-b590-4a6d-ab49-23e92bd0ff7a",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "ed965d23-ca49-40dc-9d21-5ea278367884",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:45:51.944510+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "6694ab72-6df4-487c-8539-c8e47e7a15fe",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:39:33.042054+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "a8bdd3bd-9651-4e82-81b8-8361b1ef39f6",
+          "startup_name": "FieldClones",
+          "problem": "Teams repeatedly struggle with field clones how.",
+          "solution": "An AI-assisted product that helps teams solve field clones how faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "0b71507b-b8ed-414f-9d4c-90bf07ff4dbd",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "1aeb69c4-7772-443f-87ac-e7ec1e9b0726",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:45:51.944510+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "962c45c5-8ff1-4ccf-8010-4242c683052f",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:39:33.042054+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "17541128-4ca8-4ec9-97f3-0bf36fcbe169",
+          "startup_name": "TrumpAdministration",
+          "problem": "Teams repeatedly struggle with trump administration might.",
+          "solution": "An AI-assisted product that helps teams solve trump administration might faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 17,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "46a677e0-3472-4525-b70f-41d2463d6cf9",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "ebc1d66b-465a-444f-a655-ec011835807e",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "9da218c5-acf9-4f13-a7c3-86150045329c",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:39:13.339650+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "3872c012-bbac-4f38-9061-e03321f991fd",
+          "startup_name": "ExpectWwdc",
+          "problem": "Teams repeatedly struggle with expect wwdc siri.",
+          "solution": "An AI-assisted product that helps teams solve expect wwdc siri faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 17,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "52c79d2e-ea6d-4416-a352-c464883314de",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "4a039c89-ec31-45b9-be82-a7598b2d4393",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "b4871ff6-2122-4d47-8507-f3cdfcd63f89",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:39:13.339650+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "bd634f28-40d3-4d42-a0b2-396507a9b451",
+          "startup_name": "SriramKrishnan",
+          "problem": "Teams repeatedly struggle with sriram krishnan leaving.",
+          "solution": "An AI-assisted product that helps teams solve sriram krishnan leaving faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 17,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "abfbc32b-d5f3-4e26-bce8-5b08828e8250",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "4018ece2-3561-40b1-b37d-56e3723cb995",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "d41bf1ba-20f7-4cde-8eaf-07ee0b3b3348",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:39:13.339650+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "87260046-31c1-4c26-be79-e18afd4f2fba",
+          "startup_name": "BeyondInstagram",
+          "problem": "Teams repeatedly struggle with beyond instagram introducing.",
+          "solution": "An AI-assisted product that helps teams solve beyond instagram introducing faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 17,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "458ed233-477e-444a-888d-62c92bf5448e",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "a9937116-6772-42a5-b675-9973a8a412fc",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "5c517c85-8c69-4280-b519-5b224e46cad2",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:39:13.339650+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "95d298a6-1fc2-40ce-aa92-63599172923c",
+          "startup_name": "OpenaiUnveils",
+          "problem": "Teams repeatedly struggle with openai unveils lockdown.",
+          "solution": "An AI-assisted product that helps teams solve openai unveils lockdown faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 16,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "edc0e4dd-f92e-4988-bdf8-591848b5ea7a",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:45:49.525142+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "5b7089c1-4bf5-48dd-9843-8ed15592c77f",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "5ed0b96c-4689-4ec4-b10e-e74e45983944",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:39:13.339650+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "83cd96ae-9462-4fd6-bb67-db44e5f34e19",
+          "startup_name": "MicrosoftFuturist",
+          "problem": "Teams repeatedly struggle with microsoft futurist explains.",
+          "solution": "An AI-assisted product that helps teams solve microsoft futurist explains faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 15,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "6d251a08-2d23-49ac-8657-7975c67689c3",
+              "title": "Microsoft's AI Futurist explains how he uses Copilot — and the real-world problems enterprises are solving with agents",
+              "url": "https://venturebeat.com/orchestration/microsofts-ai-futurist-explains-how-he-uses-copilot-and-the-real-world-problems-enterprises-are-solving-with-agents",
+              "collected_at": "2026-06-07T03:45:49.658424+00:00",
+              "source_type": "venturebeat"
+            },
+            {
+              "source": "rss",
+              "signal_id": "c71cd64b-d1cb-4210-8c3d-b0a64cf05d8f",
+              "title": "Microsoft's AI Futurist explains how he uses Copilot — and the real-world problems enterprises are solving with agents",
+              "url": "https://venturebeat.com/orchestration/microsofts-ai-futurist-explains-how-he-uses-copilot-and-the-real-world-problems-enterprises-are-solving-with-agents",
+              "collected_at": "2026-06-07T03:39:31.101398+00:00",
+              "source_type": "venturebeat"
+            },
+            {
+              "source": "rss",
+              "signal_id": "a935800e-0984-4087-81a3-dbe7793f5821",
+              "title": "Microsoft's AI Futurist explains how he uses Copilot — and the real-world problems enterprises are solving with agents",
+              "url": "https://venturebeat.com/orchestration/microsofts-ai-futurist-explains-how-he-uses-copilot-and-the-real-world-problems-enterprises-are-solving-with-agents",
+              "collected_at": "2026-06-07T03:39:13.462091+00:00",
+              "source_type": "venturebeat"
+            }
+          ]
+        }
+      ],
+      "message": "Generated from available live sources.",
+      "errors": []
+    }
+  },
+  {
+    "query": "Find opportunities in AI education",
+    "status_code": 200,
+    "seconds": 17.78,
+    "data": {
+      "success": true,
+      "query": "Find opportunities in AI education",
+      "duration_ms": 15734,
+      "source_statuses": [
+        {
+          "source": "github",
+          "status": "SUCCESS",
+          "duration_ms": 10532,
+          "signals_collected": 20
+        },
+        {
+          "source": "hackernews",
+          "status": "TIMEOUT",
+          "duration_ms": 9994,
+          "signals_collected": 0
+        },
+        {
+          "source": "rss",
+          "status": "SUCCESS",
+          "duration_ms": 8217,
+          "signals_collected": 20
+        },
+        {
+          "source": "google_trends",
+          "status": "TIMEOUT",
+          "duration_ms": 14992,
+          "signals_collected": 0
+        },
+        {
+          "source": "reddit",
+          "status": "CONFIG_BLOCKED",
+          "duration_ms": 0,
+          "signals_collected": 0
+        }
+      ],
+      "opportunities_count": 25,
+      "evidence_links_count": 377,
+      "report_id": "bbf4222f-66b4-441b-bf9a-063f44963dca",
+      "opportunities": [
+        {
+          "id": "46036513-844a-492e-9d8c-05765742cc22",
+          "startup_name": "DesignClaude",
+          "problem": "Teams repeatedly struggle with design claude more.",
+          "solution": "An AI-assisted product that helps teams solve design claude more faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "1032ea55-8459-4e81-9f32-fbacccd5a03d",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "87fc9148-f1bf-43ce-9e89-378faba6bfe0",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:46:08.590465+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "f15eedf4-8d72-430f-af9b-c8320ff1acd1",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "bf1b0490-5f0a-41ce-bc10-548135d6e488",
+          "startup_name": "ValveP2P",
+          "problem": "Teams repeatedly struggle with valve p2p networking.",
+          "solution": "An AI-assisted product that helps teams solve valve p2p networking faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "4f7a6349-1c4b-45a9-b585-3ab963bb156c",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "ab0b6531-7912-4578-a106-b346efdc2aa9",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:46:08.590465+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "3368024d-b590-4a6d-ab49-23e92bd0ff7a",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "a4b63758-887d-438d-8216-e3b8c843729e",
+          "startup_name": "FieldClones",
+          "problem": "Teams repeatedly struggle with field clones how.",
+          "solution": "An AI-assisted product that helps teams solve field clones how faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "8fcd7e5e-a72a-4398-8c72-53c8b09dbd48",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "1dd15cc4-9f6c-4909-81d2-fe464fdbe9ef",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:46:08.590465+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "0b71507b-b8ed-414f-9d4c-90bf07ff4dbd",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "bb9d2385-a243-452a-84a2-d4d54ff92646",
+          "startup_name": "InternationalObfuscated",
+          "problem": "Teams repeatedly struggle with international obfuscated code.",
+          "solution": "An AI-assisted product that helps teams solve international obfuscated code faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "e1602c72-fb63-4965-8465-ca2879787027",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "6b8f72ad-ae8f-441a-aa0b-6c9d4594f13c",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:46:08.589466+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "2132d7f3-f441-455e-9ef3-49ba7348c2a7",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "a172d8be-5496-49e4-987c-10f2dc3efc58",
+          "startup_name": "BeyondInstagram",
+          "problem": "Teams repeatedly struggle with beyond instagram introducing.",
+          "solution": "An AI-assisted product that helps teams solve beyond instagram introducing faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "391b2305-28f0-480d-ae4e-ea4906514ad5",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "458ed233-477e-444a-888d-62c92bf5448e",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "a9937116-6772-42a5-b675-9973a8a412fc",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "828fe4d2-e22b-4f48-a1cf-feba935bb209",
+          "startup_name": "ExpectWwdc",
+          "problem": "Teams repeatedly struggle with expect wwdc siri.",
+          "solution": "An AI-assisted product that helps teams solve expect wwdc siri faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "9fafa4fa-31bf-409d-aff0-2b596397d325",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "52c79d2e-ea6d-4416-a352-c464883314de",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "4a039c89-ec31-45b9-be82-a7598b2d4393",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "58caf987-4a32-4ad9-b31c-8b12d94a73ca",
+          "startup_name": "SriramKrishnan",
+          "problem": "Teams repeatedly struggle with sriram krishnan leaving.",
+          "solution": "An AI-assisted product that helps teams solve sriram krishnan leaving faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "757a4039-7389-4ce7-a9ee-af75610adb14",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "abfbc32b-d5f3-4e26-bce8-5b08828e8250",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "4018ece2-3561-40b1-b37d-56e3723cb995",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "85fd3e40-9eb7-4623-8272-a52d0f5320c3",
+          "startup_name": "TrumpAdministration",
+          "problem": "Teams repeatedly struggle with trump administration might.",
+          "solution": "An AI-assisted product that helps teams solve trump administration might faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "50b116b4-e860-42b2-bca9-2d9fc59660f8",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "46a677e0-3472-4525-b70f-41d2463d6cf9",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "ebc1d66b-465a-444f-a655-ec011835807e",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "182c10e4-1826-4b74-a829-5ed29a5637da",
+          "startup_name": "OpenaiUnveils",
+          "problem": "Teams repeatedly struggle with openai unveils lockdown.",
+          "solution": "An AI-assisted product that helps teams solve openai unveils lockdown faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 17,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "993ce335-813e-4ef5-af5d-cdeed3c589c8",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:46:06.361962+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "edc0e4dd-f92e-4988-bdf8-591848b5ea7a",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:45:49.525142+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "5b7089c1-4bf5-48dd-9843-8ed15592c77f",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "9c0b313d-6b60-446f-bca2-faea284a6304",
+          "startup_name": "MetaSupport",
+          "problem": "Teams repeatedly struggle with meta support agent.",
+          "solution": "An AI-assisted product that helps teams solve meta support agent faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 16,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "be69126d-d226-40f0-9995-b22d1b7494a0",
+              "title": "Meta's AI support agent bound recovery emails for anyone who asked. Your SOC never saw an alert.",
+              "url": "https://venturebeat.com/security/meta-ai-support-agent-recovery-email-takeover-soc-audit-grid",
+              "collected_at": "2026-06-07T03:46:06.507228+00:00",
+              "source_type": "venturebeat"
+            },
+            {
+              "source": "rss",
+              "signal_id": "d6aadcd4-fd6f-495a-88e4-63032096c2d7",
+              "title": "Meta's AI support agent bound recovery emails for anyone who asked. Your SOC never saw an alert.",
+              "url": "https://venturebeat.com/security/meta-ai-support-agent-recovery-email-takeover-soc-audit-grid",
+              "collected_at": "2026-06-07T03:45:49.658424+00:00",
+              "source_type": "venturebeat"
+            },
+            {
+              "source": "rss",
+              "signal_id": "29b3d15d-c920-42b5-a7b3-d6dd1b252c8a",
+              "title": "Meta's AI support agent bound recovery emails for anyone who asked. Your SOC never saw an alert.",
+              "url": "https://venturebeat.com/security/meta-ai-support-agent-recovery-email-takeover-soc-audit-grid",
+              "collected_at": "2026-06-07T03:39:31.102399+00:00",
+              "source_type": "venturebeat"
+            }
+          ]
+        }
+      ],
+      "message": "Generated from available live sources.",
+      "errors": []
+    }
+  },
+  {
+    "query": "Find opportunities in student productivity",
+    "status_code": 200,
+    "seconds": 17.29,
+    "data": {
+      "success": true,
+      "query": "Find opportunities in student productivity",
+      "duration_ms": 15258,
+      "source_statuses": [
+        {
+          "source": "github",
+          "status": "SUCCESS",
+          "duration_ms": 10652,
+          "signals_collected": 20
+        },
+        {
+          "source": "hackernews",
+          "status": "TIMEOUT",
+          "duration_ms": 9993,
+          "signals_collected": 0
+        },
+        {
+          "source": "rss",
+          "status": "TIMEOUT",
+          "duration_ms": 9995,
+          "signals_collected": 0
+        },
+        {
+          "source": "google_trends",
+          "status": "TIMEOUT",
+          "duration_ms": 14993,
+          "signals_collected": 0
+        },
+        {
+          "source": "reddit",
+          "status": "CONFIG_BLOCKED",
+          "duration_ms": 0,
+          "signals_collected": 0
+        }
+      ],
+      "opportunities_count": 25,
+      "evidence_links_count": 377,
+      "report_id": "43a05874-f260-44b3-ad4c-7d1cc71caf2e",
+      "opportunities": [
+        {
+          "id": "dc5e1a63-e1ed-4545-91c2-8139396c027c",
+          "startup_name": "DesignClaude",
+          "problem": "Teams repeatedly struggle with design claude more.",
+          "solution": "An AI-assisted product that helps teams solve design claude more faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "1032ea55-8459-4e81-9f32-fbacccd5a03d",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "87fc9148-f1bf-43ce-9e89-378faba6bfe0",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:46:08.590465+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "f15eedf4-8d72-430f-af9b-c8320ff1acd1",
+              "title": "I design with Claude more than Figma now",
+              "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "04888b45-9244-4019-b2e4-8d66e8c08907",
+          "startup_name": "FieldClones",
+          "problem": "Teams repeatedly struggle with field clones how.",
+          "solution": "An AI-assisted product that helps teams solve field clones how faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "8fcd7e5e-a72a-4398-8c72-53c8b09dbd48",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "1dd15cc4-9f6c-4909-81d2-fe464fdbe9ef",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:46:08.590465+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "0b71507b-b8ed-414f-9d4c-90bf07ff4dbd",
+              "title": "Field of clones: How horse replicas came to dominate polo",
+              "url": "https://knowablemagazine.org/content/article/technology/2026/cloned-polo-horses",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "0ec7f72c-6c4c-48fc-bd69-ae50be145fb1",
+          "startup_name": "ValveP2P",
+          "problem": "Teams repeatedly struggle with valve p2p networking.",
+          "solution": "An AI-assisted product that helps teams solve valve p2p networking faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "4f7a6349-1c4b-45a9-b585-3ab963bb156c",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "ab0b6531-7912-4578-a106-b346efdc2aa9",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:46:08.590465+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "3368024d-b590-4a6d-ab49-23e92bd0ff7a",
+              "title": "Valve P2P networking broken for more than 2 months",
+              "url": "https://github.com/ValveSoftware/GameNetworkingSockets/issues/398",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "8a8e727a-7f46-4c3c-b2ca-5c6fd69ca854",
+          "startup_name": "InternationalObfuscated",
+          "problem": "Teams repeatedly struggle with international obfuscated code.",
+          "solution": "An AI-assisted product that helps teams solve international obfuscated code faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 20,
+          "top_evidence": [
+            {
+              "source": "hackernews",
+              "signal_id": "e1602c72-fb63-4965-8465-ca2879787027",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:46:09.152892+00:00",
+              "source_type": "hackernews"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "6b8f72ad-ae8f-441a-aa0b-6c9d4594f13c",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:46:08.589466+00:00",
+              "source_type": "ycombinator"
+            },
+            {
+              "source": "hackernews",
+              "signal_id": "2132d7f3-f441-455e-9ef3-49ba7348c2a7",
+              "title": "The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners",
+              "url": "https://www.ioccc.org/2025/",
+              "collected_at": "2026-06-07T03:45:52.472310+00:00",
+              "source_type": "hackernews"
+            }
+          ]
+        },
+        {
+          "id": "b1a0ebdf-f41f-49b0-957e-8e750ff71f23",
+          "startup_name": "ExpectWwdc",
+          "problem": "Teams repeatedly struggle with expect wwdc siri.",
+          "solution": "An AI-assisted product that helps teams solve expect wwdc siri faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "9fafa4fa-31bf-409d-aff0-2b596397d325",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "52c79d2e-ea6d-4416-a352-c464883314de",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "4a039c89-ec31-45b9-be82-a7598b2d4393",
+              "title": "What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates",
+              "url": "https://techcrunch.com/2026/06/06/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "5a641ec5-bdcf-4c47-a68b-c8357db38ae4",
+          "startup_name": "BeyondInstagram",
+          "problem": "Teams repeatedly struggle with beyond instagram introducing.",
+          "solution": "An AI-assisted product that helps teams solve beyond instagram introducing faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "391b2305-28f0-480d-ae4e-ea4906514ad5",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "458ed233-477e-444a-888d-62c92bf5448e",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "a9937116-6772-42a5-b675-9973a8a412fc",
+              "title": "Beyond Instagram: Introducing the next generation of social apps",
+              "url": "https://techcrunch.com/2026/06/06/beyond-instagram-introducing-the-next-generation-of-social-apps/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "ed3863b0-d062-4a72-a738-411e50e0ec63",
+          "startup_name": "TrumpAdministration",
+          "problem": "Teams repeatedly struggle with trump administration might.",
+          "solution": "An AI-assisted product that helps teams solve trump administration might faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "50b116b4-e860-42b2-bca9-2d9fc59660f8",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "46a677e0-3472-4525-b70f-41d2463d6cf9",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "ebc1d66b-465a-444f-a655-ec011835807e",
+              "title": "The Trump administration might take an equity stake in OpenAI",
+              "url": "https://techcrunch.com/2026/06/06/the-trump-administration-might-take-an-equity-stake-in-openai/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "292ef7a2-40f1-4eaa-b09b-e08fbad166ee",
+          "startup_name": "SriramKrishnan",
+          "problem": "Teams repeatedly struggle with sriram krishnan leaving.",
+          "solution": "An AI-assisted product that helps teams solve sriram krishnan leaving faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 18,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "757a4039-7389-4ce7-a9ee-af75610adb14",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:46:06.362968+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "abfbc32b-d5f3-4e26-bce8-5b08828e8250",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:45:49.527146+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "4018ece2-3561-40b1-b37d-56e3723cb995",
+              "title": "Sriram Krishnan is leaving his role as White House AI advisor",
+              "url": "https://techcrunch.com/2026/06/06/sriram-krishnan-is-leaving-his-role-as-white-house-ai-advisor/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "be240e79-4c31-45d4-a847-4be1e76846ba",
+          "startup_name": "OpenaiUnveils",
+          "problem": "Teams repeatedly struggle with openai unveils lockdown.",
+          "solution": "An AI-assisted product that helps teams solve openai unveils lockdown faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 17,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "993ce335-813e-4ef5-af5d-cdeed3c589c8",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:46:06.361962+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "edc0e4dd-f92e-4988-bdf8-591848b5ea7a",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:45:49.525142+00:00",
+              "source_type": "techcrunch"
+            },
+            {
+              "source": "rss",
+              "signal_id": "5b7089c1-4bf5-48dd-9843-8ed15592c77f",
+              "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+              "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+              "collected_at": "2026-06-07T03:39:30.952267+00:00",
+              "source_type": "techcrunch"
+            }
+          ]
+        },
+        {
+          "id": "9c9ce2a3-801a-448b-b5f1-c36ae8e2f890",
+          "startup_name": "MetaSupport",
+          "problem": "Teams repeatedly struggle with meta support agent.",
+          "solution": "An AI-assisted product that helps teams solve meta support agent faster.",
+          "market_score": 95.8,
+          "confidence_score": 100.0,
+          "competition_level": "Low Competition",
+          "evidence_count": 16,
+          "top_evidence": [
+            {
+              "source": "rss",
+              "signal_id": "be69126d-d226-40f0-9995-b22d1b7494a0",
+              "title": "Meta's AI support agent bound recovery emails for anyone who asked. Your SOC never saw an alert.",
+              "url": "https://venturebeat.com/security/meta-ai-support-agent-recovery-email-takeover-soc-audit-grid",
+              "collected_at": "2026-06-07T03:46:06.507228+00:00",
+              "source_type": "venturebeat"
+            },
+            {
+              "source": "rss",
+              "signal_id": "d6aadcd4-fd6f-495a-88e4-63032096c2d7",
+              "title": "Meta's AI support agent bound recovery emails for anyone who asked. Your SOC never saw an alert.",
+              "url": "https://venturebeat.com/security/meta-ai-support-agent-recovery-email-takeover-soc-audit-grid",
+              "collected_at": "2026-06-07T03:45:49.658424+00:00",
+              "source_type": "venturebeat"
+            },
+            {
+              "source": "rss",
+              "signal_id": "29b3d15d-c920-42b5-a7b3-d6dd1b252c8a",
+              "title": "Meta's AI support agent bound recovery emails for anyone who asked. Your SOC never saw an alert.",
+              "url": "https://venturebeat.com/security/meta-ai-support-agent-recovery-email-takeover-soc-audit-grid",
+              "collected_at": "2026-06-07T03:39:31.102399+00:00",
+              "source_type": "venturebeat"
+            }
+          ]
+        }
+      ],
+      "message": "Generated from available live sources.",
+      "errors": []
+    }
+  }
+]

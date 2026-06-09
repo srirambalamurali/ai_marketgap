@@ -1,0 +1,43 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env.local
+
+# Node / frontend build output
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/build/
+frontend/.turbo/
+
+# Python / backend build output
+backend/__pycache__/
+backend/**/*.pyc
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/.venv/
+backend/venv/
+backend/env/
+
+# General caches and artifacts
+.DS_Store
+Thumbs.db
+*.log
+*.out
+*.err
+*.pid
+*.pid.lock
+coverage/
+.coverage
+
+# Local data stores
+chroma/
+
+# Editor and workspace metadata
+.vscode/
+.idea/
+.commandcode/
