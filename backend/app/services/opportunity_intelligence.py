@@ -15,7 +15,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.market_signal import MarketSignal
 from app.models.startup_opportunity import StartupOpportunity
 from app.repositories import opportunity_repository
-from app.services.query_guardrails import calculate_query_relevance_score, infer_query_domain, is_github_repo_noise
+from app.services.query_guardrails import calculate_domain_relevance_score, calculate_query_relevance_score, infer_query_domain, is_github_repo_noise, is_opportunity_name_noise
 from app.utils.logging import get_logger
 
 logger = get_logger("services.opportunity_intelligence")
@@ -31,8 +31,22 @@ STOPWORDS = {
 }
 
 DOMAIN_EXPANSIONS = {
-    "education": ["education", "learning", "students", "teachers", "courses", "exams", "tutoring", "lms", "classroom", "study"],
-    "amazon": ["amazon", "seller", "marketplace", "ecommerce", "fba", "inventory", "reviews", "product research", "listing optimization", "pricing", "ads"],
+    "accounting": [
+        "accounting",
+        "bookkeeping",
+        "small business accounting",
+        "invoice reconciliation",
+        "expense tracking",
+        "receipt scanning",
+        "cash flow forecasting",
+        "tax compliance",
+        "payroll automation",
+        "financial reporting",
+        "accounts payable",
+        "accounts receivable",
+    ],
+    "education": ["education", "edtech", "learning", "students", "student", "teachers", "teacher", "courses", "course", "exams", "exam", "tutoring", "tutor", "lms", "classroom", "study", "lesson", "assessment", "school", "college"],
+    "amazon": ["amazon", "seller", "marketplace", "ecommerce", "fba", "inventory", "reviews", "review", "product research", "listing optimization", "pricing", "ads", "asin", "ppc", "keyword"],
     "productivity": [
         "students",
         "student",
@@ -115,6 +129,7 @@ DOMAIN_EXPANSIONS = {
 }
 
 DOMAIN_ALIASES = {
+    "accounting": ("accounting", "bookkeeping", "invoice", "receipt", "expense", "cash flow", "payroll", "tax", "vat", "gst", "ledger", "reconciliation"),
     "cybersecurity": ("cybersecurity", "cyber security", "infosec", "security", "soc", "threat detection"),
     "fintech": ("fintech", "finance", "payments", "fraud", "lending", "banking"),
     "healthcare": ("healthcare", "health tech", "patient", "clinical", "hospital", "medical"),
@@ -316,6 +331,18 @@ SOURCE_CREDIBILITY = {
 }
 
 CLUSTER_BLUEPRINTS: dict[str, dict[str, str]] = {
+    "accounting": {
+        "bookkeeping_automation": "bookkeeping automation",
+        "invoice_reconciliation": "invoice reconciliation",
+        "expense_tracking": "expense tracking",
+        "receipt_scanning": "receipt scanning",
+        "cash_flow_forecasting": "cash flow forecasting",
+        "tax_compliance": "tax compliance",
+        "payroll_automation": "payroll automation",
+        "financial_reporting": "financial reporting",
+        "accounts_payable": "accounts payable",
+        "accounts_receivable": "accounts receivable",
+    },
     "amazon": {
         "inventory_forecasting": "inventory forecasting",
         "review_analysis": "review analysis",
@@ -540,6 +567,8 @@ def _query_domain(query: str, signals: list[MarketSignal]) -> str:
     combined = _lower_tokens(query)
     for signal in signals:
         combined.update(_lower_tokens(f"{signal.title} {signal.content}"))
+    if {"accounting", "bookkeeping", "invoice", "receipt", "expense", "cash flow", "payroll", "tax", "ledger", "reconciliation"} & combined:
+        return "accounting"
     if {"amazon", "seller", "inventory", "listing", "pricing"} & combined:
         return "amazon"
     if {"fitness", "workout", "exercise", "gym", "wellness", "nutrition", "sports", "health"} & combined:
@@ -554,15 +583,17 @@ def _query_domain(query: str, signals: list[MarketSignal]) -> str:
 def _domain_match_text(text: str, domain: str) -> bool:
     lowered = text.lower()
     positive_terms = {
-        "fitness": {"fitness", "workout", "gym", "wellness", "nutrition", "sports", "health", "coach", "member", "runner", "running", "treadmill", "cardio", "race"},
+        "accounting": {"accounting", "bookkeeping", "invoice", "receipt", "expense", "cash flow", "payroll", "tax", "vat", "gst", "ledger", "reconciliation", "financial", "reporting", "small business", "bookkeeping automation", "invoice reconciliation", "expense tracking", "cash flow forecasting", "tax compliance", "payroll automation", "accounts payable", "accounts receivable"},
+        "fitness": {"fitness", "workout", "gym", "wellness", "nutrition", "sports", "health", "coach", "member", "runner", "running", "treadmill", "cardio", "race", "tracker", "tracking", "wearable", "wearables", "athletic", "performance"},
         "cybersecurity": {"cyber", "security", "threat", "incident", "alert", "siem", "soc", "vulnerability", "cloud", "identity", "access", "detection"},
-        "amazon": {"amazon", "seller", "marketplace", "ecommerce", "inventory", "pricing", "review", "reviews", "fulfillment", "listing", "product research", "ads", "fba"},
-        "education": {"education", "learning", "student", "teacher", "course", "classroom", "tutor", "tutoring", "exam", "lms", "study"},
+        "amazon": {"amazon", "seller", "marketplace", "ecommerce", "inventory", "pricing", "review", "reviews", "fulfillment", "listing", "product research", "ads", "fba", "asin", "ppc", "keyword"},
+        "education": {"education", "edtech", "learning", "student", "students", "teacher", "teachers", "course", "courses", "classroom", "tutor", "tutoring", "exam", "exams", "lms", "study", "lesson", "assessment", "school", "college"},
         "productivity": {"student", "study", "productivity", "focus", "assignment", "notes", "habit", "time management", "exam prep"},
         "fintech": {"fintech", "finance", "payment", "fraud", "risk", "loan", "lending", "underwriting", "transaction", "bank", "reconciliation"},
         "healthcare": {"health", "patient", "clinical", "care", "triage", "medical", "billing", "claims", "hospital", "provider"},
     }
     negative_terms = {
+        "accounting": {"fitness", "workout", "gym", "student", "teacher", "course", "real estate", "rental property", "cybersecurity"},
         "fitness": {"github copilot", "admin ui", "staging", "queue", "json api", "backend", "frontend", "codealpha", "exercise crud", "copy to clipboard", "build applications", "task", "application"},
         "cybersecurity": {"realestate", "rental property", "student", "education", "amazon", "seller"},
         "amazon": {"student", "education", "fitness", "workout", "realestate", "rental property"},
@@ -597,6 +628,18 @@ def _select_product_name(
 ) -> str:
     text = f"{query} {topic} {cluster_key} {' '.join(f'{s.title} {s.content} {s.source_type}' for s in signals[:5])}".lower()
     cluster_name = _cluster_display_name(domain, cluster_key) if cluster_key else ""
+    accounting_names = {
+        "bookkeeping_automation": "AI Bookkeeping Assistant",
+        "invoice_reconciliation": "Invoice Reconciliation Copilot",
+        "expense_tracking": "Expense Categorization Agent",
+        "receipt_scanning": "Receipt-to-Accounting Agent",
+        "cash_flow_forecasting": "Cash Flow Forecasting Tool",
+        "tax_compliance": "Tax Compliance Assistant",
+        "payroll_automation": "Payroll Automation Platform",
+        "financial_reporting": "Financial Reporting Copilot",
+        "accounts_payable": "Accounts Payable Automation",
+        "accounts_receivable": "Accounts Receivable Automation",
+    }
     amazon_names = {
         "inventory_forecasting": "Seller Inventory Forecasting Copilot",
         "review_analysis": "Amazon Review Pain Analyzer",
@@ -641,19 +684,52 @@ def _select_product_name(
         "wellness_habits": "Wellness Habit Coach",
         "training_progress": "Training Progress Tracker",
     }
+    def _finalize(candidate: str) -> str:
+        safe_candidate = re.sub(r"\s+", " ", candidate).strip()
+        if not safe_candidate:
+            safe_candidate = _build_safe_product_name(cluster_name or topic or query or "market insight", suffix="Copilot")
+        if is_opportunity_name_noise(safe_candidate, query=query, domain=domain):
+            if domain == "accounting" and cluster_key in accounting_names:
+                safe_candidate = accounting_names[cluster_key]
+            elif domain == "amazon" and cluster_key in amazon_names:
+                safe_candidate = amazon_names[cluster_key]
+            elif domain == "education" and cluster_key in education_names:
+                safe_candidate = education_names[cluster_key]
+            elif domain == "productivity" and cluster_key in productivity_names:
+                safe_candidate = productivity_names[cluster_key]
+            elif domain == "fitness" and cluster_key in fitness_names:
+                safe_candidate = fitness_names[cluster_key]
+            elif domain in CLUSTER_BLUEPRINTS and cluster_key in CLUSTER_BLUEPRINTS.get(domain, {}):
+                safe_candidate = _build_safe_product_name(cluster_name or cluster_key.replace("_", " "), suffix="Copilot")
+            elif cluster_name and cluster_name != "general":
+                safe_candidate = _build_safe_product_name(cluster_name, suffix="Copilot")
+            else:
+                safe_candidate = _build_safe_product_name(topic or query or "market insight", suffix="Assistant")
+        return safe_candidate
+
+    if domain == "accounting" and cluster_key in accounting_names:
+        return _finalize(accounting_names[cluster_key])
     if domain == "amazon" and cluster_key in amazon_names:
-        return amazon_names[cluster_key]
+        return _finalize(amazon_names[cluster_key])
     if domain == "education" and cluster_key in education_names:
-        return education_names[cluster_key]
+        return _finalize(education_names[cluster_key])
     if domain == "productivity" and cluster_key in productivity_names:
-        return productivity_names[cluster_key]
+        return _finalize(productivity_names[cluster_key])
     if domain == "fitness" and cluster_key in fitness_names:
-        return fitness_names[cluster_key]
+        return _finalize(fitness_names[cluster_key])
     if domain in CLUSTER_BLUEPRINTS and cluster_key in CLUSTER_BLUEPRINTS.get(domain, {}):
-        return _build_safe_product_name(cluster_name or cluster_key.replace("_", " "), suffix="Copilot")
+        return _finalize(_build_safe_product_name(cluster_name or cluster_key.replace("_", " "), suffix="Copilot"))
     if domain != "general" and cluster_name and cluster_name != "general":
-        return _build_safe_product_name(cluster_name, suffix="Copilot")
+        return _finalize(_build_safe_product_name(cluster_name, suffix="Copilot"))
     rules = [
+        ({"accounting", "bookkeeping"}, "bookkeeping", "AI Bookkeeping Assistant"),
+        ({"accounting", "invoice"}, "invoice", "Invoice Reconciliation Copilot"),
+        ({"accounting", "receipt"}, "receipt", "Receipt-to-Accounting Agent"),
+        ({"accounting", "cash", "flow"}, "cash", "Cash Flow Forecasting Tool"),
+        ({"accounting", "tax"}, "tax", "Tax Compliance Assistant"),
+        ({"accounting", "payroll"}, "payroll", "Payroll Automation Platform"),
+        ({"accounting", "expense"}, "expense", "Expense Categorization Agent"),
+        ({"accounting", "reporting"}, "report", "Financial Reporting Copilot"),
         ({"amazon", "seller"}, "review", "Amazon Review Pain Analyzer"),
         ({"amazon", "seller"}, "inventory", "Seller Inventory Forecasting Copilot"),
         ({"amazon", "seller"}, "pricing", "Marketplace Pricing Intelligence Agent"),
@@ -671,32 +747,34 @@ def _select_product_name(
     ]
     for domains, keyword, name in rules:
         if all(domain in text for domain in domains) and keyword in text:
-            return name
+            return _finalize(name)
 
     if cluster_name and cluster_name not in {"general", ""}:
-        return _build_safe_product_name(cluster_name, suffix="Copilot")
+        return _finalize(_build_safe_product_name(cluster_name, suffix="Copilot"))
 
     if "amazon" in text and "seller" in text:
-        return "Seller Inventory Forecasting Copilot"
+        return _finalize("Seller Inventory Forecasting Copilot")
+    if "accounting" in text or "bookkeeping" in text or "invoice" in text or "receipt" in text:
+        return _finalize("AI Bookkeeping Assistant")
     if "assignment" in text or "deadline" in text:
-        return "Assignment Deadline Planner"
+        return _finalize("Assignment Deadline Planner")
     if "notes" in text or "note-taking" in text:
-        return "Smart Notes Workflow"
+        return _finalize("Smart Notes Workflow")
     if "time management" in text or "schedule" in text:
-        return "Study Time Planner"
+        return _finalize("Study Time Planner")
     if "exam" in text or "test prep" in text:
-        return "Exam Prep Tracker"
+        return _finalize("Exam Prep Tracker")
     if "focus" in text:
-        return "Student Focus Planner"
+        return _finalize("Student Focus Planner")
     if "student" in text and "education" in text:
-        return "AI Student Progress Tracker"
+        return _finalize("AI Student Progress Tracker")
     if "education" in text:
-        return "AI Student Progress Tracker"
+        return _finalize("AI Student Progress Tracker")
     if "productivity" in text:
-        return "Productivity Insight Engine"
+        return _finalize("Productivity Insight Engine")
     if topic:
-        return _build_safe_product_name(topic, suffix="Copilot")
-    return _build_safe_product_name(query or "market insight", suffix="Copilot")
+        return _finalize(_build_safe_product_name(topic, suffix="Copilot"))
+    return _finalize(_build_safe_product_name(query or "market insight", suffix="Copilot"))
 
 
 def _normalize_name(value: str) -> str:
@@ -747,7 +825,7 @@ def _make_variant_name(base_name: str, problem: str, used_names: set[str], clust
 
     for candidate in candidates:
         candidate = re.sub(r"\s+", " ", candidate).strip()
-        if 3 <= len(candidate.split()) <= 5 and _normalize_name(candidate) not in used_names:
+        if 3 <= len(candidate.split()) <= 5 and _normalize_name(candidate) not in used_names and not is_opportunity_name_noise(candidate):
             return candidate
     return None
 
@@ -762,6 +840,30 @@ def _phrase_key(signal: MarketSignal) -> str:
 
 def _cluster_label(text: str, domain: str) -> str:
     text = text.lower()
+    if domain == "accounting":
+        if any(term in text for term in ("expense", "spend", "receipt", "receipt scan", "receipt scanning", "reimbursement")):
+            return "expense_tracking"
+        if any(term in text for term in ("receipt", "scan", "ocr", "extract", "capture")):
+            return "receipt_scanning"
+        if any(term in text for term in ("cash flow", "cashflow", "forecast", "forecasting", "runway", "burn")):
+            return "cash_flow_forecasting"
+        if any(term in text for term in ("invoice", "billing", "ar ", "accounts receivable", "collections", "payment follow-up")):
+            return "invoice_reconciliation"
+        if any(term in text for term in ("tax", "vat", "gst", "compliance", "filing", "returns")):
+            return "tax_compliance"
+        if any(term in text for term in ("payroll", "pay run", "compensation", "paystub", "timesheet")):
+            return "payroll_automation"
+        if any(term in text for term in ("report", "reporting", "close", "month-end", "financial statement")):
+            return "financial_reporting"
+        if any(term in text for term in ("accounts payable", "ap ", "vendor", "bill pay", "payment run")):
+            return "accounts_payable"
+        if any(term in text for term in ("accounts receivable", "ar ", "invoice aging", "collections", "dso")):
+            return "accounts_receivable"
+        if any(term in text for term in ("bookkeeping", "bookkeeper", "ledger", "journal entry", "general ledger")):
+            return "bookkeeping_automation"
+        if any(term in text for term in ("fraud", "chargeback", "abuse", "anomaly")):
+            return "fraud_detection"
+        return "bookkeeping_automation"
     if domain == "fitness" and not _domain_match_text(text, domain):
         return "training_progress"
     if domain == "amazon":
@@ -867,16 +969,10 @@ def _cluster_label(text: str, domain: str) -> str:
     if domain == "fitness":
         if any(term in text for term in ("routine", "template", "program template")):
             return "routine_management"
-        if any(term in text for term in ("logger", "logging", "log", "tracker", "tracking")):
+        if any(term in text for term in ("logger", "logging", "log", "workout")):
             return "workout_tracking"
         if any(term in text for term in ("exercise", "rep", "sets", "form", "movement")):
             return "exercise_library"
-        if any(term in text for term in ("import", "sync", "integration", "api", "queue", "staging")):
-            return "data_sync"
-        if any(term in text for term in ("dashboard", "output", "display", "clipboard", "progress", "metrics", "analytics")):
-            return "progress_analytics"
-        if any(term in text for term in ("race", "runner", "running", "treadmill", "cardio", "endurance")):
-            return "endurance_training"
         if any(term in text for term in ("nutrition", "meal", "diet", "macro", "calorie")):
             return "nutrition_planning"
         if any(term in text for term in ("coach", "trainer", "programming", "analytics", "performance")):
@@ -887,6 +983,12 @@ def _cluster_label(text: str, domain: str) -> str:
             return "health_tracking"
         if any(term in text for term in ("habit", "streak", "consistency", "compliance", "adherence")):
             return "wellness_habits"
+        if any(term in text for term in ("race", "runner", "running", "treadmill", "cardio", "endurance")):
+            return "endurance_training"
+        if any(term in text for term in ("dashboard", "output", "display", "clipboard", "progress", "metrics", "analytics")):
+            return "progress_analytics"
+        if any(term in text for term in ("import", "sync", "integration", "api", "queue", "staging")):
+            return "data_sync"
         return "training_progress"
     return "general"
 
@@ -902,6 +1004,19 @@ def _cluster_display_name(domain: str, cluster_id: str) -> str:
 
 def _cluster_priority(domain: str, cluster_id: str) -> int:
     priorities = {
+        "accounting": [
+            "bookkeeping_automation",
+            "invoice_reconciliation",
+            "expense_tracking",
+            "receipt_scanning",
+            "cash_flow_forecasting",
+            "tax_compliance",
+            "payroll_automation",
+            "financial_reporting",
+            "accounts_payable",
+            "accounts_receivable",
+            "fraud_detection",
+        ],
         "amazon": [
             "inventory_forecasting",
             "review_analysis",
@@ -1156,6 +1271,19 @@ def _startup_name_from_topic(topic: str) -> str:
 def _problem_statement_for(topic: str, query: str, signals: list[MarketSignal], *, domain: str = "general", cluster_key: str = "") -> str:
     text = f"{topic} {query} {cluster_key} {' '.join(f'{s.title} {s.content}' for s in signals[:5])}".lower()
     problems = {
+        "accounting": {
+            "bookkeeping_automation": "Small business teams struggle to keep books current because categorization, reconciliation, and data entry are manual.",
+            "invoice_reconciliation": "Teams struggle to match invoices, payments, and purchase orders without spending hours chasing mismatches.",
+            "expense_tracking": "Small businesses struggle to categorize expenses accurately and keep spend visible across cards, receipts, and reimbursements.",
+            "receipt_scanning": "Teams waste time typing receipt details manually instead of capturing them directly into accounting workflows.",
+            "cash_flow_forecasting": "Founders and finance teams struggle to forecast cash flow because invoices, bills, and bank activity are fragmented.",
+            "tax_compliance": "Small businesses struggle to keep tax, GST, and VAT obligations current across multiple jurisdictions and rules.",
+            "payroll_automation": "Small businesses struggle to run payroll accurately because timesheets, exceptions, and approvals are scattered.",
+            "financial_reporting": "Founders and accountants struggle to assemble accurate financial reports quickly at month end.",
+            "accounts_payable": "Teams struggle to manage vendor bills, approvals, and payment timing without duplicate work or missed deadlines.",
+            "accounts_receivable": "Teams struggle to track overdue invoices and collections before aging receivables become a cash flow problem.",
+            "fraud_detection": "Finance teams struggle to detect accounting fraud or anomalous transactions before losses spread.",
+        },
         "cybersecurity": {
             "threat_detection": "Security teams struggle to detect active threats quickly because alerts are noisy and signals are scattered across tools.",
             "incident_response": "Security teams waste time triaging alerts and coordinating response across disconnected consoles.",
@@ -1259,6 +1387,19 @@ def _problem_statement_for(topic: str, query: str, signals: list[MarketSignal], 
 
 def _pitch_for(topic: str, query: str | None = None, *, domain: str = "general", cluster_key: str = "") -> str:
     pitches = {
+        "accounting": {
+            "bookkeeping_automation": "AI bookkeeping that keeps books current, auto-categorizes expenses, and reduces manual entry.",
+            "invoice_reconciliation": "AI invoice reconciliation that matches invoices, payments, and purchase orders automatically.",
+            "expense_tracking": "AI expense tracking that categorizes spend from cards, receipts, and reimbursements.",
+            "receipt_scanning": "AI receipt capture that turns receipts into accounting-ready records.",
+            "cash_flow_forecasting": "AI cash flow forecasting that predicts runway, gaps, and short-term financing needs.",
+            "tax_compliance": "AI tax compliance that keeps tax, GST, and VAT workflows current.",
+            "payroll_automation": "AI payroll automation that reduces prep work and flags exceptions before payroll runs.",
+            "financial_reporting": "AI financial reporting that assembles month-end statements and flags mismatches.",
+            "accounts_payable": "AI accounts payable automation that tracks bills, approvals, and payment timing.",
+            "accounts_receivable": "AI accounts receivable automation that tracks invoices, reminders, and collections.",
+            "fraud_detection": "AI accounting fraud detection that spots anomalies and suspicious transaction patterns early.",
+        },
         "cybersecurity": {
             "threat_detection": "AI threat detection that correlates noisy security signals and surfaces likely attacks early.",
             "incident_response": "AI incident triage that ranks alerts, suggests next steps, and speeds containment workflows.",
@@ -1364,6 +1505,19 @@ def _pitch_for(topic: str, query: str | None = None, *, domain: str = "general",
 
 def _customer_for(topic: str, query: str | None = None, *, domain: str = "general", cluster_key: str = "") -> str:
     customers = {
+        "accounting": {
+            "bookkeeping_automation": "Bookkeepers, small business owners, and finance ops teams.",
+            "invoice_reconciliation": "Small business owners and accounts receivable teams.",
+            "expense_tracking": "Bookkeepers, operators, and finance teams managing expenses.",
+            "receipt_scanning": "Small business owners and bookkeepers capturing receipts.",
+            "cash_flow_forecasting": "Founders, bookkeepers, and finance operators.",
+            "tax_compliance": "Small business owners, accountants, and tax teams.",
+            "payroll_automation": "Small business owners and payroll admins.",
+            "financial_reporting": "Founders, accountants, and finance operators.",
+            "accounts_payable": "Finance teams managing vendor payments.",
+            "accounts_receivable": "Finance teams and billing operators.",
+            "fraud_detection": "Finance and accounting teams monitoring suspicious activity.",
+        },
         "cybersecurity": {
             "threat_detection": "Security operations teams and threat hunters.",
             "incident_response": "SOC analysts, incident responders, and security managers.",
@@ -1746,9 +1900,84 @@ def _mvp_features(topic: str, query: str | None = None, *, domain: str = "genera
                 "Generate evidence-backed opportunity briefs",
             ],
         },
+        "accounting": {
+            "bookkeeping_automation": [
+                "Sync receipts, invoices, and bank transactions",
+                "Auto-categorize expenses and book transactions",
+                "Flag uncoded items and reconciliation gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "invoice_reconciliation": [
+                "Match invoices to payments and purchase orders",
+                "Flag exceptions and missing approvals",
+                "Recommend follow-up actions",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "expense_tracking": [
+                "Capture expenses from cards, receipts, and reimbursements",
+                "Auto-categorize spend across vendors",
+                "Surface policy or budget exceptions",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "receipt_scanning": [
+                "Extract line items from receipts",
+                "Match receipts to transactions and bills",
+                "Reduce manual data entry for bookkeeping",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "cash_flow_forecasting": [
+                "Forecast cash flow from invoices, bills, and bank activity",
+                "Highlight upcoming cash gaps and surpluses",
+                "Recommend short-term actions",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "tax_compliance": [
+                "Track tax obligations across sales and jurisdictions",
+                "Flag missing documents and filing risks",
+                "Recommend compliance workflows",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "payroll_automation": [
+                "Automate payroll prep and exception handling",
+                "Flag timecard or compensation issues",
+                "Recommend payroll review actions",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "financial_reporting": [
+                "Assemble financial reports from live books and bank data",
+                "Flag reporting mismatches early",
+                "Recommend month-end close actions",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "accounts_payable": [
+                "Track bills, approvals, and vendor payments",
+                "Flag overdue or duplicate payables",
+                "Recommend payment workflows",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "accounts_receivable": [
+                "Track invoices, collections, and payment follow-up",
+                "Flag overdue receivables and aging risk",
+                "Recommend collection workflows",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "fraud_detection": [
+                "Flag suspicious transactions and accounting anomalies",
+                "Prioritize investigation workflows",
+                "Recommend evidence collection steps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+        },
     }
     if domain in feature_sets and cluster_key in feature_sets[domain]:
         return feature_sets[domain][cluster_key]
+    if domain == "accounting":
+        return [
+            "Ingest accounting, invoice, and bank workflow signals",
+            "Cluster bookkeeping, expenses, tax, and payroll pain points",
+            "Recommend finance automation actions",
+            "Generate evidence-backed opportunity briefs",
+        ]
     if domain == "fintech":
         feature_sets = {
             "fraud_detection": [
@@ -1869,6 +2098,22 @@ def _gtm(topic: str, query: str | None = None, *, domain: str = "general", clust
             "transaction_monitoring": "Launch through transaction monitoring teams, AML communities, and finance ops channels.",
             "compliance": "Launch through compliance leaders, KYC/AML communities, and fintech audit content.",
             "portfolio_analytics": "Launch through portfolio and finance analytics communities and operator content.",
+        }
+        if cluster_key in gtm:
+            return gtm[cluster_key]
+    if domain == "accounting":
+        gtm = {
+            "bookkeeping_automation": "Launch through bookkeeping communities, small business finance creators, and accounting automation content.",
+            "invoice_reconciliation": "Launch through AP/AR teams, accounting communities, and invoice workflow content.",
+            "expense_tracking": "Launch through expense management creators, bookkeepers, and small business finance channels.",
+            "receipt_scanning": "Launch through bookkeeping creators, accounting automation communities, and receipt capture workflows.",
+            "cash_flow_forecasting": "Launch through founders, finance operators, and small business cash-flow content.",
+            "tax_compliance": "Launch through tax professionals, accounting communities, and compliance content.",
+            "payroll_automation": "Launch through payroll admins, small business finance creators, and HR/payroll communities.",
+            "financial_reporting": "Launch through accountants, CFO communities, and month-end close content.",
+            "accounts_payable": "Launch through accounts payable teams, vendor management communities, and finance ops content.",
+            "accounts_receivable": "Launch through accounts receivable teams, billing communities, and collections workflows.",
+            "fraud_detection": "Launch through finance controls, accounting audit communities, and transaction anomaly content.",
         }
         if cluster_key in gtm:
             return gtm[cluster_key]
@@ -2081,6 +2326,7 @@ class OpportunityIntelligenceService:
                 "duplicate": 0,
                 "no_evidence": 0,
                 "wrong_domain": 0,
+                "name_noise": 0,
                 "low_confidence": 0,
                 "salvaged": 0,
             }
@@ -2100,13 +2346,58 @@ class OpportunityIntelligenceService:
                 if self._wrong_domain(opportunity, domain):
                     discarded["wrong_domain"] += 1
                     continue
-                if opportunity.get("query_relevance_score", 0) < 80:
+                if is_opportunity_name_noise(opportunity.get("startup_name", ""), query=query, domain=domain):
+                    discarded["name_noise"] += 1
+                    continue
+                if opportunity.get("query_relevance_score", 0) < 80 or opportunity.get("domain_relevance_score", 0) < 80:
                     discarded["low_relevance"] += 1
                     continue
                 if opportunity.get("confidence_score", 0) < 10:
                     discarded["low_confidence"] += 1
                     continue
                 opportunities.append(opportunity)
+
+            if len(opportunities) < 5 and domain in CLUSTER_BLUEPRINTS:
+                existing_clusters = {str(item.get("cluster_id") or "") for item in opportunities}
+                for cluster_key in CLUSTER_BLUEPRINTS.get(domain, {}):
+                    if len(opportunities) >= min(limit, 5):
+                        break
+                    if cluster_key in existing_clusters:
+                        continue
+                    support = [
+                        signal
+                        for signal in signal_batch
+                        if _cluster_label(_signal_text(signal), domain) == cluster_key
+                    ]
+                    if not support:
+                        support = [
+                            signal
+                            for signal in signal_batch
+                            if _domain_match_text(_signal_text(signal), domain)
+                        ]
+                    if not support:
+                        continue
+                    opportunity = self._build_opportunity(
+                        cluster_key,
+                        support,
+                        query=query or "",
+                        query_terms=query_terms,
+                        query_id=query_id,
+                        domain=domain,
+                        cluster_profile={"cluster_id": cluster_key, "cluster_name": _cluster_display_name(domain, cluster_key)},
+                    )
+                    if not opportunity.get("evidence", {}).get("signals"):
+                        continue
+                    if self._wrong_domain(opportunity, domain):
+                        continue
+                    if is_opportunity_name_noise(opportunity.get("startup_name", ""), query=query, domain=domain):
+                        continue
+                    if opportunity.get("query_relevance_score", 0) < 80 or opportunity.get("domain_relevance_score", 0) < 80:
+                        continue
+                    if opportunity.get("confidence_score", 0) < 10:
+                        continue
+                    opportunities.append(opportunity)
+                    existing_clusters.add(cluster_key)
 
             before_dedupe = len(opportunities)
             opportunities = sorted(
@@ -2295,6 +2586,8 @@ class OpportunityIntelligenceService:
             terms=combined_terms,
             limit=1000,
         )
+        if query_domain and query_domain != "general" and signals:
+            return signals
         if len(signals) >= 3 and self._signals_are_relevant(signals, combined_terms, self._domain_from_query(query)):
             return signals
 
@@ -2333,7 +2626,7 @@ class OpportunityIntelligenceService:
             if broad_terms:
                 domain_filtered = [
                     signal
-                    for signal in broad_fallback
+                for signal in broad_fallback
                     if any(term in _signal_text(signal) for term in broad_terms)
                 ]
             else:
@@ -2349,13 +2642,117 @@ class OpportunityIntelligenceService:
                 merged.append(signal)
             merged.sort(key=lambda signal: (signal.collected_at or datetime.min.replace(tzinfo=timezone.utc)), reverse=True)
 
+        if domain != "general" and len(merged) < 5:
+            domain_history = await self._historical_domain_signals(
+                session,
+                query=query,
+                domain=domain,
+                limit=1000,
+            )
+            for signal in domain_history:
+                key = signal.url or signal.source_id or str(signal.id)
+                if key in seen:
+                    continue
+                seen.add(key)
+                merged.append(signal)
+            merged.sort(key=lambda signal: (signal.collected_at or datetime.min.replace(tzinfo=timezone.utc)), reverse=True)
+
         return merged
+
+    async def _historical_domain_signals(
+        self,
+        session: AsyncSession,
+        *,
+        query: str,
+        domain: str,
+        limit: int = 1000,
+    ) -> list[MarketSignal]:
+        stmt = select(MarketSignal).where(MarketSignal.source.in_(self.sources))
+        result = await session.execute(stmt.order_by(MarketSignal.collected_at.desc()).limit(limit))
+        signals = list(result.scalars().all())
+        if domain == "general":
+            return signals
+
+        candidate_terms = {
+            "accounting": {
+                "accounting", "bookkeeping", "invoice", "invoices", "receipt", "receipts", "expense", "expenses",
+                "cash flow", "payroll", "tax", "vat", "gst", "ledger", "reconciliation", "accounts payable", "accounts receivable",
+            },
+            "education": {
+                "education", "edtech", "learning", "student", "students", "teacher", "teachers", "course", "courses",
+                "classroom", "tutor", "tutoring", "exam", "exams", "lms", "study", "lesson", "assessment", "school", "college",
+            },
+            "fitness": {
+                "fitness", "workout", "exercise", "gym", "wellness", "nutrition", "training", "sports", "health",
+                "tracking", "tracker", "wearable", "wearables", "fitbit", "athletic", "performance", "recovery", "coach", "member",
+            },
+            "cybersecurity": {
+                "cybersecurity", "cyber security", "security", "soc", "threat", "vulnerability", "phishing", "cloud security",
+                "compliance", "identity", "malware", "incident response", "siem", "access",
+            },
+            "amazon": {
+                "amazon", "seller", "fba", "listing", "inventory", "review", "reviews", "repricing", "pricing", "ppc", "keyword", "asin", "marketplace", "product research", "ads",
+            },
+        }.get(domain, set())
+        filtered: list[MarketSignal] = []
+        seen: set[str] = set()
+        for signal in signals:
+            text = _signal_text(signal)
+            if self._wrong_domain_text(text, domain):
+                continue
+            q_score = calculate_query_relevance_score(
+                query,
+                text,
+                domain=domain,
+                source=signal.source,
+                source_type=signal.source_type,
+            )
+            d_score = calculate_domain_relevance_score(
+                text,
+                domain=domain,
+                source=signal.source,
+                source_type=signal.source_type,
+            )
+            if q_score < 60.0 or d_score < 60.0:
+                continue
+            if candidate_terms and not any(term in text for term in candidate_terms):
+                continue
+            key = signal.url or signal.source_id or str(signal.id)
+            if key in seen:
+                continue
+            seen.add(key)
+            signal.query_relevance_score = q_score
+            signal.domain_relevance_score = d_score
+            filtered.append(signal)
+        return filtered
 
     def _signals_are_relevant(self, signals: list[MarketSignal], terms: list[str], domain: str) -> bool:
         if not signals:
             return False
 
         domain_terms = {
+            "accounting": {
+                "accounting",
+                "bookkeeping",
+                "invoice",
+                "receipt",
+                "expense",
+                "cash flow",
+                "payroll",
+                "tax",
+                "vat",
+                "gst",
+                "ledger",
+                "reconciliation",
+                "financial reporting",
+                "small business",
+                "bookkeeping automation",
+                "invoice reconciliation",
+                "expense tracking",
+                "cash flow forecasting",
+                "tax compliance",
+                "payroll automation",
+            },
             "amazon": {
                 "amazon",
                 "seller",
@@ -2410,6 +2807,12 @@ class OpportunityIntelligenceService:
                 "sports",
                 "health",
                 "tracking",
+                "tracker",
+                "wearable",
+                "wearables",
+                "fitbit",
+                "athletic",
+                "performance",
                 "coach",
                 "member",
             },
@@ -2472,12 +2875,6 @@ class OpportunityIntelligenceService:
             stmt = stmt.where(MarketSignal.query_domain == query_domain)
         if evidence_urls:
             stmt = stmt.where(MarketSignal.url.in_(sorted(evidence_urls)))
-        if terms:
-            text_filters = [MarketSignal.title.ilike(f"%{term}%") for term in terms[:8]] + [
-                MarketSignal.content.ilike(f"%{term}%") for term in terms[:8]
-            ]
-            if text_filters:
-                stmt = stmt.where(or_(*text_filters))
         result = await session.execute(stmt.order_by(MarketSignal.collected_at.desc()).limit(limit))
         signals = list(result.scalars().all())
         if query_domain and query_domain != "general":
@@ -2490,20 +2887,25 @@ class OpportunityIntelligenceService:
             relevance_filtered = []
             for signal in signals:
                 text = _signal_text(signal)
-                relevance_score = float(getattr(signal, "query_relevance_score", 0.0) or 0.0)
-                if relevance_score <= 0:
-                    relevance_score = calculate_query_relevance_score(
-                        query,
-                        text,
-                        domain=query_domain or self._domain_from_query(query),
-                        source=signal.source,
-                        source_type=signal.source_type,
-                    )
-                if relevance_score < 70.0:
+                relevance_score = calculate_query_relevance_score(
+                    query,
+                    text,
+                    domain=query_domain or self._domain_from_query(query),
+                    source=signal.source,
+                    source_type=signal.source_type,
+                )
+                domain_score = calculate_domain_relevance_score(
+                    text,
+                    domain=query_domain or self._domain_from_query(query),
+                    source=signal.source,
+                    source_type=signal.source_type,
+                )
+                if relevance_score < 60.0 or domain_score < 60.0:
                     continue
                 if is_github_repo_noise(text, source=signal.source, source_type=signal.source_type):
                     continue
                 signal.query_relevance_score = relevance_score
+                signal.domain_relevance_score = domain_score
                 relevance_filtered.append(signal)
             signals = relevance_filtered
         return signals
@@ -2637,6 +3039,8 @@ class OpportunityIntelligenceService:
         topic = cluster_name or _join_terms(topic_terms) or cluster_id or query or "market opportunity"
         signal_relevance_scores = [float(getattr(s, "query_relevance_score", 0.0) or 0.0) for s in signals]
         avg_signal_relevance = mean(signal_relevance_scores) if signal_relevance_scores else 0.0
+        signal_domain_scores = [float(getattr(s, "domain_relevance_score", 0.0) or 0.0) for s in signals]
+        avg_signal_domain_relevance = mean(signal_domain_scores) if signal_domain_scores else 0.0
         expanded_terms = self._expand_query_terms(query)
         text = f"{' '.join(titles)} {' '.join(contents)}".lower()
         cluster_text = f"{cluster_name.replace('_', ' ')} {cluster_id.replace('_', ' ')}".lower()
@@ -2676,6 +3080,17 @@ class OpportunityIntelligenceService:
         )
         if domain in CLUSTER_BLUEPRINTS and cluster_id in CLUSTER_BLUEPRINTS.get(domain, {}):
             query_relevance_score = max(query_relevance_score, 80.0)
+        domain_relevance_score = _clamp_score(
+            max(
+                avg_signal_domain_relevance,
+                calculate_domain_relevance_score(
+                    f"{query} {topic} {cluster_name} {text}",
+                    domain=domain,
+                ),
+            )
+        )
+        if domain in CLUSTER_BLUEPRINTS and cluster_id in CLUSTER_BLUEPRINTS.get(domain, {}):
+            domain_relevance_score = max(domain_relevance_score, 80.0)
         confidence_score = _clamp_score(
             (len(sources) * 14.0)
             + (avg_source_quality * 24.0)
@@ -2715,6 +3130,8 @@ class OpportunityIntelligenceService:
             "feasibility_score": round(feasibility_score, 1),
             "query_relevance_score": query_relevance_score,
             "query_domain_similarity": round(query_relevance_score / 100.0, 2),
+            "domain_relevance_score": domain_relevance_score,
+            "domain_similarity": round(domain_relevance_score / 100.0, 2),
             "competition_level": _competition_level(competition_score),
             "emergence_date": first_seen.isoformat() if first_seen else None,
             "last_signal_at": last_seen.isoformat() if last_seen else None,
@@ -2734,6 +3151,8 @@ class OpportunityIntelligenceService:
             "go_to_market": _gtm(topic, query, domain=domain, cluster_key=cluster_id),
             "evidence_count": len(evidence.get("signals", [])),
         }
+        if is_opportunity_name_noise(opportunity["startup_name"], query=query, domain=domain):
+            opportunity["startup_name"] = _build_safe_product_name(cluster_name or topic or query or "market insight", suffix="Assistant")
         opportunity["title"] = opportunity["startup_name"]
         opportunity["description"] = opportunity["solution"]
         opportunity["confidence"] = confidence_score
@@ -2838,10 +3257,14 @@ class OpportunityIntelligenceService:
     def _evidence(self, signals: list[MarketSignal]) -> dict:
         items = []
         for s in signals[:20]:
+            snippet = (s.content or "").strip().replace("\n", " ")
+            if len(snippet) > 240:
+                snippet = snippet[:240].rstrip() + "..."
             items.append({
                 "source": s.source,
                 "signal_id": str(s.id),
                 "title": s.title,
+                "snippet": snippet or s.title,
                 "url": s.url,
                 "collected_at": s.collected_at.isoformat() if s.collected_at else None,
                 "source_type": s.source_type,
@@ -2864,6 +3287,7 @@ class OpportunityIntelligenceService:
                 market_gap_id=None,
                 query_id=query_id,
                 query_domain=o.get("query_domain", "general"),
+                domain_relevance_score=o.get("domain_relevance_score", 0.0),
                 startup_name=o["startup_name"],
                 problem=o["problem"],
                 solution=o["solution"],
@@ -2903,6 +3327,7 @@ class OpportunityIntelligenceService:
             "id": str(opp.id),
                 "query_id": str(opp.query_id) if opp.query_id else None,
             "query_domain": getattr(opp, "query_domain", "general"),
+            "domain_relevance_score": getattr(opp, "domain_relevance_score", 0.0),
             "startup_name": opp.startup_name,
             "name": opp.startup_name,
             "problem": opp.problem,
@@ -2919,6 +3344,7 @@ class OpportunityIntelligenceService:
             "feasibility_score": opp.feasibility_score,
             "query_relevance_score": getattr(opp, "query_relevance_score", 0.0),
             "query_domain_similarity": round(float(getattr(opp, "query_relevance_score", 0.0) or 0.0) / 100.0, 2),
+            "domain_similarity": round(float(getattr(opp, "domain_relevance_score", 0.0) or 0.0) / 100.0, 2),
             "competition_level": competition_level,
             "emergence_date": opp.emergence_date.isoformat() if opp.emergence_date else None,
             "last_signal_at": opp.last_signal_at.isoformat() if opp.last_signal_at else None,

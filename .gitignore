@@ -36,6 +36,7 @@ coverage/
 
 # Local data stores
 chroma/
+backend/app/collectors/.cache/
 
 # Editor and workspace metadata
 .vscode/

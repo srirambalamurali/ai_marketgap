@@ -20,6 +20,10 @@ def _signal(source="github", title="Need better onboarding", content="Teams need
     )
 
 
+def _accounting_signal(title="Bookkeeping pain", content="Small business teams need invoice reconciliation, expense tracking, and cash flow forecasting"):
+    return _signal(source="github", title=title, content=content)
+
+
 @pytest.mark.asyncio
 async def test_build_opportunity_produces_evidence_and_scores(monkeypatch):
     service = OpportunityIntelligenceService()
@@ -131,3 +135,59 @@ async def test_build_opportunities_filters_wrong_domain_and_repo_noise(monkeypat
     )
     assert "teacher workload" not in joined
     assert "course recommendation" not in joined
+
+
+@pytest.mark.asyncio
+async def test_build_opportunities_for_small_business_accounting(monkeypatch):
+    service = OpportunityIntelligenceService()
+
+    signals = [
+        _accounting_signal(title="Bookkeeping automation", content="Bookkeepers want auto-categorization and ledger reconciliation"),
+        _accounting_signal(title="Invoice reconciliation", content="Teams need invoice matching and AP workflows"),
+        _accounting_signal(title="Expense tracking", content="Receipt capture and expense categorization are manual"),
+        _accounting_signal(title="Cash flow forecasting", content="Founders need runway forecasting from bills and invoices"),
+        _accounting_signal(title="Tax compliance", content="Small businesses need GST VAT filing reminders"),
+        _accounting_signal(title="Payroll automation", content="Payroll prep and timecard exceptions are slow"),
+    ]
+
+    async def fake_load_signals(*args, **kwargs):
+        return signals
+
+    class DummyResult:
+        def scalars(self):
+            return self
+
+        def all(self):
+            return []
+
+    class DummySession:
+        async def execute(self, *args, **kwargs):
+            return DummyResult()
+
+        def add_all(self, *args, **kwargs):
+            return None
+
+        async def flush(self):
+            return None
+
+    monkeypatch.setattr(service, "_load_signals", fake_load_signals)
+
+    opportunities = await service.build_opportunities(
+        DummySession(),
+        limit=10,
+        query="small business accounting",
+        query_id="123e4567-e89b-12d3-a456-426614174001",
+    )
+
+    assert len(opportunities) >= 5
+    assert all(opp["query_domain"] == "accounting" for opp in opportunities)
+    assert all(opp["query_relevance_score"] >= 80 for opp in opportunities)
+    names = [opp["startup_name"] for opp in opportunities]
+    assert "Invoice Reconciliation Copilot" in names
+    assert "Cash Flow Forecasting Tool" in names
+    assert "Expense Categorization Agent" in names
+    assert "Payroll Automation Platform" in names
+    assert "Tax Compliance Assistant" in names
+    joined = " ".join(f"{opp.get('startup_name', '')} {opp.get('problem', '')} {opp.get('solution', '')}".lower() for opp in opportunities)
+    assert "alexismcruz" not in joined
+    assert "accountingappforsmallbusinesses" not in joined

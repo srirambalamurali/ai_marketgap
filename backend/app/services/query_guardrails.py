@@ -4,6 +4,36 @@ import re
 from typing import Any
 
 DOMAIN_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "accounting": (
+        "accounting",
+        "bookkeeping",
+        "bookkeeper",
+        "small business accounting",
+        "small business",
+        "invoice",
+        "invoicing",
+        "invoice reconciliation",
+        "receipt",
+        "receipt scanning",
+        "expense",
+        "expense tracking",
+        "expenses",
+        "cash flow",
+        "cash flow forecasting",
+        "cashflow",
+        "payroll",
+        "payroll automation",
+        "tax",
+        "tax compliance",
+        "vat",
+        "gst",
+        "ledger",
+        "reconciliation",
+        "accounts payable",
+        "accounts receivable",
+        "financial reporting",
+        "bookkeeping automation",
+    ),
     "fitness": (
         "fitness",
         "fitness technology",
@@ -16,6 +46,14 @@ DOMAIN_KEYWORDS: dict[str, tuple[str, ...]] = {
         "sports",
         "health tracking",
         "health",
+        "tracker",
+        "tracking",
+        "wearable",
+        "wearables",
+        "fitbit",
+        "athletic",
+        "performance",
+        "recovery",
         "coach",
         "member",
         "running",
@@ -47,6 +85,11 @@ DOMAIN_KEYWORDS: dict[str, tuple[str, ...]] = {
         "study",
         "tutor",
         "tutoring",
+        "edtech",
+        "school",
+        "college",
+        "lesson",
+        "assessment",
         "lms",
     ),
     "amazon": (
@@ -61,6 +104,9 @@ DOMAIN_KEYWORDS: dict[str, tuple[str, ...]] = {
         "reviews",
         "review",
         "ads",
+        "asin",
+        "ppc",
+        "keyword",
         "product research",
     ),
     "productivity": (
@@ -88,6 +134,18 @@ DOMAIN_KEYWORDS: dict[str, tuple[str, ...]] = {
 }
 
 DOMAIN_NEGATIVE_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "accounting": (
+        "fitness",
+        "workout",
+        "gym",
+        "education",
+        "student",
+        "teacher",
+        "course",
+        "real estate",
+        "rental property",
+        "cybersecurity",
+    ),
     "fitness": (
         "education",
         "student",
@@ -167,6 +225,8 @@ QUERY_FILLER_WORDS = {
 }
 
 REPO_LIKE_RE = re.compile(r"^[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)?$")
+SLUGLIKE_NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{7,}$")
+NUMERIC_USERNAME_RE = re.compile(r"^(?:[A-Za-z]+[0-9]{2,}|[0-9]{2,}[A-Za-z]+)$")
 
 
 def normalize_text(value: Any) -> str:
@@ -225,6 +285,38 @@ def is_github_repo_noise(text: str, *, source: str | None = None, source_type: s
     return False
 
 
+def is_opportunity_name_noise(
+    text: str,
+    *,
+    query: str | None = None,
+    domain: str | None = None,
+) -> bool:
+    lowered = normalize_text(text)
+    if not lowered:
+        return True
+
+    compact = re.sub(r"\s+", "", lowered)
+    parts = [part for part in re.split(r"[\s/_-]+", lowered) if part]
+
+    if "/" in lowered or ("-" in lowered and len(parts) >= 2):
+        if len(parts) >= 3 or REPO_LIKE_RE.match(lowered.replace(" ", "")):
+            return True
+
+    if len(parts) == 1 and len(compact) >= 18 and SLUGLIKE_NAME_RE.match(compact):
+        return True
+
+    if len(parts) <= 3 and any(NUMERIC_USERNAME_RE.match(part) for part in parts):
+        return True
+
+    if any(len(part) >= 18 for part in parts):
+        return True
+
+    if len(parts) <= 2 and any(len(part) >= 18 for part in parts):
+        return True
+
+    return False
+
+
 def extract_relevance_features(query: str, text: str, *, domain: str | None = None) -> tuple[int, int, int]:
     query = normalize_text(query)
     text = normalize_text(text)
@@ -250,18 +342,59 @@ def calculate_query_relevance_score(query: str, text: str, *, domain: str | None
     source_bonus += 1 if source_type and source_type.lower() in {"repository", "story", "post", "article", "trend"} else 0
 
     score = (
-        (direct_hits / query_token_count) * 25.0
-        + min(75.0, domain_hits * 25.0)
-        + min(10.0, text_length_bonus * 10.0)
-        + min(10.0, source_bonus * 4.0)
+        (direct_hits / query_token_count) * 30.0
+        + min(55.0, domain_hits * 20.0)
+        + min(15.0, text_length_bonus * 15.0)
+        + min(20.0, source_bonus * 10.0)
     )
 
     if resolved_domain != "general":
         if negative_hits:
-            score -= min(40.0, negative_hits * 14.0)
+            score -= min(45.0, negative_hits * 14.0)
         if domain_hits == 0:
-            score -= 20.0
+            score -= 25.0
+        elif source and source.lower() in {"github", "hackernews", "reddit", "rss", "google_trends"}:
+            score += 5.0
+        elif domain_hits >= 3:
+            score += 18.0
+        elif domain_hits >= 2:
+            score += 12.0
 
+    if is_github_repo_noise(text, source=source, source_type=source_type):
+        score -= 35.0
+
+    return round(max(0.0, min(100.0, score)), 1)
+
+
+def calculate_domain_relevance_score(text: str, *, domain: str, source: str | None = None, source_type: str | None = None) -> float:
+    text = normalize_text(text)
+    if not text:
+        return 0.0
+
+    if domain == "general":
+        return 50.0
+
+    domain_hits = sum(1 for keyword in _domain_keywords(domain) if keyword in text)
+    negative_hits = sum(1 for keyword in _negative_keywords(domain) if keyword in text)
+    text_length_bonus = 1.0 if len(text) > 40 else 0.5 if len(text) > 15 else 0.0
+    source_bonus = 1 if source and source.lower() in {"github", "hackernews", "reddit", "rss", "google_trends"} else 0
+    source_bonus += 1 if source_type and source_type.lower() in {"repository", "story", "post", "article", "trend"} else 0
+
+    score = (
+        min(60.0, domain_hits * 40.0)
+        + min(15.0, text_length_bonus * 15.0)
+        + min(25.0, source_bonus * 12.0)
+    )
+    if domain_hits == 0:
+        score -= 30.0
+    if negative_hits:
+        score -= min(45.0, negative_hits * 15.0)
+    elif source and source.lower() in {"github", "hackernews", "reddit", "rss", "google_trends"}:
+        score += 5.0
+    elif domain_hits >= 3:
+        score += 15.0
+    elif domain_hits >= 2:
+        score += 9.0
     if is_github_repo_noise(text, source=source, source_type=source_type):
         score -= 35.0
 
@@ -289,3 +422,7 @@ def is_query_consistent_with_domain(query: str, text: str, *, domain: str | None
     if resolved_domain == "general":
         return True
     return is_relevant_to_query(query, text, domain=resolved_domain, threshold=0.70)
+
+
+def is_relevant_to_domain(text: str, *, domain: str, threshold: float = 0.80, source: str | None = None, source_type: str | None = None) -> bool:
+    return calculate_domain_relevance_score(text, domain=domain, source=source, source_type=source_type) >= (threshold * 100 if threshold <= 1 else threshold)

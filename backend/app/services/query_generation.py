@@ -24,12 +24,26 @@ from app.services.signal_quality_service import quality_service
 from app.services.source_scoring import score_signal
 from app.services.monitoring import pipeline_monitor
 from app.services.opportunity_intelligence import opportunity_intelligence_service
-from app.services.query_guardrails import is_github_repo_noise
+from app.services.query_guardrails import calculate_domain_relevance_score, calculate_query_relevance_score, is_github_repo_noise
 from app.utils.logging import get_logger
 
 logger = get_logger("services.query_generation")
 
 DOMAIN_EXPANSIONS = {
+    "accounting": [
+        "accounting",
+        "bookkeeping",
+        "small business accounting",
+        "invoice reconciliation",
+        "receipt scanning",
+        "expense tracking",
+        "cash flow forecasting",
+        "tax compliance",
+        "payroll automation",
+        "financial reporting",
+        "accounts payable",
+        "accounts receivable",
+    ],
     "education": ["education", "learning", "students", "teachers", "courses", "exams", "tutoring", "lms", "classroom", "study"],
     "amazon": ["amazon", "seller", "marketplace", "ecommerce", "fba", "inventory", "reviews", "product research", "listing optimization", "pricing", "ads"],
     "productivity": [
@@ -114,6 +128,7 @@ DOMAIN_EXPANSIONS = {
 }
 
 DOMAIN_ALIASES = {
+    "accounting": ("accounting", "bookkeeping", "invoice", "receipt", "expense", "cash flow", "payroll", "tax", "vat", "gst", "ledger", "reconciliation"),
     "cybersecurity": ("cybersecurity", "cyber security", "infosec", "security", "soc", "threat detection"),
     "fintech": ("fintech", "finance", "payments", "fraud", "lending", "banking"),
     "healthcare": ("healthcare", "health tech", "patient", "clinical", "hospital", "medical"),
@@ -134,7 +149,11 @@ DOMAIN_ALIASES = {
 
 
 def _match_domain(query_lower: str) -> str:
+    if any(alias in query_lower for alias in DOMAIN_ALIASES["accounting"]):
+        return "accounting"
     for domain, aliases in DOMAIN_ALIASES.items():
+        if domain == "accounting":
+            continue
         if any(alias in query_lower for alias in aliases):
             return domain
     if "amazon" in query_lower or "seller" in query_lower or "marketplace" in query_lower:
@@ -222,6 +241,16 @@ def _normalize_competition_level(level: str | None, score: float | int | None = 
 
 def _build_collection_query(domain: str, query: str, expanded_terms: list[str], original_terms: list[str]) -> str:
     domain_queries = {
+    "accounting": [
+        "small business accounting",
+        "bookkeeping automation",
+        "invoice reconciliation",
+        "expense categorization",
+        "cash flow forecasting",
+        "tax compliance",
+        "payroll automation",
+        "financial reporting",
+    ],
     "fitness": [
         "fitness workout logger",
         "coach analytics fitness",
@@ -267,6 +296,7 @@ def _build_collection_query(domain: str, query: str, expanded_terms: list[str], 
 
 def _build_google_keywords(domain: str, expanded_terms: list[str], original_terms: list[str]) -> list[str]:
     domain_keywords = {
+        "accounting": ["accounting", "bookkeeping", "invoice", "receipt", "cash flow", "tax", "payroll", "expense"],
         "fitness": ["fitness", "workout", "gym", "wellness", "nutrition", "running"],
         "cybersecurity": ["cybersecurity", "security", "threat detection", "incident response"],
         "amazon": ["amazon seller", "marketplace seller", "inventory", "pricing", "listing optimization"],
@@ -283,6 +313,7 @@ def _build_google_keywords(domain: str, expanded_terms: list[str], original_term
 
 def _signal_terms_for_domain(domain: str) -> tuple[set[str], set[str]]:
     positive = {
+        "accounting": {"accounting", "bookkeeping", "invoice", "receipt", "expense", "cash flow", "payroll", "tax", "vat", "gst", "ledger", "reconciliation", "financial", "reporting"},
         "fitness": {"fitness", "workout", "gym", "wellness", "nutrition", "training", "sports", "health", "coach", "member", "runner", "running", "treadmill", "cardio", "race"},
         "cybersecurity": {"cyber", "security", "threat", "incident", "alert", "siem", "soc", "vulnerability", "cloud", "identity", "access", "detection"},
         "amazon": {"amazon", "seller", "marketplace", "ecommerce", "inventory", "pricing", "review", "reviews", "fulfillment", "listing", "product research", "ads", "fba"},
@@ -290,6 +321,7 @@ def _signal_terms_for_domain(domain: str) -> tuple[set[str], set[str]]:
         "productivity": {"student", "study", "productivity", "focus", "assignment", "notes", "habit", "time management", "exam prep"},
     }
     negative = {
+        "accounting": {"fitness", "workout", "gym", "student", "teacher", "course", "real estate", "rental property", "security", "cyber"},
         "fitness": {"github copilot", "admin ui", "staging", "queue", "json api", "backend", "frontend", "codealpha", "exercise crud", "copy to clipboard", "build applications", "task", "application"},
         "cybersecurity": {"realestate", "rental property", "student", "education", "amazon", "seller"},
         "amazon": {"student", "education", "fitness", "workout", "realestate", "rental property"},
@@ -359,7 +391,7 @@ class QueryGenerationService:
                 "timeout": 15,
                 "limit": 10,
                 "factory": lambda: GoogleTrendsCollector(),
-                "runner": lambda c: c.collect_all(google_keywords[:1]),
+                "runner": lambda c: c.collect_all(google_keywords[:3] or google_keywords[:1]),
             },
             {
                 "name": "reddit",
@@ -431,14 +463,27 @@ class QueryGenerationService:
             logger.warning("No quality live signals collected for query=%r query_id=%s; falling back to same-domain historical evidence", query, query_id)
 
         relevant_signals: list[Signal] = []
-        signal_threshold = 10 if domain in {"education", "productivity", "fitness"} else 15
         for signal in quality_signals:
-            signal_query_score = self._signal_query_relevance(query_terms, signal)
+            text = f"{signal.title} {signal.content} {signal.source} {signal.source_type}"
+            signal_query_score = calculate_query_relevance_score(
+                query,
+                text,
+                domain=domain,
+                source=signal.source,
+                source_type=signal.source_type,
+            )
+            signal_domain_score = calculate_domain_relevance_score(
+                text,
+                domain=domain,
+                source=signal.source,
+                source_type=signal.source_type,
+            )
             if signal.source == "github" and is_github_repo_noise(f"{signal.title} {signal.content}", source=signal.source, source_type=signal.source_type):
                 continue
             signal.query_id = str(query_id)
             signal.query_domain = domain
             signal.query_relevance_score = signal_query_score
+            signal.domain_relevance_score = signal_domain_score
             signal.metadata = {
                 **signal.metadata,
                 "query_id": str(query_id),
@@ -446,14 +491,18 @@ class QueryGenerationService:
                 "query_text": query,
                 "domain": domain,
                 "query_relevance_score": signal_query_score,
+                "domain_relevance_score": signal_domain_score,
             }
-            if signal_query_score >= signal_threshold and self._signal_domain_match(signal, domain):
+            if signal_query_score >= 60 and signal_domain_score >= 60 and self._signal_domain_match(signal, domain):
                 relevant_signals.append(signal)
 
         if not relevant_signals:
             logger.warning("No relevant live signals passed query relevance for query=%r query_id=%s; continuing with retrieval fallback", query, query_id)
 
         document_chunks = []
+        accepted_by_source: dict[str, int] = {}
+        for signal in relevant_signals:
+            accepted_by_source[signal.source] = accepted_by_source.get(signal.source, 0) + 1
         bulk_payload = [
             {
                 "source": signal.source,
@@ -467,6 +516,7 @@ class QueryGenerationService:
                 "score": signal.score,
                 "comments_count": signal.comments_count,
                 "query_relevance_score": signal.metadata.get("query_relevance_score", 0.0),
+                "domain_relevance_score": signal.metadata.get("domain_relevance_score", 0.0),
                 "query_domain": domain,
                 "credibility_score": round(
                     (signal.metadata.get("quality_score", 0.5) + score_signal(signal.model_dump())) / 2,
@@ -480,6 +530,11 @@ class QueryGenerationService:
         ]
         if bulk_payload:
             await bulk_create_signals(session, bulk_payload)
+
+        for name, payload in collected.items():
+            accepted = accepted_by_source.get(name, 0)
+            payload["signals_accepted"] = accepted
+            payload["signals_rejected"] = max(0, payload.get("signals_collected", 0) - accepted)
 
         ingested = len(bulk_payload)
         quality_filtered_total = len(live_signals) - ingested
@@ -656,6 +711,9 @@ class QueryGenerationService:
             "opportunities": opportunity_summaries,
             "opportunities_count": len(opportunities),
             "evidence_links_count": sum(int(item.get("evidence_count", 0)) for item in opportunities),
+            "signals_collected": len(live_signals),
+            "signals_accepted": ingested,
+            "signals_rejected": quality_filtered_total,
             "report": report,
             "debug": self._build_debug_summary(collected, rag_results, opportunities, opportunity_intelligence_service.last_debug),
         }
@@ -729,7 +787,9 @@ class QueryGenerationService:
             "competition_score": opportunity.get("competition_score"),
             "competition_level": opportunity.get("competition_level"),
             "query_relevance_score": opportunity.get("query_relevance_score", 0),
+            "domain_relevance_score": opportunity.get("domain_relevance_score", 0),
             "query_domain_similarity": opportunity.get("query_domain_similarity", round(float(opportunity.get("query_relevance_score", 0) or 0) / 100.0, 2)),
+            "domain_similarity": opportunity.get("domain_similarity", round(float(opportunity.get("domain_relevance_score", 0) or 0) / 100.0, 2)),
             "evidence_count": len(evidence),
             "sources": opportunity.get("sources", []),
             "target_user": opportunity.get("target_user") or opportunity.get("target_customers"),
@@ -779,6 +839,7 @@ class QueryGenerationService:
             if not domain_terms:
                 return True
             negative_terms = {
+                "accounting": {"fitness", "workout", "amazon", "seller", "education", "student", "teacher", "real estate", "rental property", "cybersecurity"},
                 "fitness": {"education", "student", "teacher", "course", "classroom", "rental property", "real estate"},
                 "cybersecurity": {"rental property", "real estate", "student", "education"},
                 "amazon": {"fitness", "workout", "education", "student", "teacher", "real estate", "rental property"},
@@ -796,7 +857,11 @@ class QueryGenerationService:
             return relevance
 
         def _keep_opportunity(opportunity: dict) -> bool:
-            return _opportunity_relevance(opportunity) >= 80 and _opportunity_domain_match(opportunity)
+            return (
+                _opportunity_relevance(opportunity) >= 80
+                and float(opportunity.get("domain_relevance_score", 0) or 0) >= 80
+                and _opportunity_domain_match(opportunity)
+            )
 
         mixed_domain_discarded = sum(1 for opp in opportunities if not _keep_opportunity(opp))
 
@@ -851,7 +916,8 @@ class QueryGenerationService:
                     "source_type": meta.get("source_type", "unknown"),
                     "url": meta.get("url", ""),
                     "relevance_score": item.score,
-                    "title": item.content[:120],
+                    "title": meta.get("title") or item.content[:120],
+                    "snippet": item.content[:240],
                 }
             )
         unique_opportunities = [opp for opp in _unique_opportunities(opportunities, limit=10) if _keep_opportunity(opp)]
@@ -891,6 +957,7 @@ class QueryGenerationService:
                     "evidence_score": opp.get("evidence_score", 0),
                     "whitespace_score": opp.get("whitespace_score", 0),
                     "query_relevance_score": opp.get("query_relevance_score", 0),
+                    "domain_relevance_score": opp.get("domain_relevance_score", 0),
                     "target_user": opp.get("target_user") or opp.get("target_customers"),
                     "implementation_difficulty": "medium" if opp.get("feasibility_score", 0) < 60 else "low",
                     "mvp_suggestion": opp.get("solution", ""),
@@ -924,6 +991,7 @@ class QueryGenerationService:
                         "competition_score": opp.get("competition_score", 0),
                         "competition_level": _normalize_competition_level(opp.get("competition_level"), opp.get("competition_score")),
                         "query_relevance_score": opp.get("query_relevance_score", 0),
+                        "domain_relevance_score": opp.get("domain_relevance_score", 0),
                         "sources": opp.get("sources", sources) if isinstance(opp.get("sources"), list) else sources,
                         "mvp_suggestion": opp.get("solution", ""),
                         "cluster_name": cluster_name,

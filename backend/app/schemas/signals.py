@@ -12,6 +12,7 @@ class Signal(BaseModel):
     query_id: str | None = None
     query_domain: str = "general"
     query_relevance_score: float = 0.0
+    domain_relevance_score: float = 0.0
     title: str
     content: str = ""
     url: str = ""

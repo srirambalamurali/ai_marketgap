@@ -3,11 +3,16 @@ from app.services.query_guardrails import (
     calculate_query_relevance_score,
     infer_query_domain,
     is_github_repo_noise,
+    is_opportunity_name_noise,
 )
 
 
 def test_infer_query_domain_fitness():
     assert infer_query_domain("Find opportunities in fitness technology") == "fitness"
+
+
+def test_infer_query_domain_accounting():
+    assert infer_query_domain("small business accounting") == "accounting"
 
 
 def test_query_relevance_blocks_irrelevant_domains():
@@ -23,3 +28,9 @@ def test_repo_noise_is_rejected():
     assert is_github_repo_noise("Reluctant2828 System-Fitness-Advisor-Skill", source="github") is True
     assert is_github_repo_noise("Javlonbek1233 Apex-Premium-Fitness", source="github") is True
     assert is_github_repo_noise("Personalized Course Recommendation Engine", source="github") is False
+
+
+def test_opportunity_name_noise_rejects_repo_like_titles():
+    assert is_opportunity_name_noise("Alexismcruz Accountingappforsmallbusinesses Copilot", query="small business accounting", domain="accounting") is True
+    assert is_opportunity_name_noise("Reluctant2828 System-Fitness-Advisor-Skill Copilot", query="fitness technology", domain="fitness") is True
+    assert is_opportunity_name_noise("AI Bookkeeping Assistant", query="small business accounting", domain="accounting") is False

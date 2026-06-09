@@ -3,7 +3,7 @@ from typing import Any
 from app.agents.base import BaseAgent
 from app.llm.helpers import invoke_llm_json
 from app.schemas.analysis import Opportunity
-from app.services.query_guardrails import calculate_query_relevance_score, infer_query_domain
+from app.services.query_guardrails import calculate_query_relevance_score, infer_query_domain, is_opportunity_name_noise
 from app.utils.logging import get_logger
 
 logger = get_logger("agents.opportunity")
@@ -71,6 +71,8 @@ Return a JSON array. Return ONLY the JSON array."""
                 combined_text = f"{title} {description}".strip()
                 relevance_score = calculate_query_relevance_score(query, combined_text, domain=query_domain)
                 if query and relevance_score < 80.0:
+                    continue
+                if is_opportunity_name_noise(title, query=query, domain=query_domain):
                     continue
                 opp = Opportunity(
                     id=str(uuid.uuid4()),

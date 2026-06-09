@@ -22,6 +22,7 @@ class MarketSignal(Base):
     source_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     query_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), nullable=True, index=True)
     query_domain: Mapped[str] = mapped_column(String(50), nullable=False, default="general", index=True)
+    domain_relevance_score: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
     title: Mapped[str] = mapped_column(Text, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False, default="")
     url: Mapped[str] = mapped_column(Text, nullable=False, default="")
