@@ -12,7 +12,7 @@ class GitHubSource:
     def __init__(self) -> None:
         settings = get_settings()
         self.token = settings.github_token
-        self.timeout = httpx.Timeout(30.0, connect=10.0)
+        self.timeout = httpx.Timeout(float(settings.request_timeout_seconds))
 
     def _headers(self) -> dict[str, str]:
         headers = {

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import time
 import uuid
 import math
 from collections import Counter, defaultdict
@@ -20,7 +21,7 @@ from app.utils.logging import get_logger
 
 logger = get_logger("services.opportunity_intelligence")
 
-OPPORTUNITY_SOURCES = {"github", "hackernews", "rss", "google_trends"}
+OPPORTUNITY_SOURCES = {"github", "hackernews", "rss", "google_trends", "stackexchange"}
 STOPWORDS = {
     "the", "and", "for", "with", "that", "this", "from", "have", "will", "what",
     "your", "into", "about", "when", "been", "they", "them", "there", "their",
@@ -47,6 +48,11 @@ DOMAIN_EXPANSIONS = {
     ],
     "education": ["education", "edtech", "learning", "students", "student", "teachers", "teacher", "courses", "course", "exams", "exam", "tutoring", "tutor", "lms", "classroom", "study", "lesson", "assessment", "school", "college"],
     "amazon": ["amazon", "seller", "marketplace", "ecommerce", "fba", "inventory", "reviews", "review", "product research", "listing optimization", "pricing", "ads", "asin", "ppc", "keyword"],
+    "marketing": ["marketing", "marketing automation", "campaign", "lead qualification", "attribution", "personalization", "content ops", "seo", "email automation", "pipeline analytics", "social media"],
+    "sales": ["sales", "crm", "pipeline", "lead scoring", "outreach", "deal tracking", "account based selling", "sales enablement", "sales forecasting", "forecasting"],
+    "restaurant": ["restaurant", "pos", "inventory", "reservation", "staff scheduling", "kitchen", "menu analytics", "delivery operations", "food delivery"],
+    "hr": ["hr", "recruiting", "recruitment", "applicant tracking", "resume screening", "interview scheduling", "candidate sourcing", "onboarding automation", "workforce analytics"],
+    "legal": ["legal", "contract", "document review", "clause extraction", "workflow automation", "compliance document automation", "legal research", "matter management"],
     "productivity": [
         "students",
         "student",
@@ -331,6 +337,55 @@ SOURCE_CREDIBILITY = {
 }
 
 CLUSTER_BLUEPRINTS: dict[str, dict[str, str]] = {
+    "marketing": {
+        "campaign_optimization": "campaign optimization",
+        "lead_qualification": "lead qualification",
+        "attribution": "attribution",
+        "content_ops": "content operations",
+        "personalization": "personalization",
+        "pipeline_analytics": "pipeline analytics",
+        "email_automation": "email automation",
+        "revenue_ops": "revenue operations",
+        "seo_tools": "SEO tools",
+        "social_scheduling": "social media scheduling",
+    },
+    "sales": {
+        "crm_workflow": "CRM workflow",
+        "pipeline_management": "pipeline management",
+        "lead_scoring": "lead scoring",
+        "outreach_automation": "outreach automation",
+        "deal_tracking": "deal tracking",
+        "account_based_selling": "account-based selling",
+        "sales_enablement": "sales enablement",
+        "sales_forecasting": "sales forecasting",
+    },
+    "restaurant": {
+        "pos_workflow": "restaurant POS workflow",
+        "inventory_management": "restaurant inventory management",
+        "reservation_management": "table booking and reservations",
+        "staff_scheduling": "staff scheduling",
+        "kitchen_operations": "kitchen operations",
+        "menu_analytics": "menu analytics",
+        "delivery_operations": "food delivery operations",
+    },
+    "hr": {
+        "applicant_tracking": "applicant tracking",
+        "resume_screening": "resume screening",
+        "interview_scheduling": "interview scheduling",
+        "candidate_sourcing": "candidate sourcing",
+        "onboarding_automation": "onboarding automation",
+        "workforce_analytics": "workforce analytics",
+        "compliance_workflow": "HR compliance workflow",
+    },
+    "legal": {
+        "contract_automation": "contract automation",
+        "document_review": "legal document review",
+        "clause_extraction": "clause extraction",
+        "workflow_automation": "legal workflow automation",
+        "compliance_documents": "compliance document automation",
+        "legal_research": "legal research",
+        "matter_management": "matter management",
+    },
     "accounting": {
         "bookkeeping_automation": "bookkeeping automation",
         "invoice_reconciliation": "invoice reconciliation",
@@ -584,6 +639,11 @@ def _domain_match_text(text: str, domain: str) -> bool:
     lowered = text.lower()
     positive_terms = {
         "accounting": {"accounting", "bookkeeping", "invoice", "receipt", "expense", "cash flow", "payroll", "tax", "vat", "gst", "ledger", "reconciliation", "financial", "reporting", "small business", "bookkeeping automation", "invoice reconciliation", "expense tracking", "cash flow forecasting", "tax compliance", "payroll automation", "accounts payable", "accounts receivable"},
+        "marketing": {"marketing", "campaign", "lead", "lead generation", "lead qualification", "attribution", "content", "personalization", "email", "seo", "social", "revenue operations", "pipeline analytics"},
+        "sales": {"sales", "crm", "pipeline", "prospecting", "revenue", "quota", "outreach", "deal", "deals", "conversion", "lead generation", "lead qualification", "sales automation", "forecasting", "account-based", "enablement"},
+        "restaurant": {"restaurant", "pos", "inventory", "reservation", "reservations", "staff", "scheduling", "kitchen", "menu", "delivery", "food", "table"},
+        "hr": {"hr", "recruiting", "recruitment", "applicant", "candidate", "onboarding", "interview", "resume", "workforce", "talent"},
+        "legal": {"legal", "contract", "clause", "document", "review", "compliance", "matter", "research", "ops", "automation"},
         "fitness": {"fitness", "workout", "gym", "wellness", "nutrition", "sports", "health", "coach", "member", "runner", "running", "treadmill", "cardio", "race", "tracker", "tracking", "wearable", "wearables", "athletic", "performance"},
         "cybersecurity": {"cyber", "security", "threat", "incident", "alert", "siem", "soc", "vulnerability", "cloud", "identity", "access", "detection"},
         "amazon": {"amazon", "seller", "marketplace", "ecommerce", "inventory", "pricing", "review", "reviews", "fulfillment", "listing", "product research", "ads", "fba", "asin", "ppc", "keyword"},
@@ -594,6 +654,11 @@ def _domain_match_text(text: str, domain: str) -> bool:
     }
     negative_terms = {
         "accounting": {"fitness", "workout", "gym", "student", "teacher", "course", "real estate", "rental property", "cybersecurity"},
+        "marketing": {"student", "teacher", "course", "exam", "real estate", "rental property", "fitness", "workout", "gym"},
+        "sales": {"education", "student", "teacher", "course", "real estate", "rental property", "fitness", "workout", "gym"},
+        "restaurant": {"student", "teacher", "course", "exam", "real estate", "rental property", "fitness", "workout", "gym", "cybersecurity"},
+        "hr": {"fitness", "workout", "gym", "amazon", "seller", "real estate", "rental property"},
+        "legal": {"fitness", "workout", "gym", "amazon", "seller", "student", "teacher", "course", "real estate", "rental property"},
         "fitness": {"github copilot", "admin ui", "staging", "queue", "json api", "backend", "frontend", "codealpha", "exercise crud", "copy to clipboard", "build applications", "task", "application"},
         "cybersecurity": {"realestate", "rental property", "student", "education", "amazon", "seller"},
         "amazon": {"student", "education", "fitness", "workout", "realestate", "rental property"},
@@ -639,6 +704,55 @@ def _select_product_name(
         "financial_reporting": "Financial Reporting Copilot",
         "accounts_payable": "Accounts Payable Automation",
         "accounts_receivable": "Accounts Receivable Automation",
+    }
+    marketing_names = {
+        "campaign_optimization": "Marketing Campaign Optimization Copilot",
+        "lead_qualification": "Lead Qualification Assistant",
+        "attribution": "Marketing Attribution Copilot",
+        "content_ops": "Content Operations Assistant",
+        "personalization": "Personalization Workflow Copilot",
+        "pipeline_analytics": "Pipeline Analytics Copilot",
+        "email_automation": "Email Automation Assistant",
+        "revenue_ops": "Revenue Operations Copilot",
+        "seo_tools": "SEO Tools Assistant",
+        "social_scheduling": "Social Media Scheduling Copilot",
+    }
+    sales_names = {
+        "crm_workflow": "CRM Workflow Copilot",
+        "pipeline_management": "Sales Pipeline Assistant",
+        "lead_scoring": "Lead Scoring Copilot",
+        "outreach_automation": "Outreach Automation Assistant",
+        "deal_tracking": "Deal Tracking Copilot",
+        "account_based_selling": "Account-Based Selling Assistant",
+        "sales_enablement": "Sales Enablement Copilot",
+        "sales_forecasting": "Sales Forecasting Assistant",
+    }
+    restaurant_names = {
+        "pos_workflow": "Restaurant POS Workflow Assistant",
+        "inventory_management": "Restaurant Inventory Copilot",
+        "reservation_management": "Table Booking Assistant",
+        "staff_scheduling": "Staff Scheduling Copilot",
+        "kitchen_operations": "Kitchen Operations Assistant",
+        "menu_analytics": "Menu Analytics Copilot",
+        "delivery_operations": "Food Delivery Operations Assistant",
+    }
+    hr_names = {
+        "applicant_tracking": "Applicant Tracking Copilot",
+        "resume_screening": "Resume Screening Assistant",
+        "interview_scheduling": "Interview Scheduling Copilot",
+        "candidate_sourcing": "Candidate Sourcing Assistant",
+        "onboarding_automation": "Onboarding Automation Copilot",
+        "workforce_analytics": "Workforce Analytics Assistant",
+        "compliance_workflow": "HR Compliance Copilot",
+    }
+    legal_names = {
+        "contract_automation": "Contract Automation Copilot",
+        "document_review": "Legal Document Review Assistant",
+        "clause_extraction": "Clause Extraction Copilot",
+        "workflow_automation": "Legal Workflow Automation Assistant",
+        "compliance_documents": "Compliance Document Automation Copilot",
+        "legal_research": "Legal Research Assistant",
+        "matter_management": "Matter Management Copilot",
     }
     amazon_names = {
         "inventory_forecasting": "Seller Inventory Forecasting Copilot",
@@ -686,11 +800,31 @@ def _select_product_name(
     }
     def _finalize(candidate: str) -> str:
         safe_candidate = re.sub(r"\s+", " ", candidate).strip()
+        parts = safe_candidate.split()
+        for chunk_size in (3, 2, 1):
+            if len(parts) >= chunk_size * 2 and parts[:chunk_size] == parts[chunk_size:chunk_size * 2]:
+                parts = parts[:chunk_size]
+                break
+        collapsed_parts: list[str] = []
+        for part in parts:
+            if not collapsed_parts or collapsed_parts[-1].lower() != part.lower():
+                collapsed_parts.append(part)
+        safe_candidate = " ".join(collapsed_parts).strip()
         if not safe_candidate:
             safe_candidate = _build_safe_product_name(cluster_name or topic or query or "market insight", suffix="Copilot")
         if is_opportunity_name_noise(safe_candidate, query=query, domain=domain):
             if domain == "accounting" and cluster_key in accounting_names:
                 safe_candidate = accounting_names[cluster_key]
+            elif domain == "marketing" and cluster_key in marketing_names:
+                safe_candidate = marketing_names[cluster_key]
+            elif domain == "sales" and cluster_key in sales_names:
+                safe_candidate = sales_names[cluster_key]
+            elif domain == "restaurant" and cluster_key in restaurant_names:
+                safe_candidate = restaurant_names[cluster_key]
+            elif domain == "hr" and cluster_key in hr_names:
+                safe_candidate = hr_names[cluster_key]
+            elif domain == "legal" and cluster_key in legal_names:
+                safe_candidate = legal_names[cluster_key]
             elif domain == "amazon" and cluster_key in amazon_names:
                 safe_candidate = amazon_names[cluster_key]
             elif domain == "education" and cluster_key in education_names:
@@ -709,6 +843,16 @@ def _select_product_name(
 
     if domain == "accounting" and cluster_key in accounting_names:
         return _finalize(accounting_names[cluster_key])
+    if domain == "marketing" and cluster_key in marketing_names:
+        return _finalize(marketing_names[cluster_key])
+    if domain == "sales" and cluster_key in sales_names:
+        return _finalize(sales_names[cluster_key])
+    if domain == "restaurant" and cluster_key in restaurant_names:
+        return _finalize(restaurant_names[cluster_key])
+    if domain == "hr" and cluster_key in hr_names:
+        return _finalize(hr_names[cluster_key])
+    if domain == "legal" and cluster_key in legal_names:
+        return _finalize(legal_names[cluster_key])
     if domain == "amazon" and cluster_key in amazon_names:
         return _finalize(amazon_names[cluster_key])
     if domain == "education" and cluster_key in education_names:
@@ -825,6 +969,12 @@ def _make_variant_name(base_name: str, problem: str, used_names: set[str], clust
 
     for candidate in candidates:
         candidate = re.sub(r"\s+", " ", candidate).strip()
+        parts = candidate.split()
+        collapsed_parts: list[str] = []
+        for part in parts:
+            if not collapsed_parts or collapsed_parts[-1].lower() != part.lower():
+                collapsed_parts.append(part)
+        candidate = " ".join(collapsed_parts).strip()
         if 3 <= len(candidate.split()) <= 5 and _normalize_name(candidate) not in used_names and not is_opportunity_name_noise(candidate):
             return candidate
     return None
@@ -864,6 +1014,78 @@ def _cluster_label(text: str, domain: str) -> str:
         if any(term in text for term in ("fraud", "chargeback", "abuse", "anomaly")):
             return "fraud_detection"
         return "bookkeeping_automation"
+    if domain == "marketing":
+        if any(term in text for term in ("seo", "search", "keyword", "rank", "organic")):
+            return "seo_tools"
+        if any(term in text for term in ("email", "newsletter", "drip", "sequence")):
+            return "email_automation"
+        if any(term in text for term in ("attribution", "utm", "tracking", "source", "campaign")):
+            return "attribution"
+        if any(term in text for term in ("content", "blog", "editorial", "calendar", "asset")):
+            return "content_ops"
+        if any(term in text for term in ("personalization", "segment", "audience", "targeting")):
+            return "personalization"
+        if any(term in text for term in ("lead", "mql", "sql", "qualification")):
+            return "lead_qualification"
+        if any(term in text for term in ("social", "schedule", "scheduler", "publishing")):
+            return "social_scheduling"
+        if any(term in text for term in ("revenue", "ops", "pipeline", "analytics")):
+            return "pipeline_analytics"
+        return "campaign_optimization"
+    if domain == "sales":
+        if any(term in text for term in ("crm", "workflow", "objects", "automation")):
+            return "crm_workflow"
+        if any(term in text for term in ("pipeline", "stage", "deal", "forecast")):
+            return "pipeline_management"
+        if any(term in text for term in ("lead scoring", "score", "qualification")):
+            return "lead_scoring"
+        if any(term in text for term in ("outreach", "sequence", "cold email", "follow-up")):
+            return "outreach_automation"
+        if any(term in text for term in ("account based", "abm", "account management")):
+            return "account_based_selling"
+        if any(term in text for term in ("enablement", "playbook", "content", "battlecard")):
+            return "sales_enablement"
+        return "deal_tracking"
+    if domain == "restaurant":
+        if any(term in text for term in ("pos", "point of sale", "checkout", "register")):
+            return "pos_workflow"
+        if any(term in text for term in ("inventory", "stock", "ingredient", "supplier")):
+            return "inventory_management"
+        if any(term in text for term in ("reservation", "booking", "table")):
+            return "reservation_management"
+        if any(term in text for term in ("staff", "shift", "schedule", "roster")):
+            return "staff_scheduling"
+        if any(term in text for term in ("kitchen", "prep", "order", "fulfillment")):
+            return "kitchen_operations"
+        if any(term in text for term in ("menu", "item", "pricing", "popular")):
+            return "menu_analytics"
+        return "delivery_operations"
+    if domain == "hr":
+        if any(term in text for term in ("resume", "screen", "screening", "cv")):
+            return "resume_screening"
+        if any(term in text for term in ("interview", "scheduling", "calendar")):
+            return "interview_scheduling"
+        if any(term in text for term in ("candidate", "sourcing", "talent")):
+            return "candidate_sourcing"
+        if any(term in text for term in ("onboarding", "new hire", "orientation")):
+            return "onboarding_automation"
+        if any(term in text for term in ("compliance", "policy", "audit")):
+            return "compliance_workflow"
+        return "applicant_tracking"
+    if domain == "legal":
+        if any(term in text for term in ("contract", "agreement", "clause")):
+            return "contract_automation"
+        if any(term in text for term in ("review", "redline", "document")):
+            return "document_review"
+        if any(term in text for term in ("extract", "clause", "provision")):
+            return "clause_extraction"
+        if any(term in text for term in ("workflow", "ops", "automation")):
+            return "workflow_automation"
+        if any(term in text for term in ("compliance", "policy", "regulation")):
+            return "compliance_documents"
+        if any(term in text for term in ("research", "precedent", "case law")):
+            return "legal_research"
+        return "matter_management"
     if domain == "fitness" and not _domain_match_text(text, domain):
         return "training_progress"
     if domain == "amazon":
@@ -1004,6 +1226,55 @@ def _cluster_display_name(domain: str, cluster_id: str) -> str:
 
 def _cluster_priority(domain: str, cluster_id: str) -> int:
     priorities = {
+        "marketing": [
+            "campaign_optimization",
+            "lead_qualification",
+            "attribution",
+            "content_ops",
+            "personalization",
+            "pipeline_analytics",
+            "email_automation",
+            "revenue_ops",
+            "seo_tools",
+            "social_scheduling",
+        ],
+        "sales": [
+            "crm_workflow",
+            "pipeline_management",
+            "lead_scoring",
+            "outreach_automation",
+            "deal_tracking",
+            "account_based_selling",
+            "sales_enablement",
+            "sales_forecasting",
+        ],
+        "restaurant": [
+            "pos_workflow",
+            "inventory_management",
+            "reservation_management",
+            "staff_scheduling",
+            "kitchen_operations",
+            "menu_analytics",
+            "delivery_operations",
+        ],
+        "hr": [
+            "applicant_tracking",
+            "resume_screening",
+            "interview_scheduling",
+            "candidate_sourcing",
+            "onboarding_automation",
+            "workforce_analytics",
+            "compliance_workflow",
+        ],
+        "legal": [
+            "contract_automation",
+            "document_review",
+            "clause_extraction",
+            "workflow_automation",
+            "compliance_documents",
+            "legal_research",
+            "matter_management",
+        ],
         "accounting": [
             "bookkeeping_automation",
             "invoice_reconciliation",
@@ -1271,6 +1542,55 @@ def _startup_name_from_topic(topic: str) -> str:
 def _problem_statement_for(topic: str, query: str, signals: list[MarketSignal], *, domain: str = "general", cluster_key: str = "") -> str:
     text = f"{topic} {query} {cluster_key} {' '.join(f'{s.title} {s.content}' for s in signals[:5])}".lower()
     problems = {
+        "marketing": {
+            "campaign_optimization": "Marketing teams struggle to identify which campaigns waste spend and which optimizations actually move conversions.",
+            "lead_qualification": "Growth teams struggle to qualify leads quickly enough to keep up with inbound demand.",
+            "attribution": "Teams struggle to connect campaigns to downstream conversions and revenue with confidence.",
+            "content_ops": "Teams struggle to coordinate content production, publishing, and performance tracking in one workflow.",
+            "personalization": "Marketers struggle to personalize messaging across audiences without fragmenting their workflow.",
+            "pipeline_analytics": "Marketing teams struggle to understand how campaign activity flows into pipeline and revenue.",
+            "email_automation": "Teams struggle to manage email sequences and timing without losing engagement.",
+            "revenue_ops": "Teams struggle to unify marketing, lead, and pipeline signals into one operating view.",
+            "seo_tools": "Teams struggle to keep up with keyword, ranking, and content opportunity changes.",
+            "social_scheduling": "Teams struggle to keep social publishing consistent and measurable.",
+        },
+        "sales": {
+            "crm_workflow": "Sales teams lose time to manual CRM updates and workflow handoffs.",
+            "pipeline_management": "Sales leaders struggle to keep pipeline stages clean and forecastable.",
+            "lead_scoring": "Sales teams struggle to prioritize the right leads at the right time.",
+            "outreach_automation": "Sales reps struggle to run timely outreach sequences without dropping follow-ups.",
+            "deal_tracking": "Reps and managers struggle to spot stalled deals before they slip.",
+            "account_based_selling": "Teams struggle to coordinate engagement across target accounts and stakeholders.",
+            "sales_enablement": "Sales teams struggle to surface the right playbooks and content when reps need them.",
+            "sales_forecasting": "Sales leaders struggle to produce accurate forecasts from noisy pipeline data.",
+        },
+        "restaurant": {
+            "pos_workflow": "Restaurant staff struggle with slow checkout and order flow at the point of sale.",
+            "inventory_management": "Restaurants struggle to keep ingredient inventory aligned with demand and waste.",
+            "reservation_management": "Operators struggle to maximize table utilization while reducing no-shows.",
+            "staff_scheduling": "Managers struggle to build schedules that match demand and labor constraints.",
+            "kitchen_operations": "Kitchen teams struggle to keep prep and ticket flow moving without bottlenecks.",
+            "menu_analytics": "Operators struggle to understand which menu items drive margin and demand.",
+            "delivery_operations": "Restaurants struggle to coordinate delivery handoffs and fulfillment reliably.",
+        },
+        "hr": {
+            "applicant_tracking": "Recruiters struggle to keep candidate pipelines organized and moving.",
+            "resume_screening": "Recruiters struggle to screen large volumes of resumes efficiently.",
+            "interview_scheduling": "HR teams struggle to coordinate interviews without delays.",
+            "candidate_sourcing": "Talent teams struggle to source candidates across fragmented channels.",
+            "onboarding_automation": "HR teams struggle to keep onboarding steps consistent across hires.",
+            "workforce_analytics": "HR leaders struggle to understand retention and workforce trends quickly.",
+            "compliance_workflow": "HR teams struggle to keep policy, audit, and compliance tasks current.",
+        },
+        "legal": {
+            "contract_automation": "Legal teams waste time drafting and routing routine contracts manually.",
+            "document_review": "Legal reviewers struggle to keep up with repetitive review work.",
+            "clause_extraction": "Teams struggle to extract key clauses and obligations from documents quickly.",
+            "workflow_automation": "Legal ops teams struggle to automate repetitive workflow steps.",
+            "compliance_documents": "Teams struggle to maintain compliance documentation without manual overhead.",
+            "legal_research": "Legal teams struggle to accelerate research and precedent gathering.",
+            "matter_management": "Legal ops teams struggle to keep matters, tasks, and status aligned.",
+        },
         "accounting": {
             "bookkeeping_automation": "Small business teams struggle to keep books current because categorization, reconciliation, and data entry are manual.",
             "invoice_reconciliation": "Teams struggle to match invoices, payments, and purchase orders without spending hours chasing mismatches.",
@@ -1518,6 +1838,55 @@ def _customer_for(topic: str, query: str | None = None, *, domain: str = "genera
             "accounts_receivable": "Finance teams and billing operators.",
             "fraud_detection": "Finance and accounting teams monitoring suspicious activity.",
         },
+        "marketing": {
+            "campaign_optimization": "Marketing teams, growth operators, and agencies.",
+            "lead_qualification": "Growth teams and demand generation operators.",
+            "attribution": "Marketing ops teams and revenue teams.",
+            "content_ops": "Content marketing teams and growth marketers.",
+            "personalization": "Lifecycle marketing teams and customer marketing operators.",
+            "pipeline_analytics": "Marketing ops and revenue operations teams.",
+            "email_automation": "Lifecycle marketers and email operations teams.",
+            "revenue_ops": "Revenue operations teams and growth leaders.",
+            "seo_tools": "SEO teams, content marketers, and growth operators.",
+            "social_scheduling": "Social media managers and content teams.",
+        },
+        "sales": {
+            "crm_workflow": "Sales teams, CRM admins, and revenue operators.",
+            "pipeline_management": "Sales managers, reps, and revenue operations teams.",
+            "lead_scoring": "Sales development teams and demand generation operators.",
+            "outreach_automation": "Sales reps and outbound teams.",
+            "deal_tracking": "Reps and sales managers.",
+            "account_based_selling": "Enterprise sales teams and ABM operators.",
+            "sales_enablement": "Sales enablement teams and managers.",
+            "sales_forecasting": "Sales leaders and forecasting teams.",
+        },
+        "restaurant": {
+            "pos_workflow": "Restaurant operators, cashiers, and front-of-house teams.",
+            "inventory_management": "Restaurant managers and inventory planners.",
+            "reservation_management": "Restaurant hosts, managers, and front-of-house teams.",
+            "staff_scheduling": "Restaurant managers and shift planners.",
+            "kitchen_operations": "Kitchen managers and back-of-house teams.",
+            "menu_analytics": "Restaurant owners and menu planners.",
+            "delivery_operations": "Restaurant operators and delivery coordinators.",
+        },
+        "hr": {
+            "applicant_tracking": "Recruiters and talent acquisition teams.",
+            "resume_screening": "Recruiters and screening teams.",
+            "interview_scheduling": "Recruiters and interview coordinators.",
+            "candidate_sourcing": "Talent teams and sourcers.",
+            "onboarding_automation": "HR operations and onboarding teams.",
+            "workforce_analytics": "HR leaders and people analytics teams.",
+            "compliance_workflow": "HR compliance and policy teams.",
+        },
+        "legal": {
+            "contract_automation": "Legal ops and contract teams.",
+            "document_review": "Legal reviewers and operations teams.",
+            "clause_extraction": "Legal analysts and contract teams.",
+            "workflow_automation": "Legal operations teams.",
+            "compliance_documents": "Compliance and legal ops teams.",
+            "legal_research": "Legal researchers and attorneys.",
+            "matter_management": "Legal ops and matter managers.",
+        },
         "cybersecurity": {
             "threat_detection": "Security operations teams and threat hunters.",
             "incident_response": "SOC analysts, incident responders, and security managers.",
@@ -1608,6 +1977,16 @@ def _customer_for(topic: str, query: str | None = None, *, domain: str = "genera
 def _revenue_model(topic: str, query: str | None = None, *, domain: str = "general", cluster_key: str = "") -> str:
     if domain == "amazon":
         return "Subscription SaaS with seller-tier pricing and usage-based workflow credits."
+    if domain == "marketing":
+        return "Subscription SaaS with campaign, agency, and revenue-ops tiers."
+    if domain == "sales":
+        return "Subscription SaaS with rep, manager, and revenue-ops tiers."
+    if domain == "restaurant":
+        return "Subscription SaaS with location, manager, and operations tiers."
+    if domain == "hr":
+        return "Subscription SaaS with recruiter, team, and talent-ops tiers."
+    if domain == "legal":
+        return "Subscription SaaS with matter, team, and compliance workflow tiers."
     if domain == "education":
         return "Subscription SaaS with school, district, teacher, and student plans."
     if domain == "productivity":
@@ -1626,6 +2005,250 @@ def _revenue_model(topic: str, query: str | None = None, *, domain: str = "gener
 
 def _mvp_features(topic: str, query: str | None = None, *, domain: str = "general", cluster_key: str = "") -> list[str]:
     feature_sets = {
+        "marketing": {
+            "campaign_optimization": [
+                "Ingest live campaign signals",
+                "Identify wasted spend and underperforming channels",
+                "Recommend optimization actions by channel",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "lead_qualification": [
+                "Score inbound leads from live intent signals",
+                "Prioritize accounts and segments",
+                "Recommend qualification rules",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "attribution": [
+                "Connect campaigns to conversion signals",
+                "Surface missing attribution coverage",
+                "Recommend tracking and measurement fixes",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "content_ops": [
+                "Track content performance and workflow bottlenecks",
+                "Recommend editorial and asset operations improvements",
+                "Surface underperforming content clusters",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "personalization": [
+                "Segment audience signals and behavior",
+                "Recommend personalization opportunities",
+                "Track conversion lift by segment",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "pipeline_analytics": [
+                "Map marketing-sourced pipeline signals",
+                "Surface funnel drop-offs",
+                "Recommend revenue ops improvements",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "email_automation": [
+                "Track email sequences and engagement",
+                "Recommend automation and timing improvements",
+                "Surface deliverability and conversion issues",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "revenue_ops": [
+                "Unify campaign, lead, and pipeline signals",
+                "Track revenue ops bottlenecks",
+                "Recommend workflow automations",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "seo_tools": [
+                "Track keyword, ranking, and content signals",
+                "Surface SEO coverage gaps",
+                "Recommend pages and content to improve",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "social_scheduling": [
+                "Track publishing cadence and engagement",
+                "Recommend scheduling improvements",
+                "Surface content workflow gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+        },
+        "sales": {
+            "crm_workflow": [
+                "Unify CRM events and workflow signals",
+                "Recommend automation across pipeline updates",
+                "Surface missing handoffs and stale records",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "pipeline_management": [
+                "Track deal stage movement and bottlenecks",
+                "Recommend forecasting and stage hygiene improvements",
+                "Surface conversion drop-offs",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "lead_scoring": [
+                "Score inbound and outbound leads from live signals",
+                "Recommend prioritization rules",
+                "Track lead quality changes over time",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "outreach_automation": [
+                "Track sequence performance and reply signals",
+                "Recommend outreach automation improvements",
+                "Surface deliverability and follow-up gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "deal_tracking": [
+                "Monitor deal milestones and stall points",
+                "Recommend next-best actions for reps",
+                "Surface at-risk opportunities",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "account_based_selling": [
+                "Map account engagement and stakeholder signals",
+                "Recommend ABM workflow improvements",
+                "Surface target account coverage gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "sales_enablement": [
+                "Track content usage and rep productivity",
+                "Recommend enablement improvements",
+                "Surface missing playbook coverage",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "sales_forecasting": [
+                "Track forecast accuracy and deal velocity",
+                "Recommend pipeline forecasting improvements",
+                "Surface volatility and risk gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+        },
+        "restaurant": {
+            "pos_workflow": [
+                "Track point-of-sale workflow signals",
+                "Recommend operational automation at checkout",
+                "Surface order and payment bottlenecks",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "inventory_management": [
+                "Track ingredient and supply inventory signals",
+                "Recommend reorder and waste reduction actions",
+                "Surface stockout risk",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "reservation_management": [
+                "Track booking and table demand signals",
+                "Recommend reservation workflow improvements",
+                "Surface no-show and utilization gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "staff_scheduling": [
+                "Track shift and labor demand signals",
+                "Recommend schedule optimization",
+                "Surface staffing gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "kitchen_operations": [
+                "Track kitchen throughput and ticket signals",
+                "Recommend workflow and prep improvements",
+                "Surface delay and bottleneck causes",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "menu_analytics": [
+                "Track menu performance and item mix",
+                "Recommend menu and pricing changes",
+                "Surface low-margin items",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "delivery_operations": [
+                "Track delivery workflow and fulfillment signals",
+                "Recommend delivery ops improvements",
+                "Surface late-order and handoff issues",
+                "Generate evidence-backed opportunity briefs",
+            ],
+        },
+        "hr": {
+            "applicant_tracking": [
+                "Track candidate pipeline signals",
+                "Recommend ATS workflow improvements",
+                "Surface stage bottlenecks",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "resume_screening": [
+                "Score resumes and shortlist patterns from live signals",
+                "Recommend screening automation improvements",
+                "Surface quality and bias risks",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "interview_scheduling": [
+                "Track interview coordination signals",
+                "Recommend scheduling automation",
+                "Surface delay and no-show issues",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "candidate_sourcing": [
+                "Track sourcing channel performance",
+                "Recommend candidate sourcing improvements",
+                "Surface channel gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "onboarding_automation": [
+                "Track new-hire workflow completion signals",
+                "Recommend onboarding automation improvements",
+                "Surface missing steps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "workforce_analytics": [
+                "Track workforce and retention signals",
+                "Recommend analytics and reporting improvements",
+                "Surface engagement and attrition risk",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "compliance_workflow": [
+                "Track HR policy and compliance signals",
+                "Recommend evidence collection automation",
+                "Surface missing controls",
+                "Generate evidence-backed opportunity briefs",
+            ],
+        },
+        "legal": {
+            "contract_automation": [
+                "Track contract drafting and approval signals",
+                "Recommend automation for standard agreements",
+                "Surface approval bottlenecks",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "document_review": [
+                "Track document review workload and bottlenecks",
+                "Recommend review workflow improvements",
+                "Surface repetitive review patterns",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "clause_extraction": [
+                "Track clause extraction and review signals",
+                "Recommend extraction automation improvements",
+                "Surface clause coverage gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "workflow_automation": [
+                "Track legal ops workflow signals",
+                "Recommend automation for routine legal tasks",
+                "Surface handoff delays",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "compliance_documents": [
+                "Track compliance documentation signals",
+                "Recommend evidence collection and filing automation",
+                "Surface document drift",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "legal_research": [
+                "Track research workload and precedent signals",
+                "Recommend research acceleration workflows",
+                "Surface repeated research requests",
+                "Generate evidence-backed opportunity briefs",
+            ],
+            "matter_management": [
+                "Track matter intake and status signals",
+                "Recommend legal ops workflow improvements",
+                "Surface routing and status gaps",
+                "Generate evidence-backed opportunity briefs",
+            ],
+        },
         "cybersecurity": {
             "threat_detection": [
                 "Correlate alerts, logs, and external threat intel",
@@ -2062,6 +2685,70 @@ def _mvp_features(topic: str, query: str | None = None, *, domain: str = "genera
 
 
 def _gtm(topic: str, query: str | None = None, *, domain: str = "general", cluster_key: str = "") -> str:
+    if domain == "marketing":
+        gtm = {
+            "campaign_optimization": "Launch through growth marketers, performance marketing communities, and agency operators.",
+            "lead_qualification": "Launch through demand generation teams, SDR communities, and growth creators.",
+            "attribution": "Launch through marketing ops communities, analytics teams, and measurement creators.",
+            "content_ops": "Launch through content marketing communities and editorial operations creators.",
+            "personalization": "Launch through lifecycle marketers and customer marketing communities.",
+            "pipeline_analytics": "Launch through revenue operations communities and B2B growth operators.",
+            "email_automation": "Launch through email marketing communities and lifecycle creators.",
+            "revenue_ops": "Launch through revenue operations leaders and GTM ops content.",
+            "seo_tools": "Launch through SEO communities, content creators, and search marketing operators.",
+            "social_scheduling": "Launch through social media managers and content scheduling communities.",
+        }
+        if cluster_key in gtm:
+            return gtm[cluster_key]
+    if domain == "sales":
+        gtm = {
+            "crm_workflow": "Launch through CRM admins, sales ops communities, and revenue operations content.",
+            "pipeline_management": "Launch through sales leaders, pipeline management creators, and forecasting communities.",
+            "lead_scoring": "Launch through demand generation teams and sales development communities.",
+            "outreach_automation": "Launch through outbound sales communities and sequence automation creators.",
+            "deal_tracking": "Launch through sales manager communities and deal review content.",
+            "account_based_selling": "Launch through ABM communities and enterprise sales operators.",
+            "sales_enablement": "Launch through sales enablement communities and rep productivity creators.",
+            "sales_forecasting": "Launch through sales leadership, revops, and forecasting content.",
+        }
+        if cluster_key in gtm:
+            return gtm[cluster_key]
+    if domain == "restaurant":
+        gtm = {
+            "pos_workflow": "Launch through restaurant operator communities and POS workflow creators.",
+            "inventory_management": "Launch through restaurant management communities and food cost creators.",
+            "reservation_management": "Launch through hospitality operators and reservation workflow content.",
+            "staff_scheduling": "Launch through restaurant manager groups and labor scheduling creators.",
+            "kitchen_operations": "Launch through kitchen ops communities and restaurant workflow content.",
+            "menu_analytics": "Launch through restaurant owner groups and menu optimization creators.",
+            "delivery_operations": "Launch through delivery ops communities and restaurant logistics content.",
+        }
+        if cluster_key in gtm:
+            return gtm[cluster_key]
+    if domain == "hr":
+        gtm = {
+            "applicant_tracking": "Launch through recruiter communities, HR ops groups, and talent acquisition content.",
+            "resume_screening": "Launch through recruiting teams and screening workflow creators.",
+            "interview_scheduling": "Launch through recruiting coordination communities and HR operations content.",
+            "candidate_sourcing": "Launch through talent sourcing communities and recruiter creators.",
+            "onboarding_automation": "Launch through HR operations and onboarding communities.",
+            "workforce_analytics": "Launch through people analytics teams and HR leadership content.",
+            "compliance_workflow": "Launch through HR compliance leaders and policy workflow content.",
+        }
+        if cluster_key in gtm:
+            return gtm[cluster_key]
+    if domain == "legal":
+        gtm = {
+            "contract_automation": "Launch through legal ops communities and contract automation content.",
+            "document_review": "Launch through legal reviewers and legal operations creators.",
+            "clause_extraction": "Launch through contract review communities and legal tech operators.",
+            "workflow_automation": "Launch through legal operations leaders and workflow automation content.",
+            "compliance_documents": "Launch through compliance teams and legal documentation creators.",
+            "legal_research": "Launch through legal research communities and attorney content.",
+            "matter_management": "Launch through legal ops teams and matter management creators.",
+        }
+        if cluster_key in gtm:
+            return gtm[cluster_key]
     if domain == "amazon":
         gtm = {
             "inventory_forecasting": "Launch through Amazon seller communities, FBA operators, and inventory-focused content.",
@@ -2265,7 +2952,32 @@ class OpportunityIntelligenceService:
     def _domain_from_query(self, query: str) -> str:
         query_lower = query.lower()
         alias_domain = _domain_alias_matches(query_lower)
-        return alias_domain or infer_query_domain(query)
+        domain = alias_domain or infer_query_domain(query)
+        return {
+            "marketing_automation": "marketing",
+            "legal_tech": "legal",
+            "hrtech": "hr",
+        }.get(domain, domain)
+
+    def _evidence_domain_from_signals(self, signals: list[MarketSignal], preferred_domain: str | None = None) -> str:
+        if not signals:
+            return "general"
+        combined_text = " ".join(_signal_text(signal) for signal in signals)
+        scored: list[tuple[float, str]] = []
+        for domain in DOMAIN_EXPANSIONS.keys():
+            score = float(calculate_domain_relevance_score(combined_text, domain=domain) or 0.0)
+            scored.append((score, domain))
+        if not scored:
+            return "general"
+        best_score, best_domain = max(scored, key=lambda item: item[0])
+        preferred_score = 0.0
+        if preferred_domain and preferred_domain != "general":
+            preferred_score = float(calculate_domain_relevance_score(combined_text, domain=preferred_domain) or 0.0)
+            if preferred_score >= 80.0 and preferred_score >= best_score - 5.0:
+                return preferred_domain
+        if best_score >= 80.0:
+            return best_domain
+        return "general"
 
     async def build_opportunities(
         self,
@@ -2276,6 +2988,7 @@ class OpportunityIntelligenceService:
         query_id: uuid.UUID | str | None = None,
         evidence_urls: set[str] | None = None,
     ) -> list[dict]:
+        overall_started = time.perf_counter()
         query_terms = _query_terms(query or "")
         expanded_terms = self._expand_query_terms(query or "")
         domain = self._domain_from_query(query or "")
@@ -2305,7 +3018,22 @@ class OpportunityIntelligenceService:
             }
             return []
 
+        clustering_total_ms = 0
+
         def _generate_from_signal_batch(signal_batch: list[MarketSignal]) -> tuple[list[dict], dict[str, int], dict[str, list[MarketSignal]]]:
+            nonlocal clustering_total_ms
+            def _cleanup_name(value: str) -> str:
+                parts = re.sub(r"\s+", " ", str(value or "")).strip().split()
+                for chunk_size in (3, 2, 1):
+                    if len(parts) >= chunk_size * 2 and parts[:chunk_size] == parts[chunk_size:chunk_size * 2]:
+                        parts = parts[:chunk_size]
+                        break
+                collapsed: list[str] = []
+                for part in parts:
+                    if not collapsed or collapsed[-1].lower() != part.lower():
+                        collapsed.append(part)
+                return " ".join(collapsed).strip()
+
             signal_batch = [
                 signal
                 for signal in signal_batch
@@ -2318,7 +3046,9 @@ class OpportunityIntelligenceService:
                     )
                 )
             ]
+            clustering_started = time.perf_counter()
             clusters = self._cluster_signals(signal_batch, domain=domain)
+            clustering_total_ms += int((time.perf_counter() - clustering_started) * 1000)
             opportunities: list[dict] = []
             salvage_pool: list[dict] = []
             discarded = {
@@ -2326,11 +3056,25 @@ class OpportunityIntelligenceService:
                 "duplicate": 0,
                 "no_evidence": 0,
                 "wrong_domain": 0,
+                "rejected_domain_mismatch": 0,
                 "name_noise": 0,
                 "low_confidence": 0,
                 "salvaged": 0,
             }
             for cluster_key, items in clusters.items():
+                evidence_domain = self._evidence_domain_from_signals(items, preferred_domain=domain)
+                if evidence_domain != domain:
+                    logger.info(
+                        "domain_validation_failed query=%r query_id=%s cluster=%s query_domain=%s opportunity_domain=%s evidence_domain=%s",
+                        query,
+                        query_id,
+                        cluster_key,
+                        domain,
+                        domain,
+                        evidence_domain,
+                    )
+                    discarded["rejected_domain_mismatch"] += 1
+                    continue
                 opportunity = self._build_opportunity(
                     cluster_key,
                     items,
@@ -2344,6 +3088,7 @@ class OpportunityIntelligenceService:
                     discarded["no_evidence"] += 1
                     continue
                 if self._wrong_domain(opportunity, domain):
+                    discarded["rejected_domain_mismatch"] += 1
                     discarded["wrong_domain"] += 1
                     continue
                 if is_opportunity_name_noise(opportunity.get("startup_name", ""), query=query, domain=domain):
@@ -2389,6 +3134,7 @@ class OpportunityIntelligenceService:
                     if not opportunity.get("evidence", {}).get("signals"):
                         continue
                     if self._wrong_domain(opportunity, domain):
+                        discarded["rejected_domain_mismatch"] += 1
                         continue
                     if is_opportunity_name_noise(opportunity.get("startup_name", ""), query=query, domain=domain):
                         continue
@@ -2451,6 +3197,12 @@ class OpportunityIntelligenceService:
                     discarded["salvaged"] += 1
                     if len(opportunities) >= min(limit, 5):
                         break
+            for opportunity in opportunities:
+                cleaned_name = _cleanup_name(opportunity.get("startup_name") or opportunity.get("name") or "")
+                if cleaned_name:
+                    opportunity["startup_name"] = cleaned_name
+                    opportunity["name"] = cleaned_name
+                    opportunity["title"] = cleaned_name
             return opportunities, discarded, clusters
 
         opportunities, discarded, clusters = _generate_from_signal_batch(signals)
@@ -2508,16 +3260,134 @@ class OpportunityIntelligenceService:
                 clusters = {**clusters, **broad_clusters}
                 signals = broad_signals if len(broad_signals) > len(signals) else signals
 
+        if query_id is not None and len(opportunities) < 5 and signals:
+            fallback_candidates: list[tuple[str, list[MarketSignal]]] = []
+            seen_fallback_keys: set[str] = set()
+
+            def _add_fallback_candidate(cluster_key: str, support: list[MarketSignal], *, key_prefix: str) -> None:
+                if not support:
+                    return
+                fallback_key = f"{key_prefix}:{cluster_key}"
+                if fallback_key in seen_fallback_keys:
+                    return
+                seen_fallback_keys.add(fallback_key)
+                fallback_candidates.append((cluster_key, support))
+
+            # Reuse signal-level clusters first so we can synthesize more than one opportunity
+            # from the same accepted evidence batch when the query is valid but sparse.
+            for signal in signals:
+                cluster_key = _cluster_label(_signal_text(signal), domain)
+                _add_fallback_candidate(cluster_key, [signal], key_prefix="signal")
+
+            # Then derive extra candidates from the most salient query/evidence terms.
+            fallback_terms: list[str] = []
+            for term in [*query_terms, *expanded_terms]:
+                if term and term not in fallback_terms:
+                    fallback_terms.append(term)
+            for term in _salient_terms(signals, query_terms):
+                if term and term not in fallback_terms:
+                    fallback_terms.append(term)
+
+            for term in fallback_terms:
+                support = [
+                    signal
+                    for signal in signals
+                    if term in _signal_text(signal) or term in f"{signal.title} {signal.content}".lower()
+                ]
+                if not support:
+                    continue
+                cluster_key = _generic_cluster_for_text(term)
+                _add_fallback_candidate(cluster_key, support, key_prefix="term")
+
+            for cluster_key, support in fallback_candidates:
+                if len(opportunities) >= min(limit, 5):
+                    break
+                opportunity = self._build_opportunity(
+                    cluster_key,
+                    support,
+                    query=query or "",
+                    query_terms=query_terms,
+                    query_id=query_id,
+                    domain=domain,
+                    cluster_profile={"cluster_id": cluster_key, "cluster_name": _cluster_display_name(domain, cluster_key)},
+                )
+                if not opportunity.get("evidence", {}).get("signals"):
+                    continue
+                if self._wrong_domain(opportunity, domain):
+                    discarded["rejected_domain_mismatch"] += 1
+                    discarded["wrong_domain"] += 1
+                    continue
+                if is_opportunity_name_noise(opportunity.get("startup_name", ""), query=query, domain=domain):
+                    discarded["name_noise"] += 1
+                    continue
+                if opportunity.get("query_relevance_score", 0) < 80 or opportunity.get("domain_relevance_score", 0) < 80:
+                    discarded["low_relevance"] += 1
+                    continue
+                if opportunity.get("confidence_score", 0) < 10:
+                    discarded["low_confidence"] += 1
+                    continue
+                opportunities.append(opportunity)
+
+        sparse_domain_prefixes = ("dynamic:agriculture", "dynamic:insurance")
+        if domain in {"healthcare", "real_estate"} or domain.startswith(sparse_domain_prefixes):
+            if domain == "real_estate":
+                real_estate_terms = {
+                    "real estate",
+                    "property",
+                    "rental",
+                    "tenant",
+                    "lease",
+                    "landlord",
+                    "housing",
+                    "apartment",
+                    "listing",
+                    "broker",
+                    "showing",
+                    "occupancy",
+                    "rent",
+                    "unit",
+                }
+                opportunities = [
+                    opportunity
+                    for opportunity in opportunities
+                    if any(
+                        term in " ".join(
+                            [
+                                str(opportunity.get("startup_name", "")),
+                                str(opportunity.get("problem", "")),
+                                str(opportunity.get("solution", "")),
+                                str(opportunity.get("market_gap", "")),
+                            ]
+                        ).lower()
+                        for term in real_estate_terms
+                    )
+                ]
+            if len(opportunities) < 5:
+                logger.info(
+                    "sparse_domain_no_evidence query=%r query_id=%s domain=%s opportunities=%d",
+                    query,
+                    query_id,
+                    domain,
+                    len(opportunities),
+                )
+                opportunities = []
+
         self._last_debug = {
             "signals_collected": len(signals),
             "evidence_retrieved": len(signals),
             "candidates_created": len(clusters),
             "candidates_discarded": discarded,
+            "domain_validation_passed": len(opportunities),
+            "domain_validation_failed": discarded.get("rejected_domain_mismatch", 0),
             "domain": domain,
             "fallback_used": fallback_used,
             "clusters_found": len(clusters),
             "evidence_count": sum(len(v) for v in clusters.values()),
             "opportunities_returned": len(opportunities),
+            "timings": {
+                "clustering_ms": clustering_total_ms,
+                "opportunity_generation_ms": max(0, int((time.perf_counter() - overall_started) * 1000) - clustering_total_ms),
+            },
         }
         if query_id is not None:
             try:
@@ -2678,6 +3548,12 @@ class OpportunityIntelligenceService:
                 "accounting", "bookkeeping", "invoice", "invoices", "receipt", "receipts", "expense", "expenses",
                 "cash flow", "payroll", "tax", "vat", "gst", "ledger", "reconciliation", "accounts payable", "accounts receivable",
             },
+            "marketing": {
+                "marketing", "marketing automation", "digital marketing", "campaign", "campaigns", "campaign optimization",
+                "lead generation", "lead qualification", "attribution", "content marketing", "seo", "sem", "ppc",
+                "google ads", "facebook ads", "linkedin ads", "email marketing", "marketing analytics", "customer acquisition",
+                "conversion optimization", "retargeting", "crm marketing",
+            },
             "education": {
                 "education", "edtech", "learning", "student", "students", "teacher", "teachers", "course", "courses",
                 "classroom", "tutor", "tutoring", "exam", "exams", "lms", "study", "lesson", "assessment", "school", "college",
@@ -2689,6 +3565,11 @@ class OpportunityIntelligenceService:
             "cybersecurity": {
                 "cybersecurity", "cyber security", "security", "soc", "threat", "vulnerability", "phishing", "cloud security",
                 "compliance", "identity", "malware", "incident response", "siem", "access",
+            },
+            "legal": {
+                "legal", "law", "contract", "agreement", "compliance", "nda", "privacy policy", "terms of service",
+                "legal review", "legal workflow", "document automation", "regulation", "litigation", "e-discovery",
+                "legal operations", "case management", "paralegal", "corporate law", "legal research",
             },
             "amazon": {
                 "amazon", "seller", "fba", "listing", "inventory", "review", "reviews", "repricing", "pricing", "ppc", "keyword", "asin", "marketplace", "product research", "ads",
@@ -2753,6 +3634,29 @@ class OpportunityIntelligenceService:
                 "tax compliance",
                 "payroll automation",
             },
+            "marketing": {
+                "marketing",
+                "marketing automation",
+                "digital marketing",
+                "campaign",
+                "campaign optimization",
+                "lead generation",
+                "lead qualification",
+                "attribution",
+                "content marketing",
+                "seo",
+                "sem",
+                "ppc",
+                "google ads",
+                "facebook ads",
+                "linkedin ads",
+                "email marketing",
+                "marketing analytics",
+                "customer acquisition",
+                "conversion optimization",
+                "retargeting",
+                "crm marketing",
+            },
             "amazon": {
                 "amazon",
                 "seller",
@@ -2767,6 +3671,27 @@ class OpportunityIntelligenceService:
                 "ads",
                 "fba",
                 "product research",
+            },
+            "legal": {
+                "legal",
+                "law",
+                "contract",
+                "agreement",
+                "compliance",
+                "nda",
+                "privacy policy",
+                "terms of service",
+                "legal review",
+                "legal workflow",
+                "document automation",
+                "regulation",
+                "litigation",
+                "e-discovery",
+                "legal operations",
+                "case management",
+                "paralegal",
+                "corporate law",
+                "legal research",
             },
             "education": {
                 "education",
@@ -3041,6 +3966,7 @@ class OpportunityIntelligenceService:
         avg_signal_relevance = mean(signal_relevance_scores) if signal_relevance_scores else 0.0
         signal_domain_scores = [float(getattr(s, "domain_relevance_score", 0.0) or 0.0) for s in signals]
         avg_signal_domain_relevance = mean(signal_domain_scores) if signal_domain_scores else 0.0
+        evidence_domain = self._evidence_domain_from_signals(signals, preferred_domain=domain)
         expanded_terms = self._expand_query_terms(query)
         text = f"{' '.join(titles)} {' '.join(contents)}".lower()
         cluster_text = f"{cluster_name.replace('_', ' ')} {cluster_id.replace('_', ' ')}".lower()
@@ -3091,6 +4017,9 @@ class OpportunityIntelligenceService:
         )
         if domain in CLUSTER_BLUEPRINTS and cluster_id in CLUSTER_BLUEPRINTS.get(domain, {}):
             domain_relevance_score = max(domain_relevance_score, 80.0)
+        if evidence_domain != domain:
+            query_relevance_score = min(query_relevance_score, 79.0)
+            domain_relevance_score = min(domain_relevance_score, 79.0)
         confidence_score = _clamp_score(
             (len(sources) * 14.0)
             + (avg_source_quality * 24.0)
@@ -3111,6 +4040,8 @@ class OpportunityIntelligenceService:
             "id": str(uuid.uuid4()),
             "query_id": str(query_id) if query_id else None,
             "query_domain": domain,
+            "opportunity_domain": domain,
+            "evidence_domain": evidence_domain,
             "cluster_id": cluster_id,
             "cluster_name": cluster_name,
             "cluster_priority": cluster_priority,
@@ -3327,6 +4258,8 @@ class OpportunityIntelligenceService:
             "id": str(opp.id),
                 "query_id": str(opp.query_id) if opp.query_id else None,
             "query_domain": getattr(opp, "query_domain", "general"),
+            "opportunity_domain": getattr(opp, "query_domain", "general"),
+            "evidence_domain": getattr(opp, "evidence_domain", getattr(opp, "query_domain", "general")),
             "domain_relevance_score": getattr(opp, "domain_relevance_score", 0.0),
             "startup_name": opp.startup_name,
             "name": opp.startup_name,

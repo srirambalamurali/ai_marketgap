@@ -108,8 +108,8 @@ class ChromaDBService:
         self._connected = False
         self._last_error: str | None = None
         self._last_heartbeat_ms: float | None = None
-        self._operation_timeout_seconds = 10
-        self._heartbeat_timeout_seconds = 3
+        self._operation_timeout_seconds = max(60, int(self.settings.request_timeout_seconds))
+        self._heartbeat_timeout_seconds = min(20, int(self.settings.request_timeout_seconds))
 
     @property
     def settings(self):
@@ -123,7 +123,7 @@ class ChromaDBService:
         if self._client is not None and self._connected:
             return True
         try:
-            await asyncio.wait_for(asyncio.to_thread(self._connect_sync), timeout=10)
+            await asyncio.wait_for(asyncio.to_thread(self._connect_sync), timeout=self._operation_timeout_seconds)
             return True
         except Exception as exc:
             self._connected = False

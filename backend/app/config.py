@@ -43,6 +43,16 @@ class Settings(BaseSettings):
     # Monitoring
     enable_monitoring: bool = True
 
+    # Timeouts
+    request_timeout_seconds: int = 60
+    source_timeout_seconds: int = 60
+    generation_timeout_seconds: int = 120
+
+    # Auth
+    jwt_secret_key: str = "change-me-in-production"
+    jwt_algorithm: str = "HS256"
+    jwt_access_token_expire_minutes: int = 60 * 24 * 7
+
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 
 

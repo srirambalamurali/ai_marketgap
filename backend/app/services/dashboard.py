@@ -8,6 +8,8 @@ from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.generated_report import GeneratedReport
+from app.models.market_signal import MarketSignal
+from app.models.startup_opportunity import StartupOpportunity
 from app.services.chromadb_service import get_chroma_service
 from app.utils.logging import get_logger
 
@@ -164,7 +166,7 @@ async def get_dashboard_metrics(
         scope_label = "latest"
 
     payload = selected_report.report_payload if isinstance(selected_report.report_payload, dict) else {}
-    dashboard = _build_dashboard_from_report(selected_report, payload, rag_health, recent_reports, scope_label)
+    dashboard = await _build_dashboard_from_report(session, selected_report, payload, rag_health, recent_reports, scope_label)
     logger.info(
         "Dashboard metrics selected_report_id=%s selected_query_id=%s selected_query=%r opportunity_count=%d evidence_count=%d source_counts=%s",
         dashboard.get("selected_report_id"),
@@ -461,8 +463,9 @@ def _serialize_selected_analysis(report: GeneratedReport, payload: dict) -> dict
         or payload.get("confidence_score")
         or payload.get("overall_score")
         or 0,
+        "run_source": payload.get("run_source") or payload.get("metadata", {}).get("run_source"),
         "source_statuses": payload.get("source_statuses", []),
-        "evidence_links": payload.get("evidence_links", []),
+        "evidence_links": _extract_report_evidence_links(payload, str(report.id)),
         "top_opportunities": payload.get("top_opportunities", []),
         "top_pain_points": payload.get("top_pain_points", []),
         "top_market_gaps": payload.get("top_market_gaps", []),
@@ -601,7 +604,8 @@ def _collection_health_from_counts(source_counts: Counter[str]) -> dict:
     }
 
 
-def _build_dashboard_from_report(
+async def _build_dashboard_from_report(
+    session: AsyncSession,
     report: GeneratedReport,
     payload: dict,
     rag_health: dict,
@@ -609,7 +613,7 @@ def _build_dashboard_from_report(
     scope_label: str,
 ) -> dict:
     selected_analysis = _serialize_selected_analysis(report, payload)
-    evidence_links = payload.get("evidence_links", []) if isinstance(payload, dict) else []
+    evidence_links = await _report_scoped_evidence_links(session, report, payload)
     opportunities = _flatten_report_opportunities(payload, str(report.id))
     source_counts = _source_counts_from_evidence(payload, evidence_links, opportunities)
     signal_over_time = _signals_over_time_from_evidence(payload, evidence_links, opportunities, report.created_at)
@@ -624,6 +628,7 @@ def _build_dashboard_from_report(
         "top_opportunity_score": max((item.get("opportunity_score", item.get("market_score", 0)) for item in opportunities), default=0),
         "rag_status": rag_health["status"],
         "active_sources": list(source_counts.keys()),
+        "run_source": selected_analysis.get("run_source") or payload.get("run_source") or payload.get("metadata", {}).get("run_source") or "LIVE",
     }
     selected_query = selected_analysis.get("query") or report.query
     return {
@@ -655,6 +660,7 @@ def _build_dashboard_from_report(
             "competition_levels": competition_levels,
         },
         "top_opportunities": top_opportunities,
+        "run_source": summary["run_source"],
         "total_signals": summary["total_signals"],
         "total_documents": summary["total_documents"],
         "total_opportunities": summary["total_opportunities"],
@@ -703,9 +709,10 @@ async def _build_all_time_dashboard_payload(
     all_evidence_links: list[dict] = []
     for report in reports:
         payload = report.report_payload if isinstance(report.report_payload, dict) else {}
-        all_evidence_links.extend(payload.get("evidence_links", []) if isinstance(payload.get("evidence_links"), list) else [])
+        report_evidence_links = _extract_report_evidence_links(payload, str(report.id))
+        all_evidence_links.extend(report_evidence_links)
         all_opportunities.extend(_flatten_report_opportunities(payload, str(report.id)))
-        for source, count in _source_counts_from_evidence(payload, payload.get("evidence_links", []), []).items():
+        for source, count in _source_counts_from_evidence(payload, report_evidence_links, []).items():
             all_sources[source] += count
     signal_over_time = _signals_over_time_from_evidence({}, all_evidence_links, all_opportunities, None)
     top_opportunities = _top_opportunities_from_report(all_opportunities)
@@ -718,6 +725,7 @@ async def _build_all_time_dashboard_payload(
         "top_opportunity_score": max((item.get("opportunity_score", item.get("market_score", 0)) for item in all_opportunities), default=0),
         "rag_status": rag_health["status"],
         "active_sources": list(all_sources.keys()),
+        "run_source": "HYBRID" if len(all_sources) > 1 else ("LIVE" if len(all_sources) else "HISTORICAL"),
     }
     return {
         "scope": "all",
@@ -748,6 +756,7 @@ async def _build_all_time_dashboard_payload(
             "competition_levels": competition_levels,
         },
         "top_opportunities": top_opportunities,
+        "run_source": summary["run_source"],
         "total_signals": summary["total_signals"],
         "total_documents": summary["total_documents"],
         "total_opportunities": summary["total_opportunities"],
@@ -788,6 +797,205 @@ def _extract_selected_sources(payload: dict) -> dict:
     metadata = payload.get("metadata") if isinstance(payload, dict) else {}
     sources = metadata.get("sources") if isinstance(metadata, dict) else {}
     return sources if isinstance(sources, dict) else {}
+
+
+def _serialize_report_evidence_signal(signal: dict, *, report_id: str, query_id: str | None, query_domain: str | None) -> dict:
+    source = str(signal.get("source") or signal.get("source_type") or "unknown")
+    source_type = str(signal.get("source_type") or "evidence")
+    url = str(signal.get("url") or "").strip()
+    signal_id = str(signal.get("signal_id") or signal.get("id") or url or signal.get("title") or "").strip()
+    query_relevance = float(signal.get("query_relevance_score") or 100.0)
+    domain_relevance = float(signal.get("domain_relevance_score") or 100.0)
+    return {
+        "id": signal_id or url or f"{source}:{signal.get('title', 'evidence')}",
+        "report_id": report_id,
+        "query_id": query_id,
+        "query_domain": query_domain,
+        "source": source,
+        "source_type": source_type,
+        "source_id": signal_id or url or f"{source}:{signal.get('title', 'evidence')}",
+        "title": str(signal.get("title") or "Evidence"),
+        "content": str(signal.get("snippet") or signal.get("content") or signal.get("title") or ""),
+        "url": url or signal_id or f"{source}:{signal.get('title', 'evidence')}",
+        "author": str(signal.get("author") or ""),
+        "score": float(signal.get("score") or signal.get("query_relevance_score") or 0),
+        "comments_count": int(signal.get("comments_count") or 0),
+        "credibility_score": float(signal.get("credibility_score") or 0),
+        "query_relevance_score": query_relevance,
+        "domain_relevance_score": domain_relevance,
+        "status": "accepted",
+        "accepted_status": "accepted",
+        "rejection_reason": None,
+        "created_at": signal.get("collected_at") or signal.get("timestamp") or signal.get("created_at"),
+        "collected_at": signal.get("collected_at") or signal.get("timestamp") or signal.get("created_at"),
+        "extra_metadata": {"report_scoped": True},
+    }
+
+
+async def _report_scoped_evidence_links(session: AsyncSession, report: GeneratedReport, payload: dict) -> list[dict]:
+    query_id = str(report.query_id) if report.query_id else payload.get("query_id")
+    query_domain = str(getattr(report, "query_domain", payload.get("query_domain", "general"))).strip().lower()
+    report_id = str(report.id)
+    evidence_links: list[dict] = []
+    seen: set[str] = set()
+
+    def _add(signal: dict) -> None:
+        url = str(signal.get("url") or "").strip()
+        signal_id = str(signal.get("signal_id") or signal.get("id") or url or signal.get("title") or "").strip()
+        key = url or signal_id or f"{signal.get('source', 'unknown')}:{signal.get('title', '')}"
+        if not key or key in seen:
+            return
+        seen.add(key)
+        evidence_links.append(_serialize_report_evidence_signal(signal, report_id=report_id, query_id=query_id, query_domain=query_domain))
+
+    market_statement = select(MarketSignal)
+    if query_id:
+        try:
+            market_statement = market_statement.where(MarketSignal.query_id == UUID(str(query_id)))
+        except Exception:
+            pass
+    if query_domain:
+        market_statement = market_statement.where(MarketSignal.query_domain == query_domain)
+    market_statement = market_statement.order_by(desc(MarketSignal.collected_at))
+    market_result = await session.execute(market_statement)
+    for signal in market_result.scalars().all():
+        try:
+            if float(signal.query_relevance_score or 0) < 80 or float(signal.domain_relevance_score or 0) < 80:
+                continue
+        except Exception:
+            continue
+        _add(
+            {
+                "source": signal.source,
+                "source_type": signal.source_type,
+                "signal_id": signal.source_id,
+                "title": signal.title,
+                "snippet": signal.content,
+                "url": signal.url,
+                "score": signal.score,
+                "comments_count": signal.comments_count,
+                "credibility_score": signal.credibility_score,
+                "query_relevance_score": signal.query_relevance_score,
+                "domain_relevance_score": signal.domain_relevance_score,
+                "collected_at": signal.collected_at,
+                "author": signal.author,
+            }
+        )
+
+    opportunity_statement = select(StartupOpportunity)
+    if query_id:
+        try:
+            opportunity_statement = opportunity_statement.where(StartupOpportunity.query_id == UUID(str(query_id)))
+        except Exception:
+            pass
+    if query_domain:
+        opportunity_statement = opportunity_statement.where(StartupOpportunity.query_domain == query_domain)
+    opportunity_statement = opportunity_statement.order_by(desc(StartupOpportunity.created_at))
+    opportunity_result = await session.execute(opportunity_statement)
+    for opportunity in opportunity_result.scalars().all():
+        evidence = opportunity.evidence if isinstance(opportunity.evidence, dict) else {}
+        for signal in evidence.get("signals", []) if isinstance(evidence, dict) else []:
+            if not isinstance(signal, dict):
+                continue
+            try:
+                signal_query_relevance = float(signal.get("query_relevance_score") or opportunity.query_relevance_score or 0)
+                signal_domain_relevance = float(signal.get("domain_relevance_score") or opportunity.domain_relevance_score or 0)
+                if signal_query_relevance < 80 or signal_domain_relevance < 80:
+                    continue
+            except Exception:
+                continue
+            _add(signal)
+
+    if not evidence_links:
+        for item in payload.get("evidence_links", []) or []:
+            if not isinstance(item, dict):
+                continue
+            _add(item)
+        for item in payload.get("top_opportunities", []) or []:
+            if not isinstance(item, dict):
+                continue
+            opportunity = item.get("opportunity", item)
+            if not isinstance(opportunity, dict):
+                continue
+            evidence = opportunity.get("evidence", {}) if isinstance(opportunity.get("evidence"), dict) else {}
+            for signal in evidence.get("signals", []) if isinstance(evidence, dict) else []:
+                if isinstance(signal, dict):
+                    _add(signal)
+    return evidence_links
+
+
+def _extract_report_evidence_links(payload: dict, report_id: str) -> list[dict]:
+    links: list[dict] = []
+    seen: set[str] = set()
+    if not isinstance(payload, dict):
+        return links
+
+    def _append(signal: dict, *, source: str, source_type: str, query_id: str | None, query_domain: str | None) -> None:
+        url = str(signal.get("url") or "").strip()
+        signal_id = str(signal.get("signal_id") or signal.get("id") or url or signal.get("title") or "").strip()
+        key = url or signal_id or f"{source}:{signal.get('title', '')}"
+        if not key or key in seen:
+            return
+        seen.add(key)
+        links.append(
+            {
+                "id": signal_id or key,
+                "report_id": report_id,
+                "query_id": query_id,
+                "query_domain": query_domain,
+                "source": source,
+                "source_type": source_type,
+                "source_id": signal_id or key,
+                "title": str(signal.get("title") or "Evidence"),
+                "content": str(signal.get("snippet") or signal.get("content") or signal.get("title") or ""),
+                "url": url or key,
+                "score": float(signal.get("score") or signal.get("query_relevance_score") or 0),
+                "comments_count": int(signal.get("comments_count") or 0),
+                "credibility_score": float(signal.get("credibility_score") or 0),
+                "query_relevance_score": float(signal.get("query_relevance_score") or 100.0),
+                "domain_relevance_score": float(signal.get("domain_relevance_score") or 100.0),
+                "status": "accepted",
+                "accepted_status": "accepted",
+                "rejection_reason": None,
+                "created_at": signal.get("collected_at") or signal.get("timestamp") or signal.get("created_at"),
+                "collected_at": signal.get("collected_at") or signal.get("timestamp") or signal.get("created_at"),
+                "extra_metadata": {"report_scoped": True},
+            }
+        )
+
+    query_id = str(payload.get("query_id") or "").strip() or None
+    query_domain = str(payload.get("query_domain") or payload.get("metadata", {}).get("query_domain") or "").strip().lower() or None
+
+    for item in payload.get("evidence_links", []) or []:
+        if not isinstance(item, dict):
+            continue
+        _append(
+            item,
+            source=str(item.get("source") or item.get("source_type") or "unknown"),
+            source_type=str(item.get("source_type") or "evidence"),
+            query_id=query_id,
+            query_domain=query_domain,
+        )
+
+    for item in payload.get("top_opportunities", []) or []:
+        if not isinstance(item, dict):
+            continue
+        opportunity = item.get("opportunity", item)
+        if not isinstance(opportunity, dict):
+            continue
+        evidence = opportunity.get("evidence", {}) if isinstance(opportunity.get("evidence"), dict) else {}
+        for signal in evidence.get("signals", []) if isinstance(evidence, dict) else []:
+            if not isinstance(signal, dict):
+                continue
+            _append(
+                signal,
+                source=str(signal.get("source") or "unknown"),
+                source_type=str(signal.get("source_type") or "evidence"),
+                query_id=str(signal.get("query_id") or query_id or "").strip() or None,
+                query_domain=str(signal.get("query_domain") or query_domain or "").strip().lower() or None,
+            )
+
+    return links
 
 
 def _flatten_report_opportunities(payload: dict, report_id: str) -> list[dict]:

@@ -8,7 +8,7 @@ import { useReports } from "@/hooks/useReports";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { formatNumber } from "@/lib/utils";
 import { asArray, asNumber, asText } from "@/lib/normalize";
-import { Panel, SectionTitle, Skeleton, StatCard } from "@/components/ui";
+import { Badge, Panel, SectionTitle, Skeleton, StatCard } from "@/components/ui";
 import type { DashboardChartPoint, DashboardCharts, DashboardMetricsResponse, ReportsListResponse } from "@/types";
 
 const COLORS = ["#4f8cff", "#22c55e", "#f59e0b", "#ef4444", "#a855f7"];
@@ -79,6 +79,9 @@ function DashboardContent() {
   const signalStatus = asText(charts.signals_over_time_status?.status, "healthy");
   const isLowActivity = signalStatus === "low_activity" && Number(summary.total_evidence_links ?? 0) <= 0;
   const isSingleBatch = signalStatus === "single_batch" || (signalStatus === "low_activity" && Number(summary.total_evidence_links ?? 0) > 0);
+  const hasEvidenceOrOpportunities = Number(summary.total_opportunities ?? 0) > 0 || Number(summary.total_evidence_links ?? 0) > 0;
+  const dashboardStatus = hasEvidenceOrOpportunities ? "Live generation complete" : "No evidence found";
+  const runSource = asText(selectedAnalysis?.run_source ?? metrics?.run_source ?? summary.run_source, "LIVE");
   const signalSeries = signalsOverTime.map((point) => ({
     label: asText(point?.label, ""),
     value: asNumber(point?.count, 0),
@@ -128,7 +131,7 @@ function DashboardContent() {
   if (!metrics || metrics.state === "empty") {
     return (
       <Panel className="rounded-2xl border border-dashed border-white/10 p-8 text-slate-400">
-        No dashboard data found for this report.
+        No evidence found for this report.
       </Panel>
     );
   }
@@ -144,6 +147,11 @@ function DashboardContent() {
               ? "Global metrics are shown because All Data was explicitly selected."
               : "Charts and counts are scoped to the selected report only."}
           </p>
+          <div className="flex flex-wrap gap-2 pt-1">
+            {effectiveReportId ? <Badge className="bg-violet-500/15 text-violet-200">Scoped to selected report</Badge> : null}
+            <Badge className={hasEvidenceOrOpportunities ? "bg-emerald-500/15 text-emerald-200" : "bg-amber-500/15 text-amber-200"}>{dashboardStatus}</Badge>
+            <Badge className="bg-sky-500/15 text-sky-200">Source: {runSource}</Badge>
+          </div>
         </div>
         <button
           onClick={() => dashboardQuery.refetch()}
@@ -174,6 +182,9 @@ function DashboardContent() {
           <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-300">
             <div className="text-xs uppercase tracking-[0.2em] text-slate-500">Current Active Analysis</div>
             <div className="mt-1 font-medium text-white">{selectedAnalysisLabel}</div>
+            {effectiveReportId ? <div className="mt-1 text-xs text-slate-500">Report: {reportDisplayId}</div> : null}
+            <div className="mt-3 text-xs uppercase tracking-[0.2em] text-slate-500">Run Source</div>
+            <div className="mt-1 text-sm text-slate-200">{runSource}</div>
           </div>
         </div>
       </Panel>

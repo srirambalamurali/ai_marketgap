@@ -13,6 +13,8 @@ class Signal(BaseModel):
     query_domain: str = "general"
     query_relevance_score: float = 0.0
     domain_relevance_score: float = 0.0
+    accepted_status: str = "unknown"
+    rejection_reason: str = ""
     title: str
     content: str = ""
     url: str = ""

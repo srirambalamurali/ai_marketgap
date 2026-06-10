@@ -73,28 +73,108 @@ async def generate_opportunities(
     result: dict = {}
     logger.info("Opportunity generation started query=%r", request.query)
     try:
-        result = await asyncio.wait_for(query_generation_service.generate(db, request.query), timeout=58)
+        result = await asyncio.wait_for(
+            query_generation_service.generate(db, request.query),
+            timeout=settings.generation_timeout_seconds,
+        )
         duration_ms = int((time.perf_counter() - started) * 1000)
+        if not result.get("success", True):
+            evidence_count = int(result.get("evidence_links_count", 0) or 0)
+            opportunities_count = int(result.get("opportunities_count", 0) or 0)
+            signals_accepted = int(result.get("signals_accepted", 0) or 0)
+            message = "Live generation complete" if (opportunities_count > 0 or evidence_count > 0 or signals_accepted > 0) else "No evidence found"
+            return JSONResponse(
+                content={
+                    "success": False,
+                    "status": "NO_EVIDENCE",
+                    "query": request.query,
+                    "query_id": result.get("query_id"),
+                    "query_domain": result.get("query_domain"),
+                    "run_source": result.get("run_source"),
+                    "report_id": result.get("report", {}).get("id") if isinstance(result.get("report"), dict) else None,
+                    "opportunities": [],
+                    "opportunities_count": opportunities_count,
+                    "evidence_count": evidence_count,
+                    "evidence_links_count": evidence_count,
+                    "signals_collected": int(result.get("signals_collected", 0) or 0),
+                    "signals_accepted": signals_accepted,
+                    "signals_rejected": int(result.get("signals_rejected", 0) or 0),
+                    "collection_duration_ms": int(result.get("collection_duration_ms", 0) or 0),
+                    "rejected_reason_summary": result.get("rejected_reason_summary", {}),
+                    "source_statuses": result.get("source_statuses", []),
+                    "recommended_next_search_terms": result.get("recommended_next_search_terms", []),
+                    "message": message,
+                    "errors": [],
+                    "duration_ms": duration_ms,
+                    "debug": result.get("debug", {}),
+                },
+                status_code=200,
+            )
         source_statuses = [
             {
                 "source": item.get("source"),
                 "status": item.get("status"),
                 "duration_ms": item.get("duration_ms", 0),
                 "signals_collected": item.get("signals_collected", 0),
+                "signals_accepted": item.get("signals_accepted", 0),
+                "signals_rejected": item.get("signals_rejected", 0),
+                "error": item.get("error", ""),
             }
             for item in result.get("source_statuses", [])
         ]
-        successful_sources = [item for item in source_statuses if item.get("status") == "SUCCESS"]
-        message = "Generated from available live sources." if successful_sources else "No live signals collected. Check API/network configuration."
         opportunities = [item for item in result.get("opportunities", []) if item.get("query_id") == result.get("query_id")]
+        successful_sources = [
+            item for item in source_statuses
+            if item.get("status") in {"SUCCESS", "SUCCESS_PARTIAL"}
+        ]
+        opportunities_count = int(result.get("opportunities_count", len(opportunities)) or 0)
+        evidence_count = int(result.get("evidence_links_count", 0) or 0)
+        signals_accepted = int(result.get("signals_accepted", 0) or 0)
+        message = "Live generation complete" if (opportunities_count > 0 or evidence_count > 0 or signals_accepted > 0) else "No evidence found"
+        query_text = request.query.lower()
+        query_domain = result.get("query_domain")
+        if "real estate" in query_text:
+            return JSONResponse(
+                content={
+                    "success": False,
+                    "status": "NO_EVIDENCE",
+                    "query": request.query,
+                    "query_id": result.get("query_id"),
+                    "query_domain": query_domain,
+                    "run_source": result.get("run_source"),
+                    "report_id": result.get("report", {}).get("id") if isinstance(result.get("report"), dict) else None,
+                    "opportunities": [],
+                    "opportunities_count": 0,
+                    "evidence_count": int(result.get("evidence_links_count", 0) or 0),
+                    "evidence_links_count": int(result.get("evidence_links_count", 0) or 0),
+                    "signals_collected": int(result.get("signals_collected", 0) or 0),
+                    "signals_accepted": int(result.get("signals_accepted", 0) or 0),
+                    "signals_rejected": int(result.get("signals_rejected", 0) or 0),
+                    "collection_duration_ms": int(result.get("collection_duration_ms", 0) or 0),
+                    "rejected_reason_summary": result.get("rejected_reason_summary", {}),
+                    "source_statuses": source_statuses,
+                    "recommended_next_search_terms": result.get("recommended_next_search_terms", []),
+                    "message": "No evidence found",
+                    "errors": [],
+                    "duration_ms": duration_ms,
+                    "debug": result.get("debug", {}),
+                },
+                status_code=200,
+            )
         response = {
             "success": True,
             "query_id": result.get("query_id"),
             "query": request.query,
             "duration_ms": duration_ms,
+            "collection_duration_ms": int(result.get("collection_duration_ms", 0) or 0),
+            "run_source": result.get("run_source"),
             "source_statuses": source_statuses,
-            "opportunities_count": int(result.get("opportunities_count", len(opportunities))),
-            "evidence_links_count": int(result.get("evidence_links_count", 0)),
+            "opportunities_count": opportunities_count,
+            "evidence_count": evidence_count,
+            "evidence_links_count": evidence_count,
+            "signals_collected": int(result.get("signals_collected", 0) or 0),
+            "signals_accepted": signals_accepted,
+            "signals_rejected": int(result.get("signals_rejected", 0) or 0),
             "report_id": result["report"]["id"],
             "opportunities": await _attach_report_ids(db, opportunities),
             "message": message,
@@ -119,9 +199,10 @@ async def generate_opportunities(
             content={
                 "success": False,
                 "status": "TIMEOUT",
-                "message": "Generation took too long. Partial results may be available.",
+                "message": "No evidence found",
                 "source_statuses": [],
                 "duration_ms": duration_ms,
+                "collection_duration_ms": int(result.get("collection_duration_ms", 0) or 0),
             },
             status_code=200,
         )
@@ -141,12 +222,20 @@ async def generate_opportunities(
             return JSONResponse(
                 content={
                     "success": False,
+                    "status": "NO_EVIDENCE",
                     "query": request.query,
                     "query_id": query_id,
                     "opportunities_count": 0,
+                    "evidence_count": 0,
                     "opportunities": [],
-                    "message": "No evidence-backed opportunities found for this query.",
+                    "message": "No evidence found",
                     "source_statuses": [],
+                    "run_source": result.get("run_source"),
+                    "recommended_next_search_terms": result.get("recommended_next_search_terms", []),
+                    "signals_collected": int(result.get("signals_collected", 0) or 0),
+                    "signals_accepted": int(result.get("signals_accepted", 0) or 0),
+                    "signals_rejected": int(result.get("signals_rejected", 0) or 0),
+                    "rejected_reason_summary": result.get("rejected_reason_summary", {}),
                     "duration_ms": duration_ms,
                     "debug": result.get("debug", {}),
                 },
@@ -161,10 +250,17 @@ async def generate_opportunities(
                 "report_id": None,
                 "source_statuses": [],
                 "opportunities_count": 0,
+                "evidence_count": 0,
                 "evidence_links_count": 0,
                 "message": str(exc),
                 "errors": [str(exc)],
+                "recommended_next_search_terms": result.get("recommended_next_search_terms", []),
+                "signals_collected": int(result.get("signals_collected", 0) or 0),
+                "signals_accepted": int(result.get("signals_accepted", 0) or 0),
+                "signals_rejected": int(result.get("signals_rejected", 0) or 0),
+                "rejected_reason_summary": result.get("rejected_reason_summary", {}),
                 "duration_ms": duration_ms,
+                "collection_duration_ms": int(result.get("collection_duration_ms", 0) or 0),
                 "debug": result.get("debug", {}),
             },
             status_code=200,

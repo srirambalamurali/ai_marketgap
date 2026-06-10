@@ -51,6 +51,8 @@ export type Opportunity = {
 
 export type Signal = {
   id: string;
+  query_id?: string | null;
+  query_domain?: string | null;
   source: string;
   source_type: string;
   source_id: string;
@@ -61,6 +63,11 @@ export type Signal = {
   score: number;
   comments_count: number;
   credibility_score: number;
+  query_relevance_score?: number;
+  domain_relevance_score?: number;
+  status?: "accepted" | "rejected" | string;
+  accepted_status?: "accepted" | "rejected" | string;
+  rejection_reason?: string | null;
   created_at?: string | null;
   collected_at?: string | null;
   extra_metadata: Record<string, unknown>;
@@ -83,6 +90,7 @@ export type DashboardSummary = {
   top_opportunity_score: number;
   rag_status: string;
   active_sources: string[];
+  run_source?: string;
 };
 
 export type DashboardChartPoint = {
@@ -123,6 +131,7 @@ export type DashboardMetricsResponse = DashboardMetrics & {
     query_id?: string | null;
     created_at?: string | null;
     market_confidence_score?: number;
+    run_source?: string;
     source_statuses?: Array<Record<string, unknown>>;
     evidence_links?: Array<Record<string, unknown>>;
     top_opportunities?: Array<Record<string, unknown>>;
@@ -143,6 +152,7 @@ export type DashboardMetricsResponse = DashboardMetrics & {
   total_documents?: number;
   total_opportunities?: number;
   top_opportunity_score?: number;
+  run_source?: string;
   last_collection_time?: string | null;
   rag_status?: string;
   chromadb_connected?: boolean;
@@ -225,6 +235,9 @@ export type SignalsLatestResponse = {
 export type SignalsStatsResponse = {
   success: boolean;
   total: number;
+  query_id?: string | null;
+  report_id?: string | null;
+  query_domain?: string | null;
   by_source: Record<string, number>;
   by_type: Record<string, number>;
   by_day: Record<string, number>;
@@ -235,5 +248,8 @@ export type SignalsSourceResponse = {
   success: boolean;
   source: string;
   count: number;
+  query_id?: string | null;
+  report_id?: string | null;
+  query_domain?: string | null;
   signals: Signal[];
 };

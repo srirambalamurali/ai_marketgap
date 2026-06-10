@@ -57,7 +57,16 @@ export const api = {
     monitor: () => request("/workflow"),
   },
   rag: {
-    search: (query: string, top_k = 8) => request("/rag/search", { method: "POST", body: JSON.stringify({ query, top_k }) }),
+    search: (
+      query: string,
+      top_k = 8,
+      params?: { reportId?: string | null; queryId?: string | null },
+    ) => {
+      const body: Record<string, unknown> = { query, top_k };
+      if (params?.reportId) body.report_id = params.reportId;
+      if (params?.queryId) body.query_id = params.queryId;
+      return request("/rag/search", { method: "POST", body: JSON.stringify(body) });
+    },
     health: () => request("/rag/health"),
   },
   reports: {
@@ -72,9 +81,36 @@ export const api = {
     rss: () => request("/collect/rss", { method: "POST" }),
     hackerNews: () => request("/collect/hackernews", { method: "POST" }),
     status: () => request("/collect/status"),
-    latest: (limit = 25) => request(`/signals/latest?limit=${limit}`),
-    stats: () => request("/signals/stats"),
-    bySource: (source: string, limit = 50) => request(`/signals/source/${source}?limit=${limit}`),
+    latest: (limit = 25, params?: { queryId?: string | null; reportId?: string | null; queryDomain?: string | null; includeRejected?: boolean }) => {
+      const search = new URLSearchParams();
+      search.set("limit", String(limit));
+      if (params?.queryId) search.set("query_id", params.queryId);
+      if (params?.reportId) search.set("report_id", params.reportId);
+      if (params?.queryDomain) search.set("query_domain", params.queryDomain);
+      if (params?.includeRejected) search.set("include_rejected", "true");
+      return request(`/signals/latest?${search.toString()}`);
+    },
+    stats: (params?: { queryId?: string | null; reportId?: string | null; queryDomain?: string | null }) => {
+      const search = new URLSearchParams();
+      if (params?.queryId) search.set("query_id", params.queryId);
+      if (params?.reportId) search.set("report_id", params.reportId);
+      if (params?.queryDomain) search.set("query_domain", params.queryDomain);
+      const suffix = search.toString() ? `?${search.toString()}` : "";
+      return request(`/signals/stats${suffix}`);
+    },
+    bySource: (
+      source: string,
+      limit = 50,
+      params?: { queryId?: string | null; reportId?: string | null; queryDomain?: string | null; includeRejected?: boolean }
+    ) => {
+      const search = new URLSearchParams();
+      search.set("limit", String(limit));
+      if (params?.queryId) search.set("query_id", params.queryId);
+      if (params?.reportId) search.set("report_id", params.reportId);
+      if (params?.queryDomain) search.set("query_domain", params.queryDomain);
+      if (params?.includeRejected) search.set("include_rejected", "true");
+      return request(`/signals/source/${encodeURIComponent(source)}?${search.toString()}`);
+    },
   },
 };
 

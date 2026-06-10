@@ -81,14 +81,23 @@ def _store_cached_signals(key: str, signals: list[Signal]) -> None:
 
 class GoogleTrendsCollector:
     def __init__(self) -> None:
+        from app.config import get_settings
+
+        settings = get_settings()
         self._trends = None
         self._last_request_time = 0.0
+        self._timeout_seconds = max(20, int(settings.request_timeout_seconds))
 
     def _get_client(self):
         if self._trends is None:
             from pytrends.request import TrendReq
 
-            self._trends = TrendReq(hl="en-US", tz=360)
+            self._trends = TrendReq(
+                hl="en-US",
+                tz=360,
+                timeout=(self._timeout_seconds, self._timeout_seconds),
+                requests_args={"headers": {"User-Agent": "AI Market Gap Debugger/1.0"}},
+            )
         return self._trends
 
     async def _throttle(self) -> None:
@@ -102,6 +111,7 @@ class GoogleTrendsCollector:
         client.build_payload([keyword], cat=0, timeframe="today 1-m")
 
     def _build_signals_for_keyword(self, keyword: str) -> list[Signal]:
+        logger.info("Google Trends request keyword=%s url=%s", keyword, f"https://trends.google.com/trends/explore?q={keyword.replace(' ', '+')}")
         self._build_payload(keyword)
         client = self._get_client()
         signals: list[Signal] = []
@@ -195,14 +205,24 @@ class GoogleTrendsCollector:
         cached = _load_cached_signals(key)
         if cached is not None:
             return cached
-        try:
-            await self._throttle()
-            signals = await asyncio.to_thread(self._build_signals_for_keyword, keyword)
-            _store_cached_signals(key, signals)
-            return signals
-        except Exception as exc:
-            logger.warning("Google Trends collection failed for '%s': %s", keyword, exc)
-            return []
+        attempts = 0
+        while attempts < 2:
+            attempts += 1
+            try:
+                await self._throttle()
+                signals = await asyncio.to_thread(self._build_signals_for_keyword, keyword)
+                _store_cached_signals(key, signals)
+                return signals
+            except Exception as exc:
+                message = str(exc)
+                if "429" in message:
+                    logger.warning("Google Trends throttled keyword=%s attempt=%s reason=%s", keyword, attempts, exc)
+                else:
+                    logger.warning("Google Trends collection failed keyword=%s attempt=%s reason=%s", keyword, attempts, exc)
+                if attempts >= 2:
+                    return []
+                await asyncio.sleep(2)
+        return []
 
     async def collect_all(self, keywords: list[str] | None = None) -> SignalBatch:
         all_keywords = list(dict.fromkeys((keywords or FOCUS_KEYWORDS)))[:3]

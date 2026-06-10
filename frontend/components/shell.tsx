@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import { useAuth } from "@/components/auth-provider";
 
 const nav = [
   { href: "/dashboard", label: "Overview" },
@@ -15,6 +17,13 @@ const nav = [
 
 export function Shell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, loading, isAuthenticated, logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace("/login");
+  };
   return (
     <div className="min-h-screen text-slate-100">
       <div className="mx-auto flex min-h-screen max-w-[1600px]">
@@ -47,9 +56,28 @@ export function Shell({ children }: { children: ReactNode }) {
                 <div className="text-sm text-slate-400">Executive Market Intelligence Dashboard</div>
                 <div className="text-xl font-semibold">Opportunity Discovery Engine</div>
               </div>
-              <div className="flex gap-2 text-xs text-slate-300">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
                 <span className="rounded-full border border-white/10 px-3 py-1">Dark mode</span>
                 <span className="rounded-full border border-white/10 px-3 py-1">Live APIs</span>
+                {loading ? (
+                  <span className="rounded-full border border-white/10 px-3 py-1">Checking session...</span>
+                ) : isAuthenticated && user ? (
+                  <>
+                    <span className="rounded-full border border-white/10 px-3 py-1">{user.name}</span>
+                    <button onClick={handleLogout} className="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/10">
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/login" className="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/10">
+                      Login
+                    </Link>
+                    <Link href="/register" className="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/10">
+                      Register
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
             <div className="mt-4 flex flex-wrap gap-2 lg:hidden">

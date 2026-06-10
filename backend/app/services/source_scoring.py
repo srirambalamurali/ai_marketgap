@@ -19,7 +19,17 @@ SOURCE_WEIGHTS: dict[str, dict[str, float]] = {
         "venturebeat": 0.65,
         "ycombinator": 0.60,
         "hackernews": 0.60,
+        "google_news": 0.62,
         "unknown": 0.50,
+    },
+    "stackexchange": {
+        "webapps": 0.72,
+        "workplace": 0.72,
+        "superuser": 0.70,
+        "stackoverflow": 0.78,
+        "money": 0.74,
+        "law": 0.74,
+        "unknown": 0.60,
     },
     "reddit": {
         "post": 0.75,

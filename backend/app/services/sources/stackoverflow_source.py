@@ -1,4 +1,5 @@
 import httpx
+from app.config import get_settings
 from app.services.sources.base import Signal
 from app.utils.logging import get_logger
 
@@ -9,7 +10,8 @@ SO_API = "https://api.stackexchange.com/2.3"
 
 class StackOverflowSource:
     def __init__(self) -> None:
-        self.timeout = httpx.Timeout(15.0, connect=5.0)
+        settings = get_settings()
+        self.timeout = httpx.Timeout(float(settings.request_timeout_seconds))
 
     async def search(self, query: str, limit: int = 30) -> list[Signal]:
         params = {

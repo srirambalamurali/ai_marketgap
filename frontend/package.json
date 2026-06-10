@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/start-standalone.mjs",
     "lint": "node -e \"console.log('Lint gate disabled for demo'); process.exit(0)\"",
     "type-check": "tsc -p tsconfig.typecheck.json --noEmit"
   },

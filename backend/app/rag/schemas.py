@@ -38,6 +38,8 @@ class IngestResponse(BaseModel):
 class SearchRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=500)
     top_k: int = Field(default=10, ge=1, le=50)
+    query_id: str | None = None
+    report_id: str | None = None
 
 
 class SearchResponse(BaseModel):
@@ -45,6 +47,7 @@ class SearchResponse(BaseModel):
     query: str | None = None
     results: list[SearchResult]
     error: str | None = None
+    answer: str | None = None
 
 
 class ContextRequest(BaseModel):

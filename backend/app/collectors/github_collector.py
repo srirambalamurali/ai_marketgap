@@ -2,7 +2,9 @@ import asyncio
 import httpx
 from datetime import datetime
 from app.schemas.signals import Signal, SignalBatch
+from app.config import get_settings
 from app.services.source_scoring import score_source
+from app.services.query_guardrails import build_domain_profile
 from app.utils.logging import get_logger
 
 logger = get_logger("collectors.github")
@@ -12,9 +14,9 @@ GITHUB_API = "https://api.github.com"
 
 class GitHubIntelligenceCollector:
     def __init__(self, token: str | None = None) -> None:
-        from app.config import get_settings
-        self.token = token or get_settings().github_token
-        self.timeout = httpx.Timeout(30.0, connect=10.0)
+        settings = get_settings()
+        self.token = token or settings.github_token
+        self.timeout = httpx.Timeout(float(settings.request_timeout_seconds))
 
     def _headers(self) -> dict[str, str]:
         headers = {
@@ -29,17 +31,51 @@ class GitHubIntelligenceCollector:
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 resp = await client.get(url, headers=self._headers(), params=params)
+                logger.info("GitHub request url=%s status=%s params=%s", resp.request.url, resp.status_code, params or {})
                 resp.raise_for_status()
                 return resp.json()
         except httpx.HTTPStatusError as exc:
+            logger.warning(
+                "GitHub request failed url=%s status=%s body=%s",
+                getattr(exc.request, "url", url),
+                exc.response.status_code,
+                exc.response.text[:300],
+            )
             if exc.response.status_code == 403:
                 logger.warning("GitHub rate limit hit")
             else:
                 logger.error("GitHub API error %s: %s", exc.response.status_code, exc)
             return None
-        except Exception as exc:
-            logger.error("GitHub request failed: %s", exc)
+        except httpx.TimeoutException as exc:
+            logger.warning("GitHub timeout url=%s reason=%s", url, exc)
             return None
+        except Exception as exc:
+            logger.error("GitHub request failed url=%s reason=%s", url, exc)
+            return None
+
+    def _expand_query_variants(self, query: str) -> list[str]:
+        query_lower = query.strip().lower()
+        if not query_lower:
+            return []
+        if query_lower == "fitness":
+            return ["fitness", "workout", "gym", "exercise"]
+
+        profile = build_domain_profile(query)
+        related_terms = [term.strip() for term in profile.get("related_terms", []) if str(term).strip()]
+        variants = [part.strip() for part in query.split("||") if part.strip()] or [query.strip()]
+        if not variants:
+            variants = [query.strip()]
+        variants.extend(related_terms[:4])
+
+        deduped: list[str] = []
+        seen: set[str] = set()
+        for variant in variants:
+            normalized = variant.lower()
+            if normalized in seen:
+                continue
+            seen.add(normalized)
+            deduped.append(variant)
+        return deduped[:6]
 
     async def collect_trending_repos(self, query: str, limit: int = 30) -> SignalBatch:
         signals = []
@@ -130,7 +166,7 @@ class GitHubIntelligenceCollector:
         return SignalBatch(source="github", signals=signals)
 
     async def collect_all(self, query: str) -> SignalBatch:
-        query_variants = [part.strip() for part in query.split("||") if part.strip()]
+        query_variants = self._expand_query_variants(query)
         if not query_variants:
             query_variants = [query]
         query_variants = query_variants[:5]

@@ -1,0 +1,4808 @@
+[
+  {
+    "query": "Amazon seller tools",
+    "query_id": "6306630a-e5d8-4783-a083-4bd140a17209",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:47:38.286270+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:47:06.644007+00:00",
+        "end_time": "2026-06-10T02:47:06.645070+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:47:06.645071+00:00",
+        "end_time": "2026-06-10T02:47:06.645070+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:47:06.645071+00:00",
+        "end_time": "2026-06-10T02:47:30.399529+00:00",
+        "duration_ms": 23754,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:47:06.645071+00:00",
+        "end_time": "2026-06-10T02:47:30.448632+00:00",
+        "duration_ms": 23803,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:47:06.645071+00:00",
+        "end_time": "2026-06-10T02:47:30.450135+00:00",
+        "duration_ms": 23804,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:47:06.645071+00:00",
+        "end_time": "2026-06-10T02:47:30.455160+00:00",
+        "duration_ms": 23809,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:47:06.645071+00:00",
+        "end_time": "2026-06-10T02:47:30.459146+00:00",
+        "duration_ms": 23814,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:47:34.328509+00:00",
+        "end_time": "2026-06-10T02:47:38.067923+00:00",
+        "duration_ms": 3739,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:47:38.069127+00:00",
+        "end_time": "2026-06-10T02:47:38.162127+00:00",
+        "duration_ms": 93,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:47:38.245850+00:00",
+        "end_time": "2026-06-10T02:47:38.274772+00:00",
+        "duration_ms": 28,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "fitness technology",
+    "query_id": "739a2b36-2042-433a-8aaf-8147c8a90a43",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:48:05.196905+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:47:38.466197+00:00",
+        "end_time": "2026-06-10T02:47:38.467195+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:47:38.467195+00:00",
+        "end_time": "2026-06-10T02:47:38.467195+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:47:38.467195+00:00",
+        "end_time": "2026-06-10T02:48:00.646856+00:00",
+        "duration_ms": 22179,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:47:38.467195+00:00",
+        "end_time": "2026-06-10T02:48:00.688180+00:00",
+        "duration_ms": 22221,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:47:38.467195+00:00",
+        "end_time": "2026-06-10T02:48:00.691192+00:00",
+        "duration_ms": 22223,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:47:38.467195+00:00",
+        "end_time": "2026-06-10T02:48:00.693183+00:00",
+        "duration_ms": 22226,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:47:38.467195+00:00",
+        "end_time": "2026-06-10T02:48:00.701807+00:00",
+        "duration_ms": 22234,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:48:00.702812+00:00",
+        "end_time": "2026-06-10T02:48:04.472149+00:00",
+        "duration_ms": 3768,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T02:48:04.473042+00:00",
+        "end_time": "2026-06-10T02:48:04.475042+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:48:04.475042+00:00",
+        "end_time": "2026-06-10T02:48:05.134042+00:00",
+        "duration_ms": 659,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:48:05.186513+00:00",
+        "end_time": "2026-06-10T02:48:05.194891+00:00",
+        "duration_ms": 7,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "cybersecurity",
+    "query_id": "6b116a21-7839-4d56-89be-336e5b00be1b",
+    "query_domain": "cybersecurity",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:48:30.265712+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:48:05.226735+00:00",
+        "end_time": "2026-06-10T02:48:05.227725+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:48:05.227725+00:00",
+        "end_time": "2026-06-10T02:48:05.227725+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:48:05.227725+00:00",
+        "end_time": "2026-06-10T02:48:24.184576+00:00",
+        "duration_ms": 18957,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:48:05.227725+00:00",
+        "end_time": "2026-06-10T02:48:24.231631+00:00",
+        "duration_ms": 19003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:48:05.227725+00:00",
+        "end_time": "2026-06-10T02:48:24.234641+00:00",
+        "duration_ms": 19007,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:48:05.227725+00:00",
+        "end_time": "2026-06-10T02:48:24.236639+00:00",
+        "duration_ms": 19009,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:48:05.227725+00:00",
+        "end_time": "2026-06-10T02:48:24.239640+00:00",
+        "duration_ms": 19011,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:48:27.256751+00:00",
+        "end_time": "2026-06-10T02:48:30.125663+00:00",
+        "duration_ms": 2868,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:48:30.126581+00:00",
+        "end_time": "2026-06-10T02:48:30.205581+00:00",
+        "duration_ms": 79,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:48:30.251700+00:00",
+        "end_time": "2026-06-10T02:48:30.261607+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "marketing",
+    "query_id": "51fd2571-e520-4336-b8b3-f1e834d0deae",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:49:02.626797+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:48:30.308711+00:00",
+        "end_time": "2026-06-10T02:48:30.309628+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:48:30.309628+00:00",
+        "end_time": "2026-06-10T02:48:30.309628+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:48:30.309628+00:00",
+        "end_time": "2026-06-10T02:48:51.188450+00:00",
+        "duration_ms": 20879,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:48:30.309628+00:00",
+        "end_time": "2026-06-10T02:48:51.233725+00:00",
+        "duration_ms": 20923,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:48:30.309628+00:00",
+        "end_time": "2026-06-10T02:48:51.235731+00:00",
+        "duration_ms": 20926,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:48:30.309628+00:00",
+        "end_time": "2026-06-10T02:48:51.237726+00:00",
+        "duration_ms": 20928,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:48:30.309628+00:00",
+        "end_time": "2026-06-10T02:48:51.238724+00:00",
+        "duration_ms": 20929,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:48:55.333387+00:00",
+        "end_time": "2026-06-10T02:48:57.881006+00:00",
+        "duration_ms": 2547,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T02:48:57.882010+00:00",
+        "end_time": "2026-06-10T02:48:57.888010+00:00",
+        "duration_ms": 6,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:48:57.888010+00:00",
+        "end_time": "2026-06-10T02:49:02.562010+00:00",
+        "duration_ms": 4674,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:49:02.614542+00:00",
+        "end_time": "2026-06-10T02:49:02.623536+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Amazon seller tools",
+    "query_id": "ed02367b-edd0-4a7b-9d34-782ec9d5b170",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:51:00.140209+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:50:44.820458+00:00",
+        "end_time": "2026-06-10T02:50:44.820458+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:50:44.821457+00:00",
+        "end_time": "2026-06-10T02:50:44.821456+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:50:44.821457+00:00",
+        "end_time": "2026-06-10T02:50:52.844370+00:00",
+        "duration_ms": 8023,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:50:44.821457+00:00",
+        "end_time": "2026-06-10T02:50:54.555486+00:00",
+        "duration_ms": 9734,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:50:44.821457+00:00",
+        "end_time": "2026-06-10T02:50:54.836608+00:00",
+        "duration_ms": 10015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:50:44.820458+00:00",
+        "end_time": "2026-06-10T02:50:54.836608+00:00",
+        "duration_ms": 10015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:50:44.820458+00:00",
+        "end_time": "2026-06-10T02:50:54.836608+00:00",
+        "duration_ms": 10015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:50:57.987349+00:00",
+        "end_time": "2026-06-10T02:50:59.954099+00:00",
+        "duration_ms": 1966,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:50:59.955088+00:00",
+        "end_time": "2026-06-10T02:51:00.093088+00:00",
+        "duration_ms": 138,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:51:00.127209+00:00",
+        "end_time": "2026-06-10T02:51:00.140209+00:00",
+        "duration_ms": 12,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "fitness technology",
+    "query_id": "16cce07b-de4d-4e58-8d78-781dafb4fcc3",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:51:29.836479+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:51:16.483881+00:00",
+        "end_time": "2026-06-10T02:51:16.483880+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:51:16.484882+00:00",
+        "end_time": "2026-06-10T02:51:16.484882+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:51:16.484882+00:00",
+        "end_time": "2026-06-10T02:51:24.498497+00:00",
+        "duration_ms": 8013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:51:16.484882+00:00",
+        "end_time": "2026-06-10T02:51:24.645568+00:00",
+        "duration_ms": 8161,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:51:16.483881+00:00",
+        "end_time": "2026-06-10T02:51:24.935286+00:00",
+        "duration_ms": 8450,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:51:16.484882+00:00",
+        "end_time": "2026-06-10T02:51:24.979117+00:00",
+        "duration_ms": 8494,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:51:16.484882+00:00",
+        "end_time": "2026-06-10T02:51:24.979117+00:00",
+        "duration_ms": 8494,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:51:27.211002+00:00",
+        "end_time": "2026-06-10T02:51:29.091640+00:00",
+        "duration_ms": 1880,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T02:51:29.092635+00:00",
+        "end_time": "2026-06-10T02:51:29.094635+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:51:29.094635+00:00",
+        "end_time": "2026-06-10T02:51:29.792635+00:00",
+        "duration_ms": 698,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:51:29.831489+00:00",
+        "end_time": "2026-06-10T02:51:29.835481+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "cybersecurity",
+    "query_id": "36239879-7d4d-4a32-875e-635e8c73eb66",
+    "query_domain": "cybersecurity",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:51:41.380425+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:51:29.890459+00:00",
+        "end_time": "2026-06-10T02:51:29.890458+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:51:29.890459+00:00",
+        "end_time": "2026-06-10T02:51:29.890458+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:51:29.890459+00:00",
+        "end_time": "2026-06-10T02:51:29.900455+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:51:29.890459+00:00",
+        "end_time": "2026-06-10T02:51:37.493962+00:00",
+        "duration_ms": 7602,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:51:29.890459+00:00",
+        "end_time": "2026-06-10T02:51:37.500960+00:00",
+        "duration_ms": 7610,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:51:29.890459+00:00",
+        "end_time": "2026-06-10T02:51:37.500960+00:00",
+        "duration_ms": 7610,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:51:29.890459+00:00",
+        "end_time": "2026-06-10T02:51:37.500960+00:00",
+        "duration_ms": 7610,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:51:39.890984+00:00",
+        "end_time": "2026-06-10T02:51:41.330713+00:00",
+        "duration_ms": 1439,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:51:41.331714+00:00",
+        "end_time": "2026-06-10T02:51:41.362714+00:00",
+        "duration_ms": 31,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:51:41.375425+00:00",
+        "end_time": "2026-06-10T02:51:41.379427+00:00",
+        "duration_ms": 3,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "marketing",
+    "query_id": "287e1b2c-8031-48e4-8129-c606b9d1ae2e",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:51:55.241438+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:51:41.401042+00:00",
+        "end_time": "2026-06-10T02:51:41.401042+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:51:41.401042+00:00",
+        "end_time": "2026-06-10T02:51:41.401042+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:51:41.401042+00:00",
+        "end_time": "2026-06-10T02:51:41.410350+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:51:41.401042+00:00",
+        "end_time": "2026-06-10T02:51:49.122775+00:00",
+        "duration_ms": 7721,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:51:41.401042+00:00",
+        "end_time": "2026-06-10T02:51:49.133773+00:00",
+        "duration_ms": 7733,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:51:41.401042+00:00",
+        "end_time": "2026-06-10T02:51:49.133773+00:00",
+        "duration_ms": 7733,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:51:41.401042+00:00",
+        "end_time": "2026-06-10T02:51:49.133773+00:00",
+        "duration_ms": 7733,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:51:51.379612+00:00",
+        "end_time": "2026-06-10T02:51:53.409469+00:00",
+        "duration_ms": 2030,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T02:51:53.410348+00:00",
+        "end_time": "2026-06-10T02:51:53.412348+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:51:53.412348+00:00",
+        "end_time": "2026-06-10T02:51:55.211348+00:00",
+        "duration_ms": 1799,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:51:55.236196+00:00",
+        "end_time": "2026-06-10T02:51:55.240437+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in Amazon seller tools",
+    "query_id": "442feb40-1bf0-478f-9157-2fb043fce303",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T02:54:43.564051+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T02:54:21.788588+00:00",
+        "end_time": "2026-06-10T02:54:21.788587+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T02:54:21.788588+00:00",
+        "end_time": "2026-06-10T02:54:21.788587+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T02:54:21.788588+00:00",
+        "end_time": "2026-06-10T02:54:29.808375+00:00",
+        "duration_ms": 8019,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T02:54:21.788588+00:00",
+        "end_time": "2026-06-10T02:54:31.803795+00:00",
+        "duration_ms": 10015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T02:54:21.788588+00:00",
+        "end_time": "2026-06-10T02:54:31.803795+00:00",
+        "duration_ms": 10015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T02:54:21.788588+00:00",
+        "end_time": "2026-06-10T02:54:31.803795+00:00",
+        "duration_ms": 10015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T02:54:21.788588+00:00",
+        "end_time": "2026-06-10T02:54:31.803795+00:00",
+        "duration_ms": 10015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T02:54:31.857640+00:00",
+        "end_time": "2026-06-10T02:54:41.445604+00:00",
+        "duration_ms": 9588,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T02:54:41.450176+00:00",
+        "end_time": "2026-06-10T02:54:41.451176+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T02:54:41.451176+00:00",
+        "end_time": "2026-06-10T02:54:43.389176+00:00",
+        "duration_ms": 1938,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T02:54:43.535830+00:00",
+        "end_time": "2026-06-10T02:54:43.562044+00:00",
+        "duration_ms": 25,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in Amazon seller tools",
+    "query_id": "a32294ce-93fc-472d-a713-e74ceb627db3",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:09:39.097256+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:09:22.900903+00:00",
+        "end_time": "2026-06-10T03:09:22.906912+00:00",
+        "duration_ms": 5,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:09:22.908895+00:00",
+        "end_time": "2026-06-10T03:09:22.909896+00:00",
+        "duration_ms": 1,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:09:22.908895+00:00",
+        "end_time": "2026-06-10T03:09:30.935840+00:00",
+        "duration_ms": 8026,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:09:22.908895+00:00",
+        "end_time": "2026-06-10T03:09:32.902887+00:00",
+        "duration_ms": 9994,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:09:22.907895+00:00",
+        "end_time": "2026-06-10T03:09:32.902887+00:00",
+        "duration_ms": 9995,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:09:22.908895+00:00",
+        "end_time": "2026-06-10T03:09:32.903888+00:00",
+        "duration_ms": 9994,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:09:22.908895+00:00",
+        "end_time": "2026-06-10T03:09:32.903888+00:00",
+        "duration_ms": 9994,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:09:32.909358+00:00",
+        "end_time": "2026-06-10T03:09:37.884747+00:00",
+        "duration_ms": 4974,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:09:37.885765+00:00",
+        "end_time": "2026-06-10T03:09:37.889765+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:09:37.889765+00:00",
+        "end_time": "2026-06-10T03:09:38.941765+00:00",
+        "duration_ms": 1052,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:09:39.077892+00:00",
+        "end_time": "2026-06-10T03:09:39.094890+00:00",
+        "duration_ms": 16,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in Amazon seller tools",
+    "query_id": "cb02f75e-a8cc-4c9f-abd5-05b7ca4fada4",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:12:10.771686+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:11:54.183653+00:00",
+        "end_time": "2026-06-10T03:11:54.184656+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:11:54.184656+00:00",
+        "end_time": "2026-06-10T03:11:54.184656+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:11:54.184656+00:00",
+        "end_time": "2026-06-10T03:12:02.172941+00:00",
+        "duration_ms": 7988,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:11:54.184656+00:00",
+        "end_time": "2026-06-10T03:12:04.187903+00:00",
+        "duration_ms": 10003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:11:54.184656+00:00",
+        "end_time": "2026-06-10T03:12:04.187903+00:00",
+        "duration_ms": 10003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:11:54.184656+00:00",
+        "end_time": "2026-06-10T03:12:04.187903+00:00",
+        "duration_ms": 10003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:11:54.184656+00:00",
+        "end_time": "2026-06-10T03:12:04.187903+00:00",
+        "duration_ms": 10003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:12:04.192351+00:00",
+        "end_time": "2026-06-10T03:12:09.621138+00:00",
+        "duration_ms": 5428,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:12:09.622147+00:00",
+        "end_time": "2026-06-10T03:12:09.623147+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:12:09.623147+00:00",
+        "end_time": "2026-06-10T03:12:10.653147+00:00",
+        "duration_ms": 1030,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:12:10.737643+00:00",
+        "end_time": "2026-06-10T03:12:10.769642+00:00",
+        "duration_ms": 31,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in Amazon seller tools",
+    "query_id": "8007e75c-d106-4b3e-90d8-1d21acb4fd6d",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:12:56.609439+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:12:40.205184+00:00",
+        "end_time": "2026-06-10T03:12:40.205183+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:12:40.205184+00:00",
+        "end_time": "2026-06-10T03:12:40.205183+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:12:40.205184+00:00",
+        "end_time": "2026-06-10T03:12:48.198420+00:00",
+        "duration_ms": 7992,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:12:40.205184+00:00",
+        "end_time": "2026-06-10T03:12:50.209576+00:00",
+        "duration_ms": 10004,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:12:40.205184+00:00",
+        "end_time": "2026-06-10T03:12:50.209576+00:00",
+        "duration_ms": 10004,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:12:40.205184+00:00",
+        "end_time": "2026-06-10T03:12:50.209576+00:00",
+        "duration_ms": 10004,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:12:40.205184+00:00",
+        "end_time": "2026-06-10T03:12:50.209576+00:00",
+        "duration_ms": 10004,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:12:50.211577+00:00",
+        "end_time": "2026-06-10T03:12:55.527874+00:00",
+        "duration_ms": 5315,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:12:55.527874+00:00",
+        "end_time": "2026-06-10T03:12:55.528874+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:12:55.528874+00:00",
+        "end_time": "2026-06-10T03:12:56.529874+00:00",
+        "duration_ms": 1001,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:12:56.598021+00:00",
+        "end_time": "2026-06-10T03:12:56.608440+00:00",
+        "duration_ms": 10,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in Amazon seller tools",
+    "query_id": "fabf243d-5d51-4436-9788-300cead7d7f3",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:16:23.697946+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:16:08.425709+00:00",
+        "end_time": "2026-06-10T03:16:08.425708+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:16:08.425709+00:00",
+        "end_time": "2026-06-10T03:16:08.425708+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:16:08.425709+00:00",
+        "end_time": "2026-06-10T03:16:16.442303+00:00",
+        "duration_ms": 8016,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:16:08.425709+00:00",
+        "end_time": "2026-06-10T03:16:17.222346+00:00",
+        "duration_ms": 8796,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:16:08.425709+00:00",
+        "end_time": "2026-06-10T03:16:18.434382+00:00",
+        "duration_ms": 10008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:16:08.425709+00:00",
+        "end_time": "2026-06-10T03:16:18.434382+00:00",
+        "duration_ms": 10008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:16:08.425709+00:00",
+        "end_time": "2026-06-10T03:16:18.434382+00:00",
+        "duration_ms": 10009,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:16:20.990843+00:00",
+        "end_time": "2026-06-10T03:16:23.517998+00:00",
+        "duration_ms": 2526,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:16:23.518997+00:00",
+        "end_time": "2026-06-10T03:16:23.656997+00:00",
+        "duration_ms": 138,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:16:23.690934+00:00",
+        "end_time": "2026-06-10T03:16:23.696946+00:00",
+        "duration_ms": 5,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "marketing",
+    "query_id": "25089bb0-92a2-41f9-b1e6-e7efbb5c3647",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:19:53.115889+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:19:14.547132+00:00",
+        "end_time": "2026-06-10T03:19:14.547131+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:19:14.549132+00:00",
+        "end_time": "2026-06-10T03:19:14.549131+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:19:14.549132+00:00",
+        "end_time": "2026-06-10T03:19:14.651297+00:00",
+        "duration_ms": 101,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:19:14.547132+00:00",
+        "end_time": "2026-06-10T03:19:24.548919+00:00",
+        "duration_ms": 10001,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:19:14.547132+00:00",
+        "end_time": "2026-06-10T03:19:24.548919+00:00",
+        "duration_ms": 10001,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:19:14.549132+00:00",
+        "end_time": "2026-06-10T03:19:24.548919+00:00",
+        "duration_ms": 9999,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:19:14.547132+00:00",
+        "end_time": "2026-06-10T03:19:24.548919+00:00",
+        "duration_ms": 10001,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:19:36.904638+00:00",
+        "end_time": "2026-06-10T03:19:46.133609+00:00",
+        "duration_ms": 9229,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:19:46.140313+00:00",
+        "end_time": "2026-06-10T03:19:46.177313+00:00",
+        "duration_ms": 37,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:19:46.177313+00:00",
+        "end_time": "2026-06-10T03:19:53.012313+00:00",
+        "duration_ms": 6835,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:19:53.107006+00:00",
+        "end_time": "2026-06-10T03:19:53.114005+00:00",
+        "duration_ms": 6,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "digital marketing",
+    "query_id": "eb2d2ef4-84e1-4682-b4f5-cde2937ab1d6",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:23:29.702686+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:22:51.685349+00:00",
+        "end_time": "2026-06-10T03:22:51.685348+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:22:51.685349+00:00",
+        "end_time": "2026-06-10T03:22:51.685348+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:22:51.685349+00:00",
+        "end_time": "2026-06-10T03:22:51.759792+00:00",
+        "duration_ms": 73,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:22:51.685349+00:00",
+        "end_time": "2026-06-10T03:23:01.697374+00:00",
+        "duration_ms": 10011,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:22:51.685349+00:00",
+        "end_time": "2026-06-10T03:23:01.697374+00:00",
+        "duration_ms": 10011,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:22:51.685349+00:00",
+        "end_time": "2026-06-10T03:23:01.697374+00:00",
+        "duration_ms": 10011,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:22:51.685349+00:00",
+        "end_time": "2026-06-10T03:23:01.697374+00:00",
+        "duration_ms": 10011,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:23:12.836437+00:00",
+        "end_time": "2026-06-10T03:23:23.672689+00:00",
+        "duration_ms": 10835,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:23:23.673685+00:00",
+        "end_time": "2026-06-10T03:23:23.682685+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:23:23.682685+00:00",
+        "end_time": "2026-06-10T03:23:29.578685+00:00",
+        "duration_ms": 5896,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:23:29.686697+00:00",
+        "end_time": "2026-06-10T03:23:29.701687+00:00",
+        "duration_ms": 15,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in marketing",
+    "query_id": "4c43d97e-5c67-48dc-8945-782d198f5d47",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:38:51.255307+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:38:37.189782+00:00",
+        "end_time": "2026-06-10T03:38:37.190779+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:38:37.190779+00:00",
+        "end_time": "2026-06-10T03:38:37.190779+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:38:37.190779+00:00",
+        "end_time": "2026-06-10T03:38:45.219849+00:00",
+        "duration_ms": 8029,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:38:37.190779+00:00",
+        "end_time": "2026-06-10T03:38:46.314329+00:00",
+        "duration_ms": 9123,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:38:37.190779+00:00",
+        "end_time": "2026-06-10T03:38:46.845077+00:00",
+        "duration_ms": 9654,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:38:37.190779+00:00",
+        "end_time": "2026-06-10T03:38:46.920082+00:00",
+        "duration_ms": 9729,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:38:37.190779+00:00",
+        "end_time": "2026-06-10T03:38:46.949077+00:00",
+        "duration_ms": 9758,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:38:49.331731+00:00",
+        "end_time": "2026-06-10T03:38:51.067314+00:00",
+        "duration_ms": 1736,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:38:51.068311+00:00",
+        "end_time": "2026-06-10T03:38:51.209311+00:00",
+        "duration_ms": 141,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:38:51.247338+00:00",
+        "end_time": "2026-06-10T03:38:51.254308+00:00",
+        "duration_ms": 6,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in marketing",
+    "query_id": "c96ced63-fdde-4df7-8c33-06463dcad599",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:41:29.195125+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:41:16.455490+00:00",
+        "end_time": "2026-06-10T03:41:16.455490+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:41:16.455490+00:00",
+        "end_time": "2026-06-10T03:41:16.455490+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:41:16.455490+00:00",
+        "end_time": "2026-06-10T03:41:24.483013+00:00",
+        "duration_ms": 8027,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:41:16.455490+00:00",
+        "end_time": "2026-06-10T03:41:26.469416+00:00",
+        "duration_ms": 10013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:41:16.455490+00:00",
+        "end_time": "2026-06-10T03:41:26.469416+00:00",
+        "duration_ms": 10013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:41:16.455490+00:00",
+        "end_time": "2026-06-10T03:41:26.469416+00:00",
+        "duration_ms": 10014,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:41:16.455490+00:00",
+        "end_time": "2026-06-10T03:41:26.469416+00:00",
+        "duration_ms": 10014,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:41:26.471419+00:00",
+        "end_time": "2026-06-10T03:41:28.856252+00:00",
+        "duration_ms": 2384,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:41:28.857250+00:00",
+        "end_time": "2026-06-10T03:41:29.071250+00:00",
+        "duration_ms": 214,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:41:29.175126+00:00",
+        "end_time": "2026-06-10T03:41:29.194124+00:00",
+        "duration_ms": 18,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in marketing",
+    "query_id": "a6e39265-8270-4659-8fda-0db89f0ad1f1",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:43:01.273239+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:42:48.413693+00:00",
+        "end_time": "2026-06-10T03:42:48.414692+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:42:48.414693+00:00",
+        "end_time": "2026-06-10T03:42:48.414692+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:42:48.414693+00:00",
+        "end_time": "2026-06-10T03:42:56.420622+00:00",
+        "duration_ms": 8006,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:42:48.414693+00:00",
+        "end_time": "2026-06-10T03:42:58.404959+00:00",
+        "duration_ms": 9990,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:42:48.414693+00:00",
+        "end_time": "2026-06-10T03:42:58.404959+00:00",
+        "duration_ms": 9990,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:42:48.414693+00:00",
+        "end_time": "2026-06-10T03:42:58.404959+00:00",
+        "duration_ms": 9990,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:42:48.414693+00:00",
+        "end_time": "2026-06-10T03:42:58.404959+00:00",
+        "duration_ms": 9990,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:42:58.406959+00:00",
+        "end_time": "2026-06-10T03:43:01.038272+00:00",
+        "duration_ms": 2630,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:43:01.038273+00:00",
+        "end_time": "2026-06-10T03:43:01.239273+00:00",
+        "duration_ms": 201,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:43:01.265239+00:00",
+        "end_time": "2026-06-10T03:43:01.272271+00:00",
+        "duration_ms": 7,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in marketing",
+    "query_id": "4e18915e-e8c5-4c13-8226-ebe3cc27e10f",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:43:29.757010+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:43:15.929052+00:00",
+        "end_time": "2026-06-10T03:43:15.929051+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:43:15.929052+00:00",
+        "end_time": "2026-06-10T03:43:15.929051+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:43:15.929052+00:00",
+        "end_time": "2026-06-10T03:43:23.923765+00:00",
+        "duration_ms": 7994,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:43:15.929052+00:00",
+        "end_time": "2026-06-10T03:43:25.364546+00:00",
+        "duration_ms": 9435,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:43:15.929052+00:00",
+        "end_time": "2026-06-10T03:43:25.876548+00:00",
+        "duration_ms": 9947,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:43:15.929052+00:00",
+        "end_time": "2026-06-10T03:43:25.924563+00:00",
+        "duration_ms": 9995,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:43:15.929052+00:00",
+        "end_time": "2026-06-10T03:43:25.924563+00:00",
+        "duration_ms": 9995,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:43:27.708550+00:00",
+        "end_time": "2026-06-10T03:43:29.532545+00:00",
+        "duration_ms": 1823,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:43:29.532545+00:00",
+        "end_time": "2026-06-10T03:43:29.735545+00:00",
+        "duration_ms": 203,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:43:29.751011+00:00",
+        "end_time": "2026-06-10T03:43:29.756007+00:00",
+        "duration_ms": 5,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in fitness technology",
+    "query_id": "d55fddf5-77be-48f5-bb78-5158331792ac",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:43:43.287384+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:43:29.862007+00:00",
+        "end_time": "2026-06-10T03:43:29.862007+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:43:29.862007+00:00",
+        "end_time": "2026-06-10T03:43:29.862007+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:43:29.862007+00:00",
+        "end_time": "2026-06-10T03:43:37.448864+00:00",
+        "duration_ms": 7586,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:43:29.862007+00:00",
+        "end_time": "2026-06-10T03:43:37.879861+00:00",
+        "duration_ms": 8017,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:43:29.862007+00:00",
+        "end_time": "2026-06-10T03:43:39.042089+00:00",
+        "duration_ms": 9179,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:43:29.862007+00:00",
+        "end_time": "2026-06-10T03:43:39.291076+00:00",
+        "duration_ms": 9428,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:43:29.862007+00:00",
+        "end_time": "2026-06-10T03:43:39.884234+00:00",
+        "duration_ms": 10021,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:43:40.984097+00:00",
+        "end_time": "2026-06-10T03:43:42.864384+00:00",
+        "duration_ms": 1880,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:43:42.864384+00:00",
+        "end_time": "2026-06-10T03:43:42.865384+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:43:42.865384+00:00",
+        "end_time": "2026-06-10T03:43:43.266384+00:00",
+        "duration_ms": 401,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:43:43.282382+00:00",
+        "end_time": "2026-06-10T03:43:43.286398+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in amazon seller tools",
+    "query_id": "0a22af05-fa80-45fc-aa48-628b0cb18d71",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:43:55.814650+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:43:43.416390+00:00",
+        "end_time": "2026-06-10T03:43:43.416389+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:43:43.416390+00:00",
+        "end_time": "2026-06-10T03:43:43.416389+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:43:43.416390+00:00",
+        "end_time": "2026-06-10T03:43:51.218430+00:00",
+        "duration_ms": 7802,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:43:43.416390+00:00",
+        "end_time": "2026-06-10T03:43:51.420442+00:00",
+        "duration_ms": 8003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:43:43.416390+00:00",
+        "end_time": "2026-06-10T03:43:53.387985+00:00",
+        "duration_ms": 9971,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:43:43.416390+00:00",
+        "end_time": "2026-06-10T03:43:53.430144+00:00",
+        "duration_ms": 10013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:43:43.416390+00:00",
+        "end_time": "2026-06-10T03:43:53.430144+00:00",
+        "duration_ms": 10013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:43:53.432351+00:00",
+        "end_time": "2026-06-10T03:43:55.522615+00:00",
+        "duration_ms": 2089,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:43:55.522615+00:00",
+        "end_time": "2026-06-10T03:43:55.795615+00:00",
+        "duration_ms": 273,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:43:55.810615+00:00",
+        "end_time": "2026-06-10T03:43:55.814650+00:00",
+        "duration_ms": 3,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in cybersecurity",
+    "query_id": "2f5d2348-780a-416f-a451-bee3fc679933",
+    "query_domain": "cybersecurity",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:44:09.784041+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:43:55.914618+00:00",
+        "end_time": "2026-06-10T03:43:55.914618+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:43:55.914618+00:00",
+        "end_time": "2026-06-10T03:43:55.914618+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:43:55.914618+00:00",
+        "end_time": "2026-06-10T03:44:03.911842+00:00",
+        "duration_ms": 7997,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:43:55.914618+00:00",
+        "end_time": "2026-06-10T03:44:04.244842+00:00",
+        "duration_ms": 8330,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:43:55.914618+00:00",
+        "end_time": "2026-06-10T03:44:05.892532+00:00",
+        "duration_ms": 9977,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:43:55.914618+00:00",
+        "end_time": "2026-06-10T03:44:05.892532+00:00",
+        "duration_ms": 9977,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:43:55.914618+00:00",
+        "end_time": "2026-06-10T03:44:05.892532+00:00",
+        "duration_ms": 9977,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:44:05.894532+00:00",
+        "end_time": "2026-06-10T03:44:07.804003+00:00",
+        "duration_ms": 1908,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:44:07.804003+00:00",
+        "end_time": "2026-06-10T03:44:07.806003+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:44:07.806003+00:00",
+        "end_time": "2026-06-10T03:44:09.761003+00:00",
+        "duration_ms": 1955,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:44:09.778038+00:00",
+        "end_time": "2026-06-10T03:44:09.783041+00:00",
+        "duration_ms": 5,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in marketing",
+    "query_id": "479b88c2-ef23-48e7-b0b2-6bcee1c778be",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:45:36.703941+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:45:23.208679+00:00",
+        "end_time": "2026-06-10T03:45:23.209677+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:45:23.209677+00:00",
+        "end_time": "2026-06-10T03:45:23.209677+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:45:23.209677+00:00",
+        "end_time": "2026-06-10T03:45:31.225754+00:00",
+        "duration_ms": 8015,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:45:23.209677+00:00",
+        "end_time": "2026-06-10T03:45:33.230720+00:00",
+        "duration_ms": 10020,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:45:23.209677+00:00",
+        "end_time": "2026-06-10T03:45:33.230720+00:00",
+        "duration_ms": 10020,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:45:23.209677+00:00",
+        "end_time": "2026-06-10T03:45:33.230720+00:00",
+        "duration_ms": 10021,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:45:23.209677+00:00",
+        "end_time": "2026-06-10T03:45:33.230720+00:00",
+        "duration_ms": 10021,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:45:33.232721+00:00",
+        "end_time": "2026-06-10T03:45:36.430077+00:00",
+        "duration_ms": 3197,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:45:36.431074+00:00",
+        "end_time": "2026-06-10T03:45:36.672074+00:00",
+        "duration_ms": 241,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:45:36.695942+00:00",
+        "end_time": "2026-06-10T03:45:36.702942+00:00",
+        "duration_ms": 7,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in fitness technology",
+    "query_id": "c7dfd46b-1f6c-422f-8416-6f5bf8558dcf",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:46:02.497689+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:45:47.818856+00:00",
+        "end_time": "2026-06-10T03:45:47.818855+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:45:47.818856+00:00",
+        "end_time": "2026-06-10T03:45:47.818855+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:45:47.818856+00:00",
+        "end_time": "2026-06-10T03:45:55.557162+00:00",
+        "duration_ms": 7738,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:45:47.818856+00:00",
+        "end_time": "2026-06-10T03:45:55.815159+00:00",
+        "duration_ms": 7996,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:45:47.818856+00:00",
+        "end_time": "2026-06-10T03:45:57.559929+00:00",
+        "duration_ms": 9741,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:45:47.818856+00:00",
+        "end_time": "2026-06-10T03:45:57.817016+00:00",
+        "duration_ms": 9998,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:45:47.818856+00:00",
+        "end_time": "2026-06-10T03:45:57.817016+00:00",
+        "duration_ms": 9998,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:45:59.428715+00:00",
+        "end_time": "2026-06-10T03:46:02.070413+00:00",
+        "duration_ms": 2641,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:46:02.070413+00:00",
+        "end_time": "2026-06-10T03:46:02.071413+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:46:02.071413+00:00",
+        "end_time": "2026-06-10T03:46:02.469413+00:00",
+        "duration_ms": 398,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:46:02.488690+00:00",
+        "end_time": "2026-06-10T03:46:02.496688+00:00",
+        "duration_ms": 7,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in amazon seller tools",
+    "query_id": "e9e1ab4f-85aa-427e-89b6-cd0dec4b0458",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:46:15.914085+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:46:02.660841+00:00",
+        "end_time": "2026-06-10T03:46:02.660841+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:46:02.660841+00:00",
+        "end_time": "2026-06-10T03:46:02.660841+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:46:02.660841+00:00",
+        "end_time": "2026-06-10T03:46:10.659568+00:00",
+        "duration_ms": 7998,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:46:02.660841+00:00",
+        "end_time": "2026-06-10T03:46:12.389532+00:00",
+        "duration_ms": 9727,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:46:02.660841+00:00",
+        "end_time": "2026-06-10T03:46:12.664583+00:00",
+        "duration_ms": 10003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:46:02.660841+00:00",
+        "end_time": "2026-06-10T03:46:12.664583+00:00",
+        "duration_ms": 10003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:46:02.660841+00:00",
+        "end_time": "2026-06-10T03:46:12.664583+00:00",
+        "duration_ms": 10003,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:46:12.666584+00:00",
+        "end_time": "2026-06-10T03:46:15.635087+00:00",
+        "duration_ms": 2968,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:46:15.635087+00:00",
+        "end_time": "2026-06-10T03:46:15.896087+00:00",
+        "duration_ms": 261,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:46:15.910087+00:00",
+        "end_time": "2026-06-10T03:46:15.913091+00:00",
+        "duration_ms": 3,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in cybersecurity",
+    "query_id": "568cc929-8163-42df-8d89-4f37badffde5",
+    "query_domain": "cybersecurity",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:46:30.244351+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:46:15.996090+00:00",
+        "end_time": "2026-06-10T03:46:15.996090+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:46:15.996090+00:00",
+        "end_time": "2026-06-10T03:46:15.996090+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:46:15.996090+00:00",
+        "end_time": "2026-06-10T03:46:23.979319+00:00",
+        "duration_ms": 7982,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:46:15.996090+00:00",
+        "end_time": "2026-06-10T03:46:24.239329+00:00",
+        "duration_ms": 8242,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:46:15.996090+00:00",
+        "end_time": "2026-06-10T03:46:26.010350+00:00",
+        "duration_ms": 10013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:46:15.996090+00:00",
+        "end_time": "2026-06-10T03:46:26.010350+00:00",
+        "duration_ms": 10013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:46:15.996090+00:00",
+        "end_time": "2026-06-10T03:46:26.010350+00:00",
+        "duration_ms": 10013,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:46:26.011351+00:00",
+        "end_time": "2026-06-10T03:46:28.242348+00:00",
+        "duration_ms": 2230,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:46:28.242348+00:00",
+        "end_time": "2026-06-10T03:46:28.244348+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:46:28.244348+00:00",
+        "end_time": "2026-06-10T03:46:30.218348+00:00",
+        "duration_ms": 1974,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:46:30.238354+00:00",
+        "end_time": "2026-06-10T03:46:30.243349+00:00",
+        "duration_ms": 5,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in fitness technology",
+    "query_id": "79ac17f1-73cc-4286-8f28-ce44e58b4cae",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:47:58.844489+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:47:44.297396+00:00",
+        "end_time": "2026-06-10T03:47:44.297395+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:47:44.297396+00:00",
+        "end_time": "2026-06-10T03:47:44.297395+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:47:44.297396+00:00",
+        "end_time": "2026-06-10T03:47:52.045677+00:00",
+        "duration_ms": 7748,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:47:44.297396+00:00",
+        "end_time": "2026-06-10T03:47:52.297676+00:00",
+        "duration_ms": 7999,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:47:44.297396+00:00",
+        "end_time": "2026-06-10T03:47:53.926541+00:00",
+        "duration_ms": 9628,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:47:44.297396+00:00",
+        "end_time": "2026-06-10T03:47:54.010579+00:00",
+        "duration_ms": 9713,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:47:44.297396+00:00",
+        "end_time": "2026-06-10T03:47:54.285393+00:00",
+        "duration_ms": 9987,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:47:56.328551+00:00",
+        "end_time": "2026-06-10T03:47:58.504928+00:00",
+        "duration_ms": 2176,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:47:58.505928+00:00",
+        "end_time": "2026-06-10T03:47:58.506927+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:47:58.506927+00:00",
+        "end_time": "2026-06-10T03:47:58.780927+00:00",
+        "duration_ms": 274,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:47:58.817349+00:00",
+        "end_time": "2026-06-10T03:47:58.843489+00:00",
+        "duration_ms": 25,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in fitness technology",
+    "query_id": "8eb8d605-b6e1-49ad-b7ea-53b1451d281a",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:49:09.075218+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:48:56.893577+00:00",
+        "end_time": "2026-06-10T03:48:56.893577+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:48:56.893577+00:00",
+        "end_time": "2026-06-10T03:48:56.894755+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:48:56.893577+00:00",
+        "end_time": "2026-06-10T03:49:04.901605+00:00",
+        "duration_ms": 8007,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:48:56.893577+00:00",
+        "end_time": "2026-06-10T03:49:05.792605+00:00",
+        "duration_ms": 8898,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:48:56.893577+00:00",
+        "end_time": "2026-06-10T03:49:06.920086+00:00",
+        "duration_ms": 10025,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:48:56.893577+00:00",
+        "end_time": "2026-06-10T03:49:06.920086+00:00",
+        "duration_ms": 10025,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:48:56.893577+00:00",
+        "end_time": "2026-06-10T03:49:06.920086+00:00",
+        "duration_ms": 10025,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:49:06.921073+00:00",
+        "end_time": "2026-06-10T03:49:08.836333+00:00",
+        "duration_ms": 1914,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:49:08.837334+00:00",
+        "end_time": "2026-06-10T03:49:09.040334+00:00",
+        "duration_ms": 203,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:49:09.064254+00:00",
+        "end_time": "2026-06-10T03:49:09.074251+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in Amazon seller tools",
+    "query_id": "b852c3b0-ff14-47b8-aa05-8ddc3944cdca",
+    "query_domain": "amazon",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:51:36.953839+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:51:21.640342+00:00",
+        "end_time": "2026-06-10T03:51:21.640342+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:51:21.640342+00:00",
+        "end_time": "2026-06-10T03:51:21.640342+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:51:21.640342+00:00",
+        "end_time": "2026-06-10T03:51:28.350544+00:00",
+        "duration_ms": 6709,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:51:21.640342+00:00",
+        "end_time": "2026-06-10T03:51:29.566767+00:00",
+        "duration_ms": 7925,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:51:21.640342+00:00",
+        "end_time": "2026-06-10T03:51:29.631747+00:00",
+        "duration_ms": 7991,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:51:21.640342+00:00",
+        "end_time": "2026-06-10T03:51:29.632745+00:00",
+        "duration_ms": 7991,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:51:21.640342+00:00",
+        "end_time": "2026-06-10T03:51:31.655414+00:00",
+        "duration_ms": 10014,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:51:34.017831+00:00",
+        "end_time": "2026-06-10T03:51:36.430774+00:00",
+        "duration_ms": 2413,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:51:36.431858+00:00",
+        "end_time": "2026-06-10T03:51:36.916858+00:00",
+        "duration_ms": 485,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:51:36.936849+00:00",
+        "end_time": "2026-06-10T03:51:36.952853+00:00",
+        "duration_ms": 16,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "education technology",
+    "query_id": "15bebaf1-9cd8-482a-89d7-dc3a0ef3e988",
+    "query_domain": "education",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T03:54:57.153059+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T03:54:41.031119+00:00",
+        "end_time": "2026-06-10T03:54:41.032118+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T03:54:41.032118+00:00",
+        "end_time": "2026-06-10T03:54:41.032118+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T03:54:41.032118+00:00",
+        "end_time": "2026-06-10T03:54:47.282016+00:00",
+        "duration_ms": 6250,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T03:54:41.032118+00:00",
+        "end_time": "2026-06-10T03:54:48.455078+00:00",
+        "duration_ms": 7422,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T03:54:41.032118+00:00",
+        "end_time": "2026-06-10T03:54:48.790424+00:00",
+        "duration_ms": 7758,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T03:54:41.032118+00:00",
+        "end_time": "2026-06-10T03:54:49.040866+00:00",
+        "duration_ms": 8008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T03:54:41.032118+00:00",
+        "end_time": "2026-06-10T03:54:51.034746+00:00",
+        "duration_ms": 10002,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T03:54:53.917417+00:00",
+        "end_time": "2026-06-10T03:54:56.134746+00:00",
+        "duration_ms": 2217,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T03:54:56.135649+00:00",
+        "end_time": "2026-06-10T03:54:56.136649+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T03:54:56.136649+00:00",
+        "end_time": "2026-06-10T03:54:57.092649+00:00",
+        "duration_ms": 956,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T03:54:57.146230+00:00",
+        "end_time": "2026-06-10T03:54:57.151069+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "marketing",
+    "query_id": "0baa0655-8865-45cd-8e04-47b138a9455a",
+    "query_domain": "marketing",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T04:31:12.492898+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T04:30:56.542203+00:00",
+        "end_time": "2026-06-10T04:30:56.542203+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T04:30:56.542203+00:00",
+        "end_time": "2026-06-10T04:30:56.542203+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T04:30:56.542203+00:00",
+        "end_time": "2026-06-10T04:31:04.529226+00:00",
+        "duration_ms": 7987,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T04:30:56.542203+00:00",
+        "end_time": "2026-06-10T04:31:05.998878+00:00",
+        "duration_ms": 9456,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T04:30:56.542203+00:00",
+        "end_time": "2026-06-10T04:31:06.538557+00:00",
+        "duration_ms": 9996,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T04:30:56.542203+00:00",
+        "end_time": "2026-06-10T04:31:06.538557+00:00",
+        "duration_ms": 9996,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T04:30:56.542203+00:00",
+        "end_time": "2026-06-10T04:31:06.538557+00:00",
+        "duration_ms": 9996,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T04:31:09.935904+00:00",
+        "end_time": "2026-06-10T04:31:12.178421+00:00",
+        "duration_ms": 2241,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T04:31:12.178422+00:00",
+        "end_time": "2026-06-10T04:31:12.421422+00:00",
+        "duration_ms": 243,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T04:31:12.475899+00:00",
+        "end_time": "2026-06-10T04:31:12.490900+00:00",
+        "duration_ms": 14,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in education technology",
+    "query_id": "6f7f6340-61ad-47fb-859e-538bfeda1261",
+    "query_domain": "education",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T06:35:22.886410+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T06:35:03.727071+00:00",
+        "end_time": "2026-06-10T06:35:03.727071+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T06:35:03.727071+00:00",
+        "end_time": "2026-06-10T06:35:03.727071+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T06:35:03.727071+00:00",
+        "end_time": "2026-06-10T06:35:11.737851+00:00",
+        "duration_ms": 8010,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T06:35:03.727071+00:00",
+        "end_time": "2026-06-10T06:35:13.746867+00:00",
+        "duration_ms": 10019,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T06:35:03.727071+00:00",
+        "end_time": "2026-06-10T06:35:13.746867+00:00",
+        "duration_ms": 10019,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T06:35:03.727071+00:00",
+        "end_time": "2026-06-10T06:35:13.746867+00:00",
+        "duration_ms": 10019,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T06:35:03.727071+00:00",
+        "end_time": "2026-06-10T06:35:13.746867+00:00",
+        "duration_ms": 10019,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T06:35:13.749872+00:00",
+        "end_time": "2026-06-10T06:35:21.677470+00:00",
+        "duration_ms": 7927,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T06:35:21.678473+00:00",
+        "end_time": "2026-06-10T06:35:21.682473+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T06:35:21.682473+00:00",
+        "end_time": "2026-06-10T06:35:22.746473+00:00",
+        "duration_ms": 1064,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T06:35:22.828470+00:00",
+        "end_time": "2026-06-10T06:35:22.884409+00:00",
+        "duration_ms": 55,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "73606fca-6f6a-4bd9-aad6-9a2abfe1fac4",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T06:36:14.981338+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T06:35:56.774150+00:00",
+        "end_time": "2026-06-10T06:35:56.774149+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T06:35:56.774150+00:00",
+        "end_time": "2026-06-10T06:35:56.774149+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T06:35:56.774150+00:00",
+        "end_time": "2026-06-10T06:36:04.782709+00:00",
+        "duration_ms": 8008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T06:35:56.774150+00:00",
+        "end_time": "2026-06-10T06:36:06.769526+00:00",
+        "duration_ms": 9995,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T06:35:56.774150+00:00",
+        "end_time": "2026-06-10T06:36:06.769526+00:00",
+        "duration_ms": 9995,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T06:35:56.774150+00:00",
+        "end_time": "2026-06-10T06:36:06.769526+00:00",
+        "duration_ms": 9995,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T06:35:56.774150+00:00",
+        "end_time": "2026-06-10T06:36:06.769526+00:00",
+        "duration_ms": 9995,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T06:36:06.796482+00:00",
+        "end_time": "2026-06-10T06:36:13.538734+00:00",
+        "duration_ms": 6742,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T06:36:13.540608+00:00",
+        "end_time": "2026-06-10T06:36:14.888608+00:00",
+        "duration_ms": 1348,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T06:36:14.948322+00:00",
+        "end_time": "2026-06-10T06:36:14.974339+00:00",
+        "duration_ms": 25,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "be781d54-159a-4d96-ba0b-88f1000fab77",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T06:40:39.069676+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T06:40:17.872632+00:00",
+        "end_time": "2026-06-10T06:40:17.872632+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T06:40:17.872632+00:00",
+        "end_time": "2026-06-10T06:40:17.872632+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T06:40:17.872632+00:00",
+        "end_time": "2026-06-10T06:40:25.871580+00:00",
+        "duration_ms": 7998,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T06:40:17.872632+00:00",
+        "end_time": "2026-06-10T06:40:27.881924+00:00",
+        "duration_ms": 10008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T06:40:17.872632+00:00",
+        "end_time": "2026-06-10T06:40:27.881924+00:00",
+        "duration_ms": 10008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T06:40:17.872632+00:00",
+        "end_time": "2026-06-10T06:40:27.881924+00:00",
+        "duration_ms": 10008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T06:40:17.872632+00:00",
+        "end_time": "2026-06-10T06:40:27.881924+00:00",
+        "duration_ms": 10008,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T06:40:27.883907+00:00",
+        "end_time": "2026-06-10T06:40:37.717111+00:00",
+        "duration_ms": 9832,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T06:40:37.718113+00:00",
+        "end_time": "2026-06-10T06:40:37.727113+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T06:40:37.727113+00:00",
+        "end_time": "2026-06-10T06:40:38.890114+00:00",
+        "duration_ms": 1163,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T06:40:39.020678+00:00",
+        "end_time": "2026-06-10T06:40:39.065675+00:00",
+        "duration_ms": 45,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "f17f895a-987f-460b-85f9-4bfb67313776",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T06:42:47.489710+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T06:42:27.002002+00:00",
+        "end_time": "2026-06-10T06:42:27.003003+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T06:42:27.003003+00:00",
+        "end_time": "2026-06-10T06:42:27.003003+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T06:42:27.003003+00:00",
+        "end_time": "2026-06-10T06:42:35.001519+00:00",
+        "duration_ms": 7998,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T06:42:27.003003+00:00",
+        "end_time": "2026-06-10T06:42:37.027105+00:00",
+        "duration_ms": 10025,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T06:42:27.003003+00:00",
+        "end_time": "2026-06-10T06:42:37.028536+00:00",
+        "duration_ms": 10025,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T06:42:27.003003+00:00",
+        "end_time": "2026-06-10T06:42:37.028536+00:00",
+        "duration_ms": 10025,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T06:42:27.003003+00:00",
+        "end_time": "2026-06-10T06:42:37.028536+00:00",
+        "duration_ms": 10025,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T06:42:37.031358+00:00",
+        "end_time": "2026-06-10T06:42:46.096471+00:00",
+        "duration_ms": 9065,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T06:42:46.098460+00:00",
+        "end_time": "2026-06-10T06:42:46.099460+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T06:42:46.099460+00:00",
+        "end_time": "2026-06-10T06:42:47.404460+00:00",
+        "duration_ms": 1305,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T06:42:47.467702+00:00",
+        "end_time": "2026-06-10T06:42:47.486657+00:00",
+        "duration_ms": 19,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "332ba00a-f2a2-4545-a82f-4b2946a84c36",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T06:49:05.469370+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T06:48:44.831338+00:00",
+        "end_time": "2026-06-10T06:48:44.831338+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T06:48:44.832345+00:00",
+        "end_time": "2026-06-10T06:48:44.832345+00:00",
+        "duration_ms": 0,
+        "status": "CONFIG_BLOCKED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T06:48:44.832345+00:00",
+        "end_time": "2026-06-10T06:48:52.718108+00:00",
+        "duration_ms": 7885,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T06:48:44.832345+00:00",
+        "end_time": "2026-06-10T06:48:54.849737+00:00",
+        "duration_ms": 10017,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T06:48:44.832345+00:00",
+        "end_time": "2026-06-10T06:48:54.849737+00:00",
+        "duration_ms": 10017,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T06:48:44.832345+00:00",
+        "end_time": "2026-06-10T06:48:54.849737+00:00",
+        "duration_ms": 10017,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T06:48:44.832345+00:00",
+        "end_time": "2026-06-10T06:48:54.849737+00:00",
+        "duration_ms": 10018,
+        "status": "TIMEOUT",
+        "error": "Collector timed out"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T06:49:00.458905+00:00",
+        "end_time": "2026-06-10T06:49:04.001423+00:00",
+        "duration_ms": 3542,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T06:49:04.002483+00:00",
+        "end_time": "2026-06-10T06:49:04.004483+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T06:49:04.004483+00:00",
+        "end_time": "2026-06-10T06:49:05.399483+00:00",
+        "duration_ms": 1395,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T06:49:05.451254+00:00",
+        "end_time": "2026-06-10T06:49:05.468380+00:00",
+        "duration_ms": 17,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "fitness technology",
+    "query_id": "8b7b0068-d8d5-4783-a340-3efbf6fc8c96",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T07:13:58.173304+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T07:13:41.860542+00:00",
+        "end_time": "2026-06-10T07:13:41.860541+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T07:13:41.861542+00:00",
+        "end_time": "2026-06-10T07:13:41.861541+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T07:13:41.861542+00:00",
+        "end_time": "2026-06-10T07:13:50.163220+00:00",
+        "duration_ms": 8301,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T07:13:41.861542+00:00",
+        "end_time": "2026-06-10T07:13:50.362411+00:00",
+        "duration_ms": 8501,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T07:13:41.861542+00:00",
+        "end_time": "2026-06-10T07:13:50.389025+00:00",
+        "duration_ms": 8527,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T07:13:41.861542+00:00",
+        "end_time": "2026-06-10T07:13:50.389025+00:00",
+        "duration_ms": 8527,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T07:13:41.861542+00:00",
+        "end_time": "2026-06-10T07:13:50.389025+00:00",
+        "duration_ms": 8527,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T07:13:54.324579+00:00",
+        "end_time": "2026-06-10T07:13:56.900776+00:00",
+        "duration_ms": 2576,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T07:13:56.902789+00:00",
+        "end_time": "2026-06-10T07:13:56.906789+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T07:13:56.906789+00:00",
+        "end_time": "2026-06-10T07:13:58.055789+00:00",
+        "duration_ms": 1149,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T07:13:58.152983+00:00",
+        "end_time": "2026-06-10T07:13:58.172309+00:00",
+        "duration_ms": 18,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "fitness technology",
+    "query_id": "7c6a3338-4eea-45b8-a458-6d41a673851c",
+    "query_domain": "fitness",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T07:15:53.281023+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T07:15:38.198519+00:00",
+        "end_time": "2026-06-10T07:15:38.198518+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T07:15:38.199522+00:00",
+        "end_time": "2026-06-10T07:15:38.199522+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T07:15:38.199522+00:00",
+        "end_time": "2026-06-10T07:15:46.945941+00:00",
+        "duration_ms": 8747,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T07:15:38.199522+00:00",
+        "end_time": "2026-06-10T07:15:47.198391+00:00",
+        "duration_ms": 8999,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T07:15:38.199522+00:00",
+        "end_time": "2026-06-10T07:15:48.027671+00:00",
+        "duration_ms": 9828,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T07:15:38.199522+00:00",
+        "end_time": "2026-06-10T07:15:48.047793+00:00",
+        "duration_ms": 9848,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T07:15:38.199522+00:00",
+        "end_time": "2026-06-10T07:15:48.047793+00:00",
+        "duration_ms": 9848,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T07:15:51.351011+00:00",
+        "end_time": "2026-06-10T07:15:53.157657+00:00",
+        "duration_ms": 1806,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T07:15:53.164285+00:00",
+        "end_time": "2026-06-10T07:15:53.237285+00:00",
+        "duration_ms": 73,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T07:15:53.268499+00:00",
+        "end_time": "2026-06-10T07:15:53.280025+00:00",
+        "duration_ms": 11,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "ba16d94c-149c-4425-9929-42a86a998737",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T07:22:12.842345+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T07:21:36.090498+00:00",
+        "end_time": "2026-06-10T07:21:36.091505+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T07:21:36.093507+00:00",
+        "end_time": "2026-06-10T07:21:36.093507+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T07:21:36.093507+00:00",
+        "end_time": "2026-06-10T07:21:45.296266+00:00",
+        "duration_ms": 9203,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T07:21:36.093507+00:00",
+        "end_time": "2026-06-10T07:22:01.766347+00:00",
+        "duration_ms": 25672,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T07:21:36.092505+00:00",
+        "end_time": "2026-06-10T07:22:03.842663+00:00",
+        "duration_ms": 27749,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T07:21:36.093507+00:00",
+        "end_time": "2026-06-10T07:22:03.881324+00:00",
+        "duration_ms": 27788,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T07:21:36.093507+00:00",
+        "end_time": "2026-06-10T07:22:03.881324+00:00",
+        "duration_ms": 27788,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T07:22:08.101814+00:00",
+        "end_time": "2026-06-10T07:22:11.421103+00:00",
+        "duration_ms": 3319,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T07:22:11.427509+00:00",
+        "end_time": "2026-06-10T07:22:11.429509+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T07:22:11.429509+00:00",
+        "end_time": "2026-06-10T07:22:12.745509+00:00",
+        "duration_ms": 1316,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T07:22:12.819547+00:00",
+        "end_time": "2026-06-10T07:22:12.841345+00:00",
+        "duration_ms": 22,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "ca63ef17-6c27-475e-8478-b43621f0aecf",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T07:26:23.851303+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T07:25:52.339543+00:00",
+        "end_time": "2026-06-10T07:25:52.339543+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T07:25:52.339543+00:00",
+        "end_time": "2026-06-10T07:25:52.339543+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T07:25:52.339543+00:00",
+        "end_time": "2026-06-10T07:25:59.419038+00:00",
+        "duration_ms": 7079,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T07:25:52.339543+00:00",
+        "end_time": "2026-06-10T07:26:12.084613+00:00",
+        "duration_ms": 19745,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T07:25:52.339543+00:00",
+        "end_time": "2026-06-10T07:26:13.615444+00:00",
+        "duration_ms": 21275,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T07:25:52.339543+00:00",
+        "end_time": "2026-06-10T07:26:13.647551+00:00",
+        "duration_ms": 21307,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T07:25:52.339543+00:00",
+        "end_time": "2026-06-10T07:26:13.647551+00:00",
+        "duration_ms": 21307,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T07:26:18.675811+00:00",
+        "end_time": "2026-06-10T07:26:22.389292+00:00",
+        "duration_ms": 3713,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T07:26:22.390295+00:00",
+        "end_time": "2026-06-10T07:26:22.392295+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T07:26:22.392295+00:00",
+        "end_time": "2026-06-10T07:26:23.764295+00:00",
+        "duration_ms": 1372,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T07:26:23.828795+00:00",
+        "end_time": "2026-06-10T07:26:23.848765+00:00",
+        "duration_ms": 20,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "f1389d26-6e46-4111-9ee7-7362315d7012",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T08:04:05.254301+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T08:03:05.089982+00:00",
+        "end_time": "2026-06-10T08:03:05.091873+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T08:03:05.093873+00:00",
+        "end_time": "2026-06-10T08:03:05.093872+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T08:03:05.092874+00:00",
+        "end_time": "2026-06-10T08:03:14.926646+00:00",
+        "duration_ms": 9833,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T08:03:05.092874+00:00",
+        "end_time": "2026-06-10T08:03:15.091645+00:00",
+        "duration_ms": 9998,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T08:03:05.092874+00:00",
+        "end_time": "2026-06-10T08:03:15.763804+00:00",
+        "duration_ms": 10670,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T08:03:05.092874+00:00",
+        "end_time": "2026-06-10T08:03:35.991101+00:00",
+        "duration_ms": 30897,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T08:03:05.092874+00:00",
+        "end_time": "2026-06-10T08:03:56.860788+00:00",
+        "duration_ms": 51767,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T08:04:01.345647+00:00",
+        "end_time": "2026-06-10T08:04:04.924159+00:00",
+        "duration_ms": 3578,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T08:04:04.926110+00:00",
+        "end_time": "2026-06-10T08:04:05.182110+00:00",
+        "duration_ms": 256,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T08:04:05.230302+00:00",
+        "end_time": "2026-06-10T08:04:05.253372+00:00",
+        "duration_ms": 23,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "e45e890e-352e-4fda-ab7e-8456cea2d6a1",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T08:18:05.622526+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T08:17:41.765478+00:00",
+        "end_time": "2026-06-10T08:17:41.770483+00:00",
+        "duration_ms": 4,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T08:17:41.774480+00:00",
+        "end_time": "2026-06-10T08:17:41.775596+00:00",
+        "duration_ms": 1,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T08:17:41.773483+00:00",
+        "end_time": "2026-06-10T08:17:53.567489+00:00",
+        "duration_ms": 11793,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T08:17:41.773483+00:00",
+        "end_time": "2026-06-10T08:17:53.849799+00:00",
+        "duration_ms": 12076,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T08:17:41.773483+00:00",
+        "end_time": "2026-06-10T08:17:54.766218+00:00",
+        "duration_ms": 12992,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T08:17:41.773483+00:00",
+        "end_time": "2026-06-10T08:17:56.800710+00:00",
+        "duration_ms": 15026,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T08:17:41.774480+00:00",
+        "end_time": "2026-06-10T08:17:56.839834+00:00",
+        "duration_ms": 15065,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T08:18:01.773248+00:00",
+        "end_time": "2026-06-10T08:18:05.143874+00:00",
+        "duration_ms": 3370,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T08:18:05.144869+00:00",
+        "end_time": "2026-06-10T08:18:05.468868+00:00",
+        "duration_ms": 324,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T08:18:05.578952+00:00",
+        "end_time": "2026-06-10T08:18:05.619532+00:00",
+        "duration_ms": 41,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "530e955a-dafb-4fbe-aee9-d4566c4c5a85",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T08:39:06.648758+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T08:38:44.046287+00:00",
+        "end_time": "2026-06-10T08:38:44.060238+00:00",
+        "duration_ms": 14,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T08:38:44.068241+00:00",
+        "end_time": "2026-06-10T08:38:44.068241+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T08:38:44.068241+00:00",
+        "end_time": "2026-06-10T08:38:53.130590+00:00",
+        "duration_ms": 9063,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T08:38:44.065241+00:00",
+        "end_time": "2026-06-10T08:38:53.805789+00:00",
+        "duration_ms": 9739,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T08:38:44.068241+00:00",
+        "end_time": "2026-06-10T08:38:54.481285+00:00",
+        "duration_ms": 10413,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T08:38:44.068241+00:00",
+        "end_time": "2026-06-10T08:38:58.534965+00:00",
+        "duration_ms": 14466,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T08:38:44.068241+00:00",
+        "end_time": "2026-06-10T08:38:58.571770+00:00",
+        "duration_ms": 14503,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T08:39:02.964867+00:00",
+        "end_time": "2026-06-10T08:39:06.304796+00:00",
+        "duration_ms": 3340,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T08:39:06.307898+00:00",
+        "end_time": "2026-06-10T08:39:06.309898+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T08:39:06.309898+00:00",
+        "end_time": "2026-06-10T08:39:06.579898+00:00",
+        "duration_ms": 270,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T08:39:06.605750+00:00",
+        "end_time": "2026-06-10T08:39:06.645750+00:00",
+        "duration_ms": 40,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "cc1d0e17-6c88-4aa3-b2f3-13f2ebffcdcf",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T08:42:57.819494+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T08:42:37.204798+00:00",
+        "end_time": "2026-06-10T08:42:37.204798+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T08:42:37.205801+00:00",
+        "end_time": "2026-06-10T08:42:37.205800+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T08:42:37.204798+00:00",
+        "end_time": "2026-06-10T08:42:44.432937+00:00",
+        "duration_ms": 7227,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T08:42:37.204798+00:00",
+        "end_time": "2026-06-10T08:42:44.955123+00:00",
+        "duration_ms": 7749,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T08:42:37.204798+00:00",
+        "end_time": "2026-06-10T08:42:45.135171+00:00",
+        "duration_ms": 7929,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T08:42:37.204798+00:00",
+        "end_time": "2026-06-10T08:42:50.314178+00:00",
+        "duration_ms": 13108,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T08:42:37.205801+00:00",
+        "end_time": "2026-06-10T08:42:50.374183+00:00",
+        "duration_ms": 13168,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T08:42:54.356178+00:00",
+        "end_time": "2026-06-10T08:42:57.401338+00:00",
+        "duration_ms": 3045,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T08:42:57.404491+00:00",
+        "end_time": "2026-06-10T08:42:57.731491+00:00",
+        "duration_ms": 327,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T08:42:57.800780+00:00",
+        "end_time": "2026-06-10T08:42:57.814823+00:00",
+        "duration_ms": 14,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "7a0ff5f6-ffaf-4f50-a4e3-9972e96880c7",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T08:44:37.430278+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T08:44:14.153198+00:00",
+        "end_time": "2026-06-10T08:44:14.154180+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T08:44:14.155182+00:00",
+        "end_time": "2026-06-10T08:44:14.155181+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T08:44:14.155182+00:00",
+        "end_time": "2026-06-10T08:44:21.183247+00:00",
+        "duration_ms": 7028,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T08:44:14.155182+00:00",
+        "end_time": "2026-06-10T08:44:21.644422+00:00",
+        "duration_ms": 7489,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T08:44:14.155182+00:00",
+        "end_time": "2026-06-10T08:44:22.116640+00:00",
+        "duration_ms": 7961,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T08:44:14.155182+00:00",
+        "end_time": "2026-06-10T08:44:30.529721+00:00",
+        "duration_ms": 16374,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T08:44:14.155182+00:00",
+        "end_time": "2026-06-10T08:44:30.591645+00:00",
+        "duration_ms": 16436,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T08:44:34.385001+00:00",
+        "end_time": "2026-06-10T08:44:37.127216+00:00",
+        "duration_ms": 2741,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T08:44:37.128112+00:00",
+        "end_time": "2026-06-10T08:44:37.373111+00:00",
+        "duration_ms": 245,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T08:44:37.412275+00:00",
+        "end_time": "2026-06-10T08:44:37.428279+00:00",
+        "duration_ms": 16,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "e1e438c1-cee9-48f9-b7ee-ec5a6a103291",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T08:47:12.420889+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T08:46:54.882268+00:00",
+        "end_time": "2026-06-10T08:46:54.883370+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T08:46:54.883370+00:00",
+        "end_time": "2026-06-10T08:46:54.883370+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T08:46:54.883370+00:00",
+        "end_time": "2026-06-10T08:47:02.507796+00:00",
+        "duration_ms": 7624,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T08:46:54.883370+00:00",
+        "end_time": "2026-06-10T08:47:02.533283+00:00",
+        "duration_ms": 7649,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T08:46:54.883370+00:00",
+        "end_time": "2026-06-10T08:47:02.938189+00:00",
+        "duration_ms": 8055,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T08:46:54.883370+00:00",
+        "end_time": "2026-06-10T08:47:04.882066+00:00",
+        "duration_ms": 9999,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T08:46:54.883370+00:00",
+        "end_time": "2026-06-10T08:47:04.941018+00:00",
+        "duration_ms": 10058,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T08:47:08.739476+00:00",
+        "end_time": "2026-06-10T08:47:12.010169+00:00",
+        "duration_ms": 3270,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T08:47:12.012187+00:00",
+        "end_time": "2026-06-10T08:47:12.394187+00:00",
+        "duration_ms": 382,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T08:47:12.411884+00:00",
+        "end_time": "2026-06-10T08:47:12.418890+00:00",
+        "duration_ms": 6,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "184194d7-568c-44a6-91a0-a0ca7a7f16d4",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T08:48:23.391079+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T08:48:06.933815+00:00",
+        "end_time": "2026-06-10T08:48:06.934808+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T08:48:06.935806+00:00",
+        "end_time": "2026-06-10T08:48:06.935806+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T08:48:06.934808+00:00",
+        "end_time": "2026-06-10T08:48:14.126492+00:00",
+        "duration_ms": 7191,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T08:48:06.935806+00:00",
+        "end_time": "2026-06-10T08:48:14.363811+00:00",
+        "duration_ms": 7428,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T08:48:06.934808+00:00",
+        "end_time": "2026-06-10T08:48:15.318001+00:00",
+        "duration_ms": 8382,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T08:48:06.935806+00:00",
+        "end_time": "2026-06-10T08:48:16.160432+00:00",
+        "duration_ms": 9224,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T08:48:06.935806+00:00",
+        "end_time": "2026-06-10T08:48:16.222460+00:00",
+        "duration_ms": 9287,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T08:48:20.172560+00:00",
+        "end_time": "2026-06-10T08:48:23.118896+00:00",
+        "duration_ms": 2945,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T08:48:23.119763+00:00",
+        "end_time": "2026-06-10T08:48:23.358763+00:00",
+        "duration_ms": 239,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T08:48:23.380092+00:00",
+        "end_time": "2026-06-10T08:48:23.388094+00:00",
+        "duration_ms": 8,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "28684904-fbfc-491e-a402-26f99339fd7c",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T09:16:53.640768+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T09:16:19.906257+00:00",
+        "end_time": "2026-06-10T09:16:19.906257+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T09:16:19.907283+00:00",
+        "end_time": "2026-06-10T09:16:19.907283+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T09:16:19.906257+00:00",
+        "end_time": "2026-06-10T09:16:27.016928+00:00",
+        "duration_ms": 7110,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T09:16:19.907283+00:00",
+        "end_time": "2026-06-10T09:16:27.101934+00:00",
+        "duration_ms": 7194,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T09:16:19.907283+00:00",
+        "end_time": "2026-06-10T09:16:27.120013+00:00",
+        "duration_ms": 7212,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T09:16:19.907283+00:00",
+        "end_time": "2026-06-10T09:16:48.581055+00:00",
+        "duration_ms": 28673,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T09:16:19.907283+00:00",
+        "end_time": "2026-06-10T09:16:48.602055+00:00",
+        "duration_ms": 28695,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T09:16:51.449109+00:00",
+        "end_time": "2026-06-10T09:16:53.499235+00:00",
+        "duration_ms": 2050,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T09:16:53.500236+00:00",
+        "end_time": "2026-06-10T09:16:53.606236+00:00",
+        "duration_ms": 106,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T09:16:53.633771+00:00",
+        "end_time": "2026-06-10T09:16:53.639786+00:00",
+        "duration_ms": 6,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in small business accounting",
+    "query_id": "84d0d545-fada-435c-9b81-ffa368cb6e87",
+    "query_domain": "accounting",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T10:54:24.864176+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T10:54:08.452799+00:00",
+        "end_time": "2026-06-10T10:54:08.458789+00:00",
+        "duration_ms": 5,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T10:54:08.462787+00:00",
+        "end_time": "2026-06-10T10:54:08.462787+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T10:54:08.461786+00:00",
+        "end_time": "2026-06-10T10:54:16.881949+00:00",
+        "duration_ms": 8419,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T10:54:08.460806+00:00",
+        "end_time": "2026-06-10T10:54:16.946517+00:00",
+        "duration_ms": 8484,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T10:54:08.461786+00:00",
+        "end_time": "2026-06-10T10:54:17.362783+00:00",
+        "duration_ms": 8901,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T10:54:08.461786+00:00",
+        "end_time": "2026-06-10T10:54:19.264359+00:00",
+        "duration_ms": 10802,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T10:54:08.462787+00:00",
+        "end_time": "2026-06-10T10:54:19.305466+00:00",
+        "duration_ms": 10842,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T10:54:22.165984+00:00",
+        "end_time": "2026-06-10T10:54:24.551072+00:00",
+        "duration_ms": 2386,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T10:54:24.554109+00:00",
+        "end_time": "2026-06-10T10:54:24.557109+00:00",
+        "duration_ms": 3,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T10:54:24.557109+00:00",
+        "end_time": "2026-06-10T10:54:24.787109+00:00",
+        "duration_ms": 230,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T10:54:24.817638+00:00",
+        "end_time": "2026-06-10T10:54:24.861191+00:00",
+        "duration_ms": 44,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in restaurant management",
+    "query_id": "5c6c648e-86c6-4f98-94a7-3bc0ca512afc",
+    "query_domain": "restaurant",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T11:01:37.958495+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T11:01:23.318260+00:00",
+        "end_time": "2026-06-10T11:01:23.334269+00:00",
+        "duration_ms": 16,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T11:01:23.338263+00:00",
+        "end_time": "2026-06-10T11:01:23.338262+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T11:01:23.337264+00:00",
+        "end_time": "2026-06-10T11:01:29.827723+00:00",
+        "duration_ms": 6490,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T11:01:23.337264+00:00",
+        "end_time": "2026-06-10T11:01:31.149451+00:00",
+        "duration_ms": 7811,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T11:01:23.337264+00:00",
+        "end_time": "2026-06-10T11:01:31.507226+00:00",
+        "duration_ms": 8169,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T11:01:23.338263+00:00",
+        "end_time": "2026-06-10T11:01:31.542334+00:00",
+        "duration_ms": 8204,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T11:01:23.337264+00:00",
+        "end_time": "2026-06-10T11:01:31.542334+00:00",
+        "duration_ms": 8204,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T11:01:34.298856+00:00",
+        "end_time": "2026-06-10T11:01:37.413815+00:00",
+        "duration_ms": 3115,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T11:01:37.415939+00:00",
+        "end_time": "2026-06-10T11:01:37.417939+00:00",
+        "duration_ms": 2,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T11:01:37.417939+00:00",
+        "end_time": "2026-06-10T11:01:37.903939+00:00",
+        "duration_ms": 486,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T11:01:37.935499+00:00",
+        "end_time": "2026-06-10T11:01:37.953494+00:00",
+        "duration_ms": 18,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in web development",
+    "query_id": "b9858c11-4a97-471f-a6c1-6e3fe9b9c172",
+    "query_domain": "dynamic:web_development",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T11:04:55.240616+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T11:04:39.889850+00:00",
+        "end_time": "2026-06-10T11:04:39.890781+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T11:04:39.891874+00:00",
+        "end_time": "2026-06-10T11:04:39.891873+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T11:04:39.891874+00:00",
+        "end_time": "2026-06-10T11:04:47.814261+00:00",
+        "duration_ms": 7923,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T11:04:39.890781+00:00",
+        "end_time": "2026-06-10T11:04:47.855750+00:00",
+        "duration_ms": 7964,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T11:04:39.891874+00:00",
+        "end_time": "2026-06-10T11:04:47.925754+00:00",
+        "duration_ms": 8034,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T11:04:39.891874+00:00",
+        "end_time": "2026-06-10T11:04:50.637923+00:00",
+        "duration_ms": 10746,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T11:04:39.891874+00:00",
+        "end_time": "2026-06-10T11:04:50.678679+00:00",
+        "duration_ms": 10786,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T11:04:52.790292+00:00",
+        "end_time": "2026-06-10T11:04:55.023438+00:00",
+        "duration_ms": 2233,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "clustering",
+        "start_time": "2026-06-10T11:04:55.024440+00:00",
+        "end_time": "2026-06-10T11:04:55.025440+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T11:04:55.025440+00:00",
+        "end_time": "2026-06-10T11:04:55.203440+00:00",
+        "duration_ms": 178,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T11:04:55.231386+00:00",
+        "end_time": "2026-06-10T11:04:55.238616+00:00",
+        "duration_ms": 7,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in freelancing",
+    "query_id": "c5c11169-2c0c-45b3-a24d-24587c1604a8",
+    "query_domain": "dynamic:freelancing",
+    "success": false,
+    "error": "No evidence-backed opportunities found for this query.",
+    "recorded_at": "2026-06-10T11:19:51.150511+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T11:19:15.348559+00:00",
+        "end_time": "2026-06-10T11:19:15.350558+00:00",
+        "duration_ms": 1,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T11:19:15.352559+00:00",
+        "end_time": "2026-06-10T11:19:15.353558+00:00",
+        "duration_ms": 1,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T11:19:15.351558+00:00",
+        "end_time": "2026-06-10T11:19:23.203297+00:00",
+        "duration_ms": 7851,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T11:19:15.351558+00:00",
+        "end_time": "2026-06-10T11:19:23.426035+00:00",
+        "duration_ms": 8074,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T11:19:15.352559+00:00",
+        "end_time": "2026-06-10T11:19:23.780249+00:00",
+        "duration_ms": 8428,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T11:19:15.351558+00:00",
+        "end_time": "2026-06-10T11:19:25.866516+00:00",
+        "duration_ms": 10514,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T11:19:15.352559+00:00",
+        "end_time": "2026-06-10T11:19:46.260099+00:00",
+        "duration_ms": 30907,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T11:19:48.606857+00:00",
+        "end_time": "2026-06-10T11:19:51.080994+00:00",
+        "duration_ms": 2473,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T11:19:51.081996+00:00",
+        "end_time": "2026-06-10T11:19:51.145996+00:00",
+        "duration_ms": 64,
+        "status": "NO_EVIDENCE"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in fashion",
+    "query_id": "9d599174-c9c2-4f72-8614-dcb84a4ba764",
+    "query_domain": "dynamic:fashion",
+    "success": false,
+    "error": "No evidence-backed opportunities found for this query.",
+    "recorded_at": "2026-06-10T11:23:05.106164+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T11:22:29.211846+00:00",
+        "end_time": "2026-06-10T11:22:29.212856+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T11:22:29.212857+00:00",
+        "end_time": "2026-06-10T11:22:29.212856+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T11:22:29.212857+00:00",
+        "end_time": "2026-06-10T11:22:36.475793+00:00",
+        "duration_ms": 7263,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T11:22:29.212857+00:00",
+        "end_time": "2026-06-10T11:22:36.900787+00:00",
+        "duration_ms": 7688,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T11:22:29.212857+00:00",
+        "end_time": "2026-06-10T11:22:37.279318+00:00",
+        "duration_ms": 8066,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T11:22:29.212857+00:00",
+        "end_time": "2026-06-10T11:22:39.430753+00:00",
+        "duration_ms": 10218,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T11:22:29.212857+00:00",
+        "end_time": "2026-06-10T11:23:00.398486+00:00",
+        "duration_ms": 31185,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T11:23:02.904109+00:00",
+        "end_time": "2026-06-10T11:23:05.048322+00:00",
+        "duration_ms": 2144,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T11:23:05.050273+00:00",
+        "end_time": "2026-06-10T11:23:05.102273+00:00",
+        "duration_ms": 52,
+        "status": "NO_EVIDENCE"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in fashion industry",
+    "query_id": "4b0e691a-f5b0-455d-96ac-900fa0432e11",
+    "query_domain": "dynamic:fashion_industry",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T11:24:05.217062+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T11:23:28.636260+00:00",
+        "end_time": "2026-06-10T11:23:28.636260+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T11:23:28.636260+00:00",
+        "end_time": "2026-06-10T11:23:28.637262+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T11:23:28.636260+00:00",
+        "end_time": "2026-06-10T11:23:36.569578+00:00",
+        "duration_ms": 7932,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T11:23:28.636260+00:00",
+        "end_time": "2026-06-10T11:23:36.621586+00:00",
+        "duration_ms": 7984,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T11:23:28.636260+00:00",
+        "end_time": "2026-06-10T11:23:36.858430+00:00",
+        "duration_ms": 8222,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T11:23:28.636260+00:00",
+        "end_time": "2026-06-10T11:23:39.984366+00:00",
+        "duration_ms": 11347,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T11:23:28.636260+00:00",
+        "end_time": "2026-06-10T11:23:59.788814+00:00",
+        "duration_ms": 31151,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T11:24:01.985983+00:00",
+        "end_time": "2026-06-10T11:24:05.031803+00:00",
+        "duration_ms": 3045,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T11:24:05.032802+00:00",
+        "end_time": "2026-06-10T11:24:05.108802+00:00",
+        "duration_ms": 76,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T11:24:05.157393+00:00",
+        "end_time": "2026-06-10T11:24:05.211082+00:00",
+        "duration_ms": 52,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in fashion industry",
+    "query_id": "594fbad3-aca4-4c1a-beed-acafacb9307c",
+    "query_domain": "dynamic:fashion_industry",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-10T11:24:59.385873+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-10T11:24:18.565965+00:00",
+        "end_time": "2026-06-10T11:24:18.565965+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-10T11:24:18.565965+00:00",
+        "end_time": "2026-06-10T11:24:18.565965+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-10T11:24:18.565965+00:00",
+        "end_time": "2026-06-10T11:24:28.350867+00:00",
+        "duration_ms": 9784,
+        "status": "FAILED",
+        "error": "No live signals collected from source"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-10T11:24:18.565965+00:00",
+        "end_time": "2026-06-10T11:24:28.606490+00:00",
+        "duration_ms": 10040,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-10T11:24:18.565965+00:00",
+        "end_time": "2026-06-10T11:24:28.812057+00:00",
+        "duration_ms": 10246,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-10T11:24:18.565965+00:00",
+        "end_time": "2026-06-10T11:24:31.441024+00:00",
+        "duration_ms": 12874,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-10T11:24:18.565965+00:00",
+        "end_time": "2026-06-10T11:24:54.597899+00:00",
+        "duration_ms": 36031,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-10T11:24:56.886031+00:00",
+        "end_time": "2026-06-10T11:24:59.193615+00:00",
+        "duration_ms": 2307,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-10T11:24:59.194563+00:00",
+        "end_time": "2026-06-10T11:24:59.316563+00:00",
+        "duration_ms": 122,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-10T11:24:59.376872+00:00",
+        "end_time": "2026-06-10T11:24:59.384874+00:00",
+        "duration_ms": 7,
+        "status": "SUCCESS"
+      }
+    ]
+  }
+]

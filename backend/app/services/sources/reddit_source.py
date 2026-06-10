@@ -1,4 +1,5 @@
 import httpx
+from app.config import get_settings
 from app.services.sources.base import Signal
 from app.utils.logging import get_logger
 
@@ -10,7 +11,8 @@ REDDIT_COMMENTS = "https://www.reddit.com/comments/{id}.json"
 
 class RedditSource:
     def __init__(self) -> None:
-        self.timeout = httpx.Timeout(30.0, connect=10.0)
+        settings = get_settings()
+        self.timeout = httpx.Timeout(float(settings.request_timeout_seconds))
         self.headers = {"User-Agent": "MarketGapEngine/1.0"}
 
     async def search(self, query: str, limit: int = 25) -> list[Signal]:

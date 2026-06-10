@@ -60,7 +60,7 @@ class RedditCollector:
         self.client_id = settings.reddit_client_id
         self.client_secret = settings.reddit_client_secret
         self.user_agent = settings.reddit_user_agent
-        self.timeout = httpx.Timeout(15.0, connect=5.0)
+        self.timeout = httpx.Timeout(float(settings.request_timeout_seconds))
         self._token = RedditOAuthToken()
         missing = []
         if not self.client_id:

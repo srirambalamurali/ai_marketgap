@@ -6,6 +6,7 @@ from app.collectors.hackernews_collector import HackerNewsCollector
 from app.collectors.rss_collector import RSSCollector
 from app.collectors.reddit_collector import RedditCollector
 from app.collectors.google_trends_collector import GoogleTrendsCollector
+from app.collectors.stackexchange_collector import StackExchangeCollector
 from app.utils.logging import get_logger
 
 logger = get_logger("scheduler")
@@ -93,6 +94,22 @@ async def run_google_trends_collection() -> None:
         logger.error("Google Trends collection job failed: %s", exc)
 
 
+async def run_stackexchange_collection() -> None:
+    logger.info("Starting StackExchange collection job")
+    try:
+        from app.services.signal_pipeline import SignalIngestionPipeline
+
+        pipeline = SignalIngestionPipeline()
+        collector = StackExchangeCollector()
+        async with async_session() as session:
+            batch = await collector.collect_all(keywords=["workflow", "automation", "software"], domain="general")
+            await pipeline.process_batch(batch, session)
+            await session.commit()
+        logger.info("StackExchange collection job completed")
+    except Exception as exc:
+        logger.error("StackExchange collection job failed: %s", exc)
+
+
 def _job_listener(event) -> None:
     if event.exception:
         logger.error("Job %s failed: %s", event.job_id, event.exception)
@@ -110,6 +127,7 @@ def register_jobs() -> None:
         (run_rss_collection, "interval", "rss_collection", {"minutes": 60}),
         (run_reddit_collection, "interval", "reddit_collection", {"minutes": 20}),
         (run_google_trends_collection, "interval", "google_trends_collection", {"minutes": 60}),
+        (run_stackexchange_collection, "interval", "stackexchange_collection", {"minutes": 45}),
     ]
 
     for func, trigger_type, job_id, trigger_kwargs in job_specs:
@@ -123,7 +141,7 @@ def register_jobs() -> None:
                 **trigger_kwargs,
             )
 
-    logger.info("Scheduler jobs registered: github(30m), hackernews(15m), rss(60m), reddit(20m), google_trends(60m)")
+    logger.info("Scheduler jobs registered: github(30m), hackernews(15m), rss(60m), reddit(20m), google_trends(60m), stackexchange(45m)")
 
 
 def start_scheduler() -> None:

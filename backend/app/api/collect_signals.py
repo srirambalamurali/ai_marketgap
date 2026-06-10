@@ -6,6 +6,7 @@ from app.collectors.hackernews_collector import HackerNewsCollector
 from app.collectors.rss_collector import RSSCollector
 from app.collectors.reddit_collector import RedditCollector
 from app.collectors.google_trends_collector import GoogleTrendsCollector
+from app.collectors.stackexchange_collector import StackExchangeCollector
 from app.repositories.market_signal_repository import list_recent, count
 from app.services.dashboard import get_dashboard_metrics
 from app.scheduler.jobs import get_job_status
@@ -26,6 +27,7 @@ async def run_all_collectors(db: AsyncSession = Depends(get_db)):
         ("rss", RSSCollector()),
         ("reddit", RedditCollector()),
         ("google_trends", GoogleTrendsCollector()),
+        ("stackexchange", StackExchangeCollector()),
     ]
     for name, collector in collectors:
         try:
@@ -119,6 +121,22 @@ async def collect_google_trends(db: AsyncSession = Depends(get_db)):
         return {"success": True, "signals_collected": metrics.get("signals_collected", 0), "metrics": metrics}
     except Exception as exc:
         logger.error("Google Trends collection failed: %s", exc)
+        return {"success": False, "error": str(exc)}
+
+
+@router.post("/stackexchange")
+async def collect_stackexchange(db: AsyncSession = Depends(get_db)):
+    try:
+        from app.services.signal_pipeline import SignalIngestionPipeline
+
+        pipeline = SignalIngestionPipeline()
+        collector = StackExchangeCollector()
+        batch = await collector.collect_all(keywords=["workflow", "automation", "software"], domain="general")
+        metrics = await pipeline.process_batch(batch, db)
+        await db.commit()
+        return {"success": True, "signals_collected": metrics.get("signals_collected", 0), "metrics": metrics}
+    except Exception as exc:
+        logger.error("StackExchange collection failed: %s", exc)
         return {"success": False, "error": str(exc)}
 
 

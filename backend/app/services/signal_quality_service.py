@@ -10,6 +10,7 @@ SOURCE_RELIABILITY = {
     "github": 0.85,
     "hackernews": 0.90,
     "rss": 0.75,
+    "stackexchange": 0.78,
     "reddit": 0.70,
     "google_trends": 0.80,
 }
@@ -17,6 +18,9 @@ SOURCE_RELIABILITY = {
 MIN_QUALITY_SCORE = 0.30
 
 MARKET_KEYWORDS = [
+    "marketing", "sales", "crm", "lead generation", "campaign", "seo", "content",
+    "automation", "workflow", "recruitment", "recruiting", "restaurant", "pos",
+    "legal", "contract", "document", "student", "study", "productivity", "hr",
     "startup", "saas", "market", "customer", "revenue", "growth",
     "demand", "pain", "problem", "solution", "tool", "platform",
     "automation", "ai", "machine learning", "api", "integration",

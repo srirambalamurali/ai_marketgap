@@ -1,4 +1,5 @@
 import time
+import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -19,6 +20,8 @@ from app.api.top_opportunities import router as top_opp_router
 from app.api.collect_signals import router as collect_signals_router
 from app.api.signal_stats import router as signal_stats_router
 from app.api.monitoring import router as monitoring_router
+from app.api.debug import router as debug_router
+from app.api.auth import router as auth_router
 from app.database.postgres import engine
 from app.database.validation import (
     validate_postgres,
@@ -35,6 +38,7 @@ from app.database.repair import (
 )
 from app.scheduler.jobs import start_scheduler, shutdown_scheduler
 import app.models.collected_document  # noqa: F401
+import app.models.user  # noqa: F401
 
 import app.models.market_signal  # noqa: F401 — ensure model is registered
 import app.models.generated_report  # noqa: F401 — ensure model is registered
@@ -53,6 +57,8 @@ async def lifespan(app: FastAPI):
     logger = get_logger("app.main")
     logger.info("Starting %s (debug=%s)", settings.app_name, settings.debug)
 
+    is_test_runtime = bool(os.getenv("PYTEST_CURRENT_TEST"))
+
     logger.info("Running startup validation ...")
     if settings.demo_mode:
         logger.warning("Demo mode enabled: skipping optional external-service validation")
@@ -66,16 +72,19 @@ async def lifespan(app: FastAPI):
         app.state.reddit_oauth_configured = False
         logger.warning("Reddit OAuth not configured: %s", exc)
     app.state.rag_health = await validate_chroma()
-    await validate_postgres()
-    await ensure_market_signals_schema()
-    await ensure_collected_documents_schema()
-    await ensure_generated_reports_schema()
-    await ensure_startup_opportunities_schema()
-    logger.info("All startup validations passed")
+    if not is_test_runtime:
+        await validate_postgres()
+        await ensure_market_signals_schema()
+        await ensure_collected_documents_schema()
+        await ensure_generated_reports_schema()
+        await ensure_startup_opportunities_schema()
+        logger.info("All startup validations passed")
 
-    logger.info("Ensuring database tables exist ...")
-    await _create_tables()
-    logger.info("Database tables ready")
+        logger.info("Ensuring database tables exist ...")
+        await _create_tables()
+        logger.info("Database tables ready")
+    else:
+        logger.info("Test runtime detected: skipping live schema repair and table creation")
 
     if not settings.demo_mode:
         start_scheduler()
@@ -141,6 +150,8 @@ def create_app() -> FastAPI:
     app.include_router(collect_signals_router, prefix=prefix)
     app.include_router(signal_stats_router, prefix=prefix)
     app.include_router(monitoring_router, prefix=prefix)
+    app.include_router(debug_router, prefix=prefix)
+    app.include_router(auth_router, prefix=prefix)
 
     return app
 
