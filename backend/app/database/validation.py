@@ -4,6 +4,7 @@ from app.utils.logging import get_logger
 from app.database.postgres import engine
 from app.database.repair import ensure_market_signals_schema
 from app.services.chromadb_service import get_chroma_service
+from app.database.postgres import Base
 
 logger = get_logger("startup.validation")
 
@@ -15,6 +16,8 @@ async def validate_postgres() -> None:
     try:
         async with engine.connect() as conn:
             await conn.execute(text("SELECT 1"))
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
         schema = await ensure_market_signals_schema()
         if schema["missing_after_repair"]:
             raise RuntimeError(

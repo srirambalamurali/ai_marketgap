@@ -134,9 +134,11 @@ class VectorSearchService:
     async def _ensure_ready(self) -> None:
         health = await self._chroma.health(self._collection_name)
         if not health["chromadb_connected"]:
+            settings = get_settings()
+            chroma_target = settings.chroma_url or f"{settings.chroma_host}:{settings.chroma_port}"
             raise RuntimeError(
-                f"ChromaDB unavailable at {get_settings().chroma_host}:{get_settings().chroma_port}. "
-                "Start ChromaDB on port 8001 before using RAG."
+                f"ChromaDB unavailable at {chroma_target}. "
+                "Start ChromaDB before using RAG."
             )
 
     def _build_results(self, raw: dict) -> list[SearchResult]:

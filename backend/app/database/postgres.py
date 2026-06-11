@@ -11,6 +11,7 @@ engine = create_async_engine(
     get_settings().database_url,
     echo=get_settings().debug,
     pool_pre_ping=True,
+    connect_args={"ssl": True} if get_settings().postgres_ssl else {},
 )
 
 async_session = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)

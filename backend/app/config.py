@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+from urllib.parse import quote_plus
 
 
 class Settings(BaseSettings):
@@ -14,15 +15,18 @@ class Settings(BaseSettings):
     postgres_user: str = "postgres"
     postgres_password: str = ""
     postgres_db: str = "marketgap"
+    postgres_ssl: bool = False
 
     @property
     def database_url(self) -> str:
+        password = quote_plus(self.postgres_password or "")
         return (
-            f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
+            f"postgresql+asyncpg://{self.postgres_user}:{password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
 
     # ChromaDB
+    chroma_url: str | None = None
     chroma_host: str = "127.0.0.1"
     chroma_port: int = 8001
     chroma_collection: str = "market_gap_documents"
@@ -42,6 +46,7 @@ class Settings(BaseSettings):
 
     # Monitoring
     enable_monitoring: bool = True
+    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
 
     # Timeouts
     request_timeout_seconds: int = 60
@@ -53,7 +58,15 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_access_token_expire_minutes: int = 60 * 24 * 7
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {
+        "env_file": (".env", ".env.local"),
+        "env_file_encoding": "utf-8",
+        "extra": "ignore",
+    }
+
+    @property
+    def cors_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
 
 @lru_cache

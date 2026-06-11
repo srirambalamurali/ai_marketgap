@@ -1,31 +1,83 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: marketgap
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: data
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d marketgap"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  chroma:
+    image: chromadb/chroma:latest
+    command: run --host 0.0.0.0 --port 8000 --path /chroma/chroma
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: unless-stopped
+
   backend:
     build:
       context: ./backend
+    env_file:
+      - ./backend/.env.docker
     environment:
-      REQUEST_TIMEOUT_SECONDS: 60
-      SOURCE_TIMEOUT_SECONDS: 60
-      GENERATION_TIMEOUT_SECONDS: 120
-      POSTGRES_HOST: localhost
+      POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
-      CHROMA_HOST: 127.0.0.1
-      CHROMA_PORT: 8001
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: data
+      POSTGRES_DB: marketgap
+      POSTGRES_SSL: "false"
+      CHROMA_HOST: chroma
+      CHROMA_PORT: 8000
+      CHROMA_URL: http://chroma:8000
+      CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+      STARTUP_TIMEOUT_SECONDS: 120
     ports:
       - "8007:8007"
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8007
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8007/api/v1/health', timeout=5).read()\"",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chroma:
+        condition: service_started
+    restart: unless-stopped
 
   frontend:
     build:
       context: ./frontend
+      args:
+        NEXT_PUBLIC_API_BASE_URL: http://localhost:8007/api/v1
+    env_file:
+      - ./frontend/.env.docker
     environment:
-      NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:8007/api/v1
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8007/api/v1
     ports:
       - "3000:3000"
-    command: node scripts/start-standalone.mjs
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
 
-  chroma:
-    image: chromadb/chroma:latest
-    ports:
-      - "8001:8001"
-    volumes:
-      - ./chroma:/chroma/chroma
+volumes:
+  postgres_data:
+  chroma_data:

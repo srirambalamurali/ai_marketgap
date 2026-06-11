@@ -17,6 +17,18 @@ from app.utils.logging import get_logger
 logger = get_logger("services.chromadb")
 
 
+def _get_chroma_connection(settings) -> tuple[str, int, bool]:
+    if settings.chroma_url:
+        from urllib.parse import urlparse
+
+        parsed = urlparse(settings.chroma_url)
+        host = parsed.hostname or settings.chroma_host
+        port = parsed.port or settings.chroma_port
+        ssl = parsed.scheme == "https"
+        return host, port, ssl
+    return settings.chroma_host, settings.chroma_port, False
+
+
 def _sanitize_scalar(value: Any) -> str | int | float | bool | None:
     if value is None:
         return None
@@ -133,16 +145,22 @@ class ChromaDBService:
 
     def _connect_sync(self) -> None:
         with self._client_lock:
+            host, port, ssl = _get_chroma_connection(self.settings)
             self._client = chromadb.HttpClient(
-                host=self.settings.chroma_host,
-                port=self.settings.chroma_port,
+                host=host,
+                port=port,
+                ssl=ssl,
                 settings=ChromaSettings(anonymized_telemetry=False),
             )
             self._connected = True
             self._last_error = None
 
     async def heartbeat(self) -> dict[str, Any]:
-        url = f"http://{self.settings.chroma_host}:{self.settings.chroma_port}/api/v2/heartbeat"
+        if self.settings.chroma_url:
+            base_url = self.settings.chroma_url.rstrip("/")
+        else:
+            base_url = f"http://{self.settings.chroma_host}:{self.settings.chroma_port}"
+        url = f"{base_url}/api/v2/heartbeat"
         start = time.perf_counter()
         try:
             response = await asyncio.wait_for(

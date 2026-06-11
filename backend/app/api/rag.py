@@ -363,6 +363,28 @@ async def search_documents(
                     )
 
         if not results:
+            try:
+                results = await search_service.search_evidence(
+                    query=request.query,
+                    top_k=request.top_k,
+                    query_id=query_id,
+                    query_domain=query_domain,
+                )
+            except Exception as exc:
+                logger.warning("Evidence search fallback failed for query=%r: %s", request.query, exc)
+
+        if not results and query_domain and query_domain != "general":
+            try:
+                results = await search_service.search_evidence(
+                    query=query_domain,
+                    top_k=request.top_k,
+                    query_id=query_id,
+                    query_domain=query_domain,
+                )
+            except Exception as exc:
+                logger.warning("Domain-keyword fallback failed for query=%r domain=%s: %s", request.query, query_domain, exc)
+
+        if not results:
             return SearchResponse(
                 success=True,
                 query=request.query,

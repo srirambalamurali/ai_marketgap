@@ -58,7 +58,7 @@ export default function RagPage() {
   const isRagFailed = data?.success === false;
   const ragErrorMessage =
     data?.error ||
-    (data?.success === false ? "Vector search unavailable. Start ChromaDB on port 8001." : "");
+    (data?.success === false ? "Vector search unavailable. Start ChromaDB before using RAG." : "");
 
   useEffect(() => {
     const state = getWorkflowState();
@@ -124,7 +124,7 @@ export default function RagPage() {
       {isPending ? <Skeleton className="h-64" /> : null}
       {isError ? <ErrorCard message={error instanceof Error ? error.message : "RAG search failed"} /> : null}
       {isRagFailed ? (
-        <ErrorCard message={ragErrorMessage || "Vector search unavailable. Start ChromaDB on port 8001."} />
+        <ErrorCard message={ragErrorMessage || "Vector search unavailable. Start ChromaDB before using RAG."} />
       ) : data ? (
         <RagResults data={data as any} />
       ) : workflowState ? (

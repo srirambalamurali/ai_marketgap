@@ -3,7 +3,10 @@
 .env.*
 !.env.example
 backend/.env
+!backend/.env.local
+!backend/.env.docker
 frontend/.env.local
+!frontend/.env.docker
 
 # Node / frontend build output
 frontend/node_modules/
