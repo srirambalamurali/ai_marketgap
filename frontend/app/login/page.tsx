@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Panel, SectionTitle } from "@/components/ui";
 import { useAuth } from "@/components/auth-provider";
@@ -14,11 +14,19 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  const goToDashboard = useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.location.assign("/dashboard");
+      return;
+    }
+    router.replace("/dashboard");
+  }, [router]);
+
   useEffect(() => {
     if (!loading && isAuthenticated) {
-      router.replace("/dashboard");
+      goToDashboard();
     }
-  }, [loading, isAuthenticated, router]);
+  }, [loading, isAuthenticated, goToDashboard]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,7 +34,7 @@ export default function LoginPage() {
     try {
       await login({ email, password });
       toast.success("Logged in successfully");
-      router.replace("/dashboard");
+      goToDashboard();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Login failed");
     } finally {

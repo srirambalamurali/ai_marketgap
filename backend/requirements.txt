@@ -17,6 +17,7 @@ apscheduler>=3.10.0
 pytrends>=4.9.0
 bcrypt>=4.1.0
 python-jose[cryptography]>=3.3.0
+email-validator>=2.1.0
 
 # Dev / test
 pytest>=8.0.0

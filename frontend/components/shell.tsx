@@ -18,7 +18,7 @@ const nav = [
 export function Shell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, loading, isAuthenticated, logout } = useAuth();
+  const { loading, isAuthenticated, logout } = useAuth();
 
   const handleLogout = async () => {
     await logout();
@@ -52,22 +52,17 @@ export function Shell({ children }: { children: ReactNode }) {
         <main className="flex-1">
           <div className="border-b border-white/8 bg-black/10 px-4 py-4 lg:px-8">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
+            <div>
                 <div className="text-sm text-slate-400">Executive Market Intelligence Dashboard</div>
                 <div className="text-xl font-semibold">Opportunity Discovery Engine</div>
               </div>
               <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                <span className="rounded-full border border-white/10 px-3 py-1">Dark mode</span>
-                <span className="rounded-full border border-white/10 px-3 py-1">Live APIs</span>
                 {loading ? (
                   <span className="rounded-full border border-white/10 px-3 py-1">Checking session...</span>
-                ) : isAuthenticated && user ? (
-                  <>
-                    <span className="rounded-full border border-white/10 px-3 py-1">{user.name}</span>
-                    <button onClick={handleLogout} className="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/10">
-                      Logout
-                    </button>
-                  </>
+                ) : isAuthenticated ? (
+                  <button onClick={handleLogout} className="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/10">
+                    Logout
+                  </button>
                 ) : (
                   <>
                     <Link href="/login" className="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/10">

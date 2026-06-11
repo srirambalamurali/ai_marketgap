@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -41,6 +41,8 @@ services:
       CHROMA_HOST: chroma
       CHROMA_PORT: 8000
       CHROMA_URL: http://chroma:8000
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
       CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
       STARTUP_TIMEOUT_SECONDS: 120
     ports:
