@@ -4968,5 +4968,168 @@
         "status": "SUCCESS"
       }
     ]
+  },
+  {
+    "query": "Find opportunities in real estate",
+    "query_id": "db6e556a-ebb4-40df-93e6-9c8d9455ba45",
+    "query_domain": "real_estate",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-11T09:29:11.277583+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-11T09:28:29.096492+00:00",
+        "end_time": "2026-06-11T09:28:29.102486+00:00",
+        "duration_ms": 6,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-11T09:28:29.107482+00:00",
+        "end_time": "2026-06-11T09:28:29.109540+00:00",
+        "duration_ms": 1,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-11T09:28:29.107482+00:00",
+        "end_time": "2026-06-11T09:28:40.663463+00:00",
+        "duration_ms": 11556,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-11T09:28:29.106482+00:00",
+        "end_time": "2026-06-11T09:28:40.893739+00:00",
+        "duration_ms": 11786,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-11T09:28:29.107482+00:00",
+        "end_time": "2026-06-11T09:28:41.883550+00:00",
+        "duration_ms": 12775,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-11T09:28:29.107482+00:00",
+        "end_time": "2026-06-11T09:28:59.723047+00:00",
+        "duration_ms": 30615,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-11T09:28:29.107482+00:00",
+        "end_time": "2026-06-11T09:29:03.662166+00:00",
+        "duration_ms": 34554,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-11T09:29:07.908960+00:00",
+        "end_time": "2026-06-11T09:29:10.787999+00:00",
+        "duration_ms": 2878,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-11T09:29:10.788998+00:00",
+        "end_time": "2026-06-11T09:29:11.219998+00:00",
+        "duration_ms": 431,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-11T09:29:11.257566+00:00",
+        "end_time": "2026-06-11T09:29:11.274600+00:00",
+        "duration_ms": 17,
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  {
+    "query": "Find opportunities in real estate",
+    "query_id": "04255ba0-7dd9-461d-aef3-338397c3c32a",
+    "query_domain": "real_estate",
+    "success": true,
+    "error": null,
+    "recorded_at": "2026-06-11T09:29:38.784448+00:00",
+    "stages": [
+      {
+        "stage": "query_classification",
+        "start_time": "2026-06-11T09:29:19.378237+00:00",
+        "end_time": "2026-06-11T09:29:19.378237+00:00",
+        "duration_ms": 0,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "reddit",
+        "start_time": "2026-06-11T09:29:19.379237+00:00",
+        "end_time": "2026-06-11T09:29:19.379237+00:00",
+        "duration_ms": 0,
+        "status": "SKIPPED",
+        "error": "Missing Reddit OAuth configuration: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET"
+      },
+      {
+        "stage": "hackernews",
+        "start_time": "2026-06-11T09:29:19.379237+00:00",
+        "end_time": "2026-06-11T09:29:28.537936+00:00",
+        "duration_ms": 9159,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "github",
+        "start_time": "2026-06-11T09:29:19.379237+00:00",
+        "end_time": "2026-06-11T09:29:29.214246+00:00",
+        "duration_ms": 9835,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "stackexchange",
+        "start_time": "2026-06-11T09:29:19.379237+00:00",
+        "end_time": "2026-06-11T09:29:29.558366+00:00",
+        "duration_ms": 10180,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "rss",
+        "start_time": "2026-06-11T09:29:19.379237+00:00",
+        "end_time": "2026-06-11T09:29:31.353795+00:00",
+        "duration_ms": 11974,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "google_trends",
+        "start_time": "2026-06-11T09:29:19.379237+00:00",
+        "end_time": "2026-06-11T09:29:31.391641+00:00",
+        "duration_ms": 12012,
+        "status": "TIMEOUT",
+        "error": "Collector stopped after early completion"
+      },
+      {
+        "stage": "rag_retrieval",
+        "start_time": "2026-06-11T09:29:34.977661+00:00",
+        "end_time": "2026-06-11T09:29:37.577783+00:00",
+        "duration_ms": 2600,
+        "status": "DEGRADED"
+      },
+      {
+        "stage": "opportunity_generation",
+        "start_time": "2026-06-11T09:29:37.580720+00:00",
+        "end_time": "2026-06-11T09:29:38.749720+00:00",
+        "duration_ms": 1169,
+        "status": "SUCCESS"
+      },
+      {
+        "stage": "report_generation",
+        "start_time": "2026-06-11T09:29:38.772802+00:00",
+        "end_time": "2026-06-11T09:29:38.782525+00:00",
+        "duration_ms": 9,
+        "status": "SUCCESS"
+      }
+    ]
   }
 ]
